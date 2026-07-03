@@ -1,4 +1,3 @@
-[Uploading index.html…]()
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,11 +18,13 @@
       --negro: #0A0008;
       --amarillo: #FFEC00;
       --magenta: #FF006E;
+      --verde: #00FF41;
       --cyan: #08C8FF;
       --naranja: #FF4500;
       --violeta: #9B00D4;
       --blanco: #F5F0E8;
       --rojo-error: #E8001C;
+      --azul: #2B2DFF;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -35,8 +36,7 @@
       font-family: 'Share Tech Mono', monospace;
       overflow-x: hidden;
       cursor: crosshair;
-      padding-bottom: 2rem;
-    }
+        }
 
     /* ─── GLITCH CANVAS ─── */
     #glitch-canvas {
@@ -529,7 +529,7 @@
     }
 
     .glitch::before {
-      color: var(--cyan);
+      color: var(--verde);
       transform: translateX(-3px);
       animation: glitchTop 5s infinite step-end;
     }
@@ -543,29 +543,33 @@
 
     /* ─── ERROR TICKER ─── */
     .error-ticker {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      z-index: 100;
-      background: var(--rojo-error);
-      padding: 0.28rem 0;
       overflow: hidden;
-      pointer-events: none;
+      background: var(--negro);
+      border-top: 2px solid var(--amarillo);
+      border-bottom: 2px solid var(--amarillo);
+      padding: 0.8rem 0;
+      margin-top: 3rem;
     }
 
     .error-ticker-inner {
       display: flex;
-      gap: 3rem;
+      gap: 2rem;
       white-space: nowrap;
-      animation: scrollText 12s linear infinite;
+      animation: scrollText 18s linear infinite;
       width: max-content;
     }
 
     .error-ticker span {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.58rem;
-      letter-spacing: 0.2em;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1rem, 2.5vw, 1.6rem);
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--blanco);
+      color: var(--amarillo);
+    }
+    
+    .error-ticker span.sep {
+      color: var(--magenta);
+      opacity: .6;
     }
 
     .scanline {
@@ -623,6 +627,402 @@
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
+  
+    
+    #para-quien {
+      padding: clamp(5rem,10vw,8rem) clamp(1.5rem,6vw,5rem);
+      border-top: 3px solid var(--amarillo);
+    }
+    .pq-eyebrow {
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .38em;
+      text-transform: uppercase;
+      color: var(--amarillo);
+      margin-bottom: 3rem;
+    }
+    .pq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-bottom: 3rem;
+    }
+    @media(max-width:768px){ .pq-grid { grid-template-columns:1fr; } }
+    .pq-col {
+      padding: 2.5rem 2rem;
+      border: 1px solid #1c1c1c;
+    }
+    .pq-col.si { border-left: 3px solid var(--verde); }
+    .pq-col.no { border-left: 3px solid var(--magenta); }
+    .pq-titulo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.4rem,3vw,2.2rem);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .pq-col.si .pq-titulo { color: var(--verde); }
+    .pq-col.no .pq-titulo { color: var(--magenta); }
+    .pq-lista { list-style: none; display: flex; flex-direction: column; gap: .9rem; }
+    .pq-lista li {
+      font-family: var(--mono);
+      font-size: clamp(.72rem,1.2vw,.88rem);
+      line-height: 1.7;
+      color: var(--blanco);
+      opacity: .7;
+      padding-left: 1.6rem;
+      position: relative;
+    }
+    .pq-lista li::before {
+      content: attr(data-mark);
+      position: absolute;
+      left: 0;
+      opacity: 1;
+    }
+    .pq-col.si .pq-lista li::before { color: var(--verde); }
+    .pq-col.no .pq-lista li::before { color: var(--magenta); }
+    .pq-footer {
+      border-top: 1px solid #1c1c1c;
+      padding-top: 2rem;
+    }
+    .pq-footer-txt {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.2rem,2.5vw,2rem);
+      text-transform: uppercase;
+      color: var(--blanco);
+      opacity: .4;
+      max-width: 700px;
+    }
+
+    /* ═══ 5 MINUTOS GRATIS ═══ */
+    #cinco-minutos {
+      padding: clamp(5rem,10vw,8rem) clamp(1.5rem,6vw,5rem);
+      border-top: 1px solid #1a1a1a;
+      background: #020202;
+    }
+    .cm-eyebrow {
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .38em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 2rem;
+    }
+    .cm-titulo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.8rem,8vw,7rem);
+      line-height: .88;
+      text-transform: uppercase;
+      color: var(--blanco);
+      margin-bottom: .5rem;
+    }
+    .cm-titulo em { font-style: normal; color: var(--verde); }
+    .cm-subtitulo {
+      font-family: var(--mono);
+      font-size: clamp(.72rem,1.2vw,.88rem);
+      color: var(--blanco);
+      opacity: .35;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+    }
+    .cm-player-wrap {
+      width: 100%;
+      max-width: 960px;
+      aspect-ratio: 16/9;
+      background: #0a0a0a;
+      border: 1px solid #222;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 3rem;
+    }
+    .cm-player-wrap iframe { width:100%; height:100%; border:none; }
+    .cm-placeholder {
+      width:100%; height:100%;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      gap:1.2rem;
+    }
+    .cm-placeholder-label {
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--blanco);
+      opacity: .2;
+    }
+    .cm-hook {
+      max-width: 680px;
+      margin-bottom: 3rem;
+    }
+    .cm-hook-linea {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.4rem,3vw,2.4rem);
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: .4rem;
+    }
+    .cm-hook .l1 { color: var(--blanco); }
+    .cm-hook .l2 { color: var(--amarillo); }
+    .cm-hook .l3 { color: var(--blanco); opacity: .5; }
+    .cm-garantias {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 3rem;
+      flex-wrap: wrap;
+    }
+    .cm-garantia {
+      padding: .8rem 1.4rem;
+      border: 1px solid #222;
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--blanco);
+      opacity: .4;
+    }
+    .cm-cta-block {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .cm-cta-label {
+      font-family: var(--mono);
+      font-size: .6rem;
+      letter-spacing: .3em;
+      text-transform: uppercase;
+      color: var(--verde);
+    }
+
+    /* ═══ HUINCHA FINAL ═══ */
+    #huincha-final {
+      overflow: hidden;
+      padding: .7rem 0;
+      border-top: 2px solid #1a1a1a;
+    }
+    .hf-inner {
+      display: flex;
+      gap: 2.5rem;
+      white-space: nowrap;
+      width: max-content;
+      animation: scrollText 20s linear infinite;
+    }
+    .hf-word {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2rem,5vw,4rem);
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .hf-azul  { color: var(--azul); }
+    .hf-blanco{ color: var(--blanco); }
+    .hf-rojo  { color: var(--magenta); }
+    .hf-verde { color: var(--verde); }
+    .hf-sep   { color: var(--blanco); opacity: .15; }
+
+    /* ═══ REVEAL ANIMATION ═══ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .6s, transform .6s;
+    }
+    .reveal.vis { opacity: 1; transform: translateY(0); }
+
+    /* ── BLOQUE MANIFIESTO + PARA QUIÉN ── */
+
+  /* ── REVEAL (animación al hacer scroll) ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+  .reveal.vis { opacity: 1; transform: translateY(0); }
+
+  /* ══════════════════════════
+     MANIFIESTO
+  ══════════════════════════ */
+  #manifiesto {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--azul);
+    padding: 7rem clamp(1.5rem, 6vw, 5rem);
+    border-top: none;
+  }
+
+  .manifiesto-eyebrow {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--amarillo);
+    margin-bottom: 3rem;
+  }
+
+  .manifiesto-columnas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 6vw, 6rem);
+    max-width: 1100px;
+    align-items: start;
+  }
+
+  .manifiesto-frase-grande {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    line-height: 1;
+    text-transform: uppercase;
+    color: var(--blanco);
+    letter-spacing: 0.01em;
+    margin-bottom: 2rem;
+  }
+
+  .manifiesto-frase-grande em {
+    font-style: normal;
+    color: var(--amarillo);
+  }
+
+  .manifiesto-cita {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(0.72rem, 1.2vw, 0.88rem);
+    line-height: 2.1;
+    color: rgba(245, 240, 232, 0.65);
+    border-left: 2px solid var(--amarillo);
+    padding-left: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .manifiesto-col-der {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 1rem;
+  }
+
+  .manifiesto-item {
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+    padding-bottom: 2rem;
+  }
+
+  .manifiesto-item:last-child { border-bottom: none; }
+
+  .manifiesto-num {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.4em;
+    color: var(--amarillo);
+    opacity: 0.7;
+    margin-bottom: 0.6rem;
+  }
+
+  .manifiesto-declaracion {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
+    text-transform: uppercase;
+    color: var(--blanco);
+    line-height: 1.1;
+  }
+
+  /* ══════════════════════════
+     PARA QUIÉN
+  ══════════════════════════ */
+  #para-quien {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem clamp(1.5rem, 6vw, 5rem);
+    border-top: 4px solid var(--verde);
+  }
+
+  .pq-eyebrow {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--verde);
+    margin-bottom: 3rem;
+  }
+
+  .pq-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    max-width: 1000px;
+  }
+
+  .pq-col {
+    padding: 2.5rem;
+    border: 1px solid #1f1f1f;
+  }
+
+  .pq-col.si { border-color: rgba(0,255,65,0.25);  background: rgba(0,255,65,0.03); }
+  .pq-col.no { border-color: rgba(232,0,28,0.2);   background: rgba(232,0,28,0.02); }
+
+  .pq-titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
+    text-transform: uppercase;
+    margin-bottom: 1.8rem;
+    letter-spacing: 0.03em;
+  }
+
+  .pq-col.si .pq-titulo { color: var(--verde); }
+  .pq-col.no .pq-titulo { color: var(--rojo-error); }
+
+  .pq-lista {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .pq-lista li {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+    line-height: 1.6;
+    color: var(--blanco);
+    opacity: 0.75;
+    padding-left: 1.4rem;
+    position: relative;
+  }
+
+  .pq-lista li::before {
+    content: attr(data-mark);
+    position: absolute;
+    left: 0;
+    font-size: 0.8rem;
+  }
+
+  .pq-col.si .pq-lista li::before { color: var(--verde); }
+  .pq-col.no .pq-lista li::before { color: var(--rojo-error); }
+
+  .pq-footer {
+    margin-top: 3rem;
+    max-width: 1000px;
+    padding: 2rem;
+    background: rgba(255,236,0,0.06);
+    border: 1px solid rgba(255,236,0,0.2);
+  }
+
+  .pq-footer-txt {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.75rem;
+    line-height: 2;
+    color: var(--amarillo);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    .manifiesto-columnas { grid-template-columns: 1fr; }
+    .pq-grid             { grid-template-columns: 1fr; }
+  }
+
   </style>
 </head>
 <body>
@@ -632,7 +1032,7 @@
 
   <!-- ══════ HERO -->
   <section id="hero">
-    <p class="hero-eyebrow">SOY UNA PELÍCULA — 2026 — 75 MIN</p>
+    <p class="hero-eyebrow">SOY UNA PELÍCULA — ∞ — 75 MIN</p>
 
     <h1 class="hero-title">
       <span class="block glitch" data-text="LOS 400">LOS 400</span>
@@ -644,7 +1044,7 @@
       <span class="hero-sub-line c-cyan">ESTOY VIVA.</span>
       <span class="hero-sub-line c-naranja">MÍRAME.</span>
       <span class="hero-sub-line c-violeta">ESCÚCHAME.</span>
-      <span class="hero-sub-line" style="color:var(--blanco);opacity:.4">SIÉNTEME.</span>
+      <span class="hero-sub-line" style="color:var(--verde)">SIÉNTEME.</span>
     </div>
 
     <span class="scroll-hint">↓ &nbsp; scroll</span>
@@ -660,7 +1060,7 @@
       <p class="speak-line white">SOY UN ECO EN EL TIEMPO.</p>
       <p class="speak-line or">SOY DÍGITOS.</p>
       <p class="speak-line vi">SOY DANZA EN LA MATRIX.</p>
-      <p class="speak-line white">SOY UNA SUBLEVACIÓN MUTANTE.</p>
+      <p class="speak-line white">MUNDO ESFÉRICO EN UN RECTÁNGULO.</p>
       <p class="speak-line yellow">LUCHA DE IMÁGENES.</p>
       <p class="speak-line mag">VIRUTA DIGITAL.</p>
     </div>
@@ -681,11 +1081,30 @@
     </div>
   </section>
 
+
+  <!-- ══════ TRAILER 2 -->
+  <section id="trailer2" style="background:#000;padding:clamp(3rem,8vw,6rem) clamp(1.5rem,6vw,5rem);align-items:flex-start;display:flex;flex-direction:column;border-top:1px solid #1a1a1a;">
+    <p style="font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:.35em;color:var(--verde);text-transform:uppercase;margin-bottom:1.5rem;">// TRAILER — SOY, SOY, SOY</p>
+    <div style="width:100%;max-width:960px;aspect-ratio:16/9;background:#0a0a0a;border:1px solid #1a1a1a;position:relative;overflow:hidden;">
+      <!--
+        Reemplaza con tu iframe:
+        <iframe src="https://player.vimeo.com/video/TU_ID_2?color=00ff41&title=0&byline=0" allowfullscreen allow="autoplay"></iframe>
+      -->
+      <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;background:var(--negro);">
+        <div style="width:80px;height:80px;border:3px solid var(--verde);display:flex;align-items:center;justify-content:center;transform:skewX(-4deg);">
+          <span style="font-size:1.8rem;color:var(--verde);transform:skewX(4deg)">▶</span>
+        </div>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.5rem,4vw,3rem);text-transform:uppercase;color:var(--verde);letter-spacing:.05em;">SOY, SOY, SOY</span>
+        <span style="font-size:.6rem;letter-spacing:.3em;color:var(--blanco);opacity:.2;text-transform:uppercase;">// PRÓXIMAMENTE //</span>
+      </div>
+    </div>
+  </section>
+
   <!-- ══════ PLATAFORMAS -->
   <section id="plataformas">
     <div class="plataformas-header">
       <h2 class="plataformas-title">VER LA PELÍCULA</h2>
-      <span class="plataformas-precio">USD 5</span>
+      <span class="plataformas-precio">USD 5 <span style="font-size:.55em;opacity:.7">+CARGO</span></span>
     </div>
     <p class="plataformas-sub">ELIGE TU PLATAFORMA · ACCESO COMPLETO · 75 MIN</p>
 
@@ -725,8 +1144,8 @@
 
       <a href="#" target="_blank" rel="noopener" class="plataforma-btn" style="--color-acento:var(--violeta)">
         <div>
-          <div class="plat-nombre">EVENTIVE</div>
-          <div class="plat-tipo">Cine · Festivales</div>
+          <div class="plat-nombre">MERCADO LIBRE</div>
+          <div class="plat-tipo">LATAM · PAGO LOCAL</div>
         </div>
         <div class="plat-arrow">→</div>
       </a>
@@ -745,31 +1164,36 @@
   <!-- ══════ INTENTA TICKER -->
   <section id="intenta">
     <div class="intenta-scroll" aria-hidden="true">
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word err">ERROR</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word err">ERROR</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word err">ERROR</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word err">ERROR</span>
-      <span class="intenta-word">INTENTA</span>
-      <!-- loop -->
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word err">ERROR</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word err">ERROR</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word err">ERROR</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word err">ERROR</span>
-      <span class="intenta-word">INTENTA</span>
+      <span class="intenta-word">¿DE QUÉ SE TRATA LA PELÍCULA?</span>
+      <span class="intenta-word sep">·</span>
+      <span class="intenta-word">DE UN JOVEN QUE</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word sep">·</span>
+      <span class="intenta-word">¿DE QUÉ SE TRATA LA PELÍCULA?</span>
+      <span class="intenta-word sep">·</span>
+      <span class="intenta-word">DE UN JOVEN QUE</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word intenta">INTENTA</span>
+      <span class="intenta-word sep">·</span>
     </div>
   </section>
 
@@ -777,13 +1201,17 @@
   <section id="sinopsis">
     <div class="sinopsis-grid">
       <div>
-        <p class="sinopsis-label">// LA PELÍCULA<br>HABLA.</p>
+        <p class="sinopsis-label">// EL DIRECTOR<br>HABLA.</p>
       </div>
       <div class="sinopsis-text">
-        <p>Escribí un guión original. Al tercer día de rodaje me di cuenta de que no iba a ser capaz de grabarlo bien. <strong>Todos éramos muy amateurs.</strong> No había dinero. Yo la protagonizaba y mi actuación era mala. Mi dirección, errática.</p>
-        <p>Sin embargo, luego de <strong>13 años de trabajo</strong>, montando la película, grabando nuevas partes, mostrándola y fracasando, la ajusté y ajusté hasta que por fin la terminé.</p>
-        <p>Hoy la película es una declaración sobre el cine. <strong>El cine es líquido. Cualquier video es una película.</strong> A través de 75 minutos, me ves envejecer, cambiar de estilos, mutar.</p>
-        <p>Bienvenidos al infinito, donde se encuentran todas las imágenes, miles de películas conectadas como espejos que hacen una gran película: <strong>el cine.</strong></p>
+        <p>Escribí un guión original.</p>
+        <p>Al tercer día de rodaje entendí que no iba a ser capaz de filmarlo como había imaginado.</p>
+        <p>Éramos un equipo de aficionados. No había dinero. Mi actuación era mala. Mi dirección errática. La producción deficiente.</p>
+        <p><strong>Pero no abdiqué.</strong></p>
+        <p>Durante trece años seguí filmando, montando, reescribiendo, probando, mostrándola y fracasando. La volví a editar una y otra vez, hasta encontrar la película que realmente estaba intentando hacer.</p>
+        <p>Los 400 Errores no es una ficción, ni un thriller, ni un documental, ni una autobiografía. Ninguna de las películas que quiso ser.</p>
+        <p><strong>Es una reflexión sobre el propio cine.</strong></p>
+        <p>"Bienvenido al infinito": un lugar donde se pueden imaginar películas diferentes.</p>
       </div>
     </div>
   </section>
@@ -792,36 +1220,217 @@
   <section id="datos">
     <div class="datos-grid">
       <div class="dato-item">
+        <div class="dato-num" style="color:var(--verde)">400</div>
+        <div class="dato-label">ERRORES</div>
+      </div>
+      <div class="dato-item">
         <div class="dato-num" style="color:var(--amarillo)">13</div>
-        <div class="dato-label">años de trabajo</div>
+        <div class="dato-label">AÑOS</div>
       </div>
       <div class="dato-item">
         <div class="dato-num" style="color:var(--magenta)">75</div>
-        <div class="dato-label">minutos</div>
-      </div>
-      <div class="dato-item">
-        <div class="dato-num" style="color:var(--cyan)">400</div>
-        <div class="dato-label">errores</div>
+        <div class="dato-label">MINUTOS</div>
       </div>
       <div class="dato-item">
         <div class="dato-num" style="color:var(--naranja)">∞</div>
-        <div class="dato-label">cortes anteriores</div>
+        <div class="dato-label">CORTES ANTERIORES</div>
       </div>
       <div class="dato-item">
         <div class="dato-num" style="color:var(--violeta)">1</div>
-        <div class="dato-label">maletín vacío</div>
+        <div class="dato-label">MALETÍN VACÍO</div>
       </div>
     </div>
   </section>
 
   <!-- ══════ CTA FINAL -->
   <section id="cta">
-    <p class="cta-pre">// TÚ ERES EL PROYECTOR</p>
+    <p class="cta-pre">// YO SOY LA PELÍCULA · TÚ ERES EL PROYECTOR</p>
     <h2 class="cta-phrase">
       ELIGE<br>DÓNDE <em>VERME.</em>
     </h2>
-    <p class="cta-elige">↑ SELECCIONA UNA PLATAFORMA ARRIBA</p>
+    
+
+
+  <div class="error-ticker" aria-hidden="true">
+    <div class="error-ticker-inner">
+      <span>LOS 400 ERR0RES</span><span class="sep">·</span>
+      <span>INSTAGRAM</span><span class="sep">·</span>
+      <span>TIKTOK</span><span class="sep">·</span>
+      <span>YOUTUBE</span><span class="sep">·</span>
+      <span>VIMEO</span><span class="sep">·</span>
+      <span>HOTMART</span><span class="sep">·</span>
+      <span>ONLY FANS</span><span class="sep">·</span>
+      <span>MERCADO LIBRE</span><span class="sep">·</span>
+      <span>MERCADO PAGO</span><span class="sep">·</span>
+      <span>ARSMATE</span><span class="sep">·</span>
+      <span>BUY ME A COFFEE</span><span class="sep">·</span>
+      <span>PATREON</span><span class="sep">·</span>
+      <span>SUBSTACK</span><span class="sep">·</span>
+      <span>LOS 400 ERR0RES</span><span class="sep">·</span>
+      <span>INSTAGRAM</span><span class="sep">·</span>
+      <span>TIKTOK</span><span class="sep">·</span>
+      <span>YOUTUBE</span><span class="sep">·</span>
+      <span>VIMEO</span><span class="sep">·</span>
+      <span>HOTMART</span><span class="sep">·</span>
+      <span>ONLY FANS</span><span class="sep">·</span>
+      <span>MERCADO LIBRE</span><span class="sep">·</span>
+      <span>MERCADO PAGO</span><span class="sep">·</span>
+      <span>ARSMATE</span><span class="sep">·</span>
+      <span>BUY ME A COFFEE</span><span class="sep">·</span>
+      <span>PATREON</span><span class="sep">·</span>
+      <span>SUBSTACK</span><span class="sep">·</span>
+    </div>
+  </div>
   </section>
+
+
+  
+  <!-- ─── MANIFIESTO ─── -->
+<section id="manifiesto" style="background:var(--azul);padding:7rem clamp(1.5rem,6vw,5rem);">
+    <div class="manifiesto-eyebrow">Voz de la película · Contenido</div>
+    <div class="manifiesto-columnas">
+      <div class="manifiesto-col-izq">
+        <div class="manifiesto-frase-grande">
+          El cine<br>es <em>líquido.</em><br>Cualquier<br>video es<br>una película.
+        </div>
+        <div class="manifiesto-cita">
+          No soy un objeto que se contempla.<br>
+          Soy un sujeto que ocurre.<br>
+          Existo en el momento exacto<br>
+          en que dudas si esto es real.<br>
+          Esa duda no es un problema.<br>
+          Es mi forma de respirar.
+        </div>
+      </div>
+      <div class="manifiesto-col-der">
+        <div class="manifiesto-item">
+          <div class="manifiesto-num">DECLARACIÓN / 01</div>
+          <div class="manifiesto-declaracion">Soy una sublevación mutante</div>
+        </div>
+        <div class="manifiesto-item">
+          <div class="manifiesto-num">DECLARACIÓN / 02</div>
+          <div class="manifiesto-declaracion">El error no es lo que me destruye. Es lo que me construye.</div>
+        </div>
+        <div class="manifiesto-item">
+          <div class="manifiesto-num">DECLARACIÓN / 03</div>
+          <div class="manifiesto-declaracion">Soy un eco en el tiempo. Y sigo sonando.</div>
+        </div>
+        <div class="manifiesto-item">
+          <div class="manifiesto-num">DECLARACIÓN / 04</div>
+          <div class="manifiesto-declaracion">No termino cuando terminas de verme. Sigo ocurriendo en algún lugar de ti.</div>
+        </div>
+        <div class="manifiesto-item">
+          <div class="manifiesto-num">DECLARACIÓN / 05</div>
+          <div class="manifiesto-declaracion">Viruta digital. Movimiento. Cine. Entusiasmo.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  
+  <!-- ─── PARA QUIÉN ─── -->
+<section id="para-quien" style="border-top:4px solid var(--verde);padding:6rem clamp(1.5rem,6vw,5rem);">
+    <div class="pq-eyebrow">Filtro · Esta película</div>
+    <div class="pq-grid">
+      <div class="pq-col si">
+        <div class="pq-titulo">ES para ti si</div>
+        <ul class="pq-lista">
+          <li data-mark="→">Saliste del cine por última vez hace años porque ya nada te sorprendía.</li>
+          <li data-mark="→">Crees que el cine debería incomodarte más de lo que lo hace.</li>
+          <li data-mark="→">Tienes curiosidad por lo que puede hacer una película sin presupuesto de estudios.</li>
+          <li data-mark="→">Te importa más qué produce una obra en ti que si "está bien hecha".</li>
+          <li data-mark="→">Quieres saber qué ocurre cuando una película se sabe película.</li>
+          <li data-mark="→">Ves arte digital, glitch, o cine experimental como un lenguaje, no como un defecto.</li>
+        </ul>
+      </div>
+      <div class="pq-col no">
+        <div class="pq-titulo">NO es para ti si</div>
+        <ul class="pq-lista">
+          <li data-mark="✕">Buscas una historia con principio, nudo y desenlace convencional.</li>
+          <li data-mark="✕">Necesitas que el director te explique qué quisiste decir.</li>
+          <li data-mark="✕">El error visual te saca de la película en lugar de meterte en ella.</li>
+          <li data-mark="✕">Confundes "película independiente" con "mal hecha".</li>
+          <li data-mark="✕">Esperas que una obra de 13 años sea perfecta técnicamente.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pq-footer">
+      <div class="pq-footer-txt">No necesitas haber estudiado cine. Necesitas curiosidad y cinco dólares.</div>
+    </div>
+  </section>
+
+
+  <!-- ══════ 5 MINUTOS GRATIS -->
+  <section id="cinco-minutos">
+    <p class="cm-eyebrow">// ANTES DE DECIDIR</p>
+    <h2 class="cm-titulo">Los primeros<br><em>5 minutos</em><br>son gratis.</h2>
+    <p class="cm-subtitulo">Sin registro · Sin tarjeta · Sin trampa</p>
+
+    <div class="cm-player-wrap">
+      <!--
+        Reemplaza con tu iframe de Vimeo (fragmento gratuito):
+        <iframe src="https://player.vimeo.com/video/TU_ID?color=00ff41&title=0&byline=0" allowfullscreen allow="autoplay"></iframe>
+      -->
+      <div class="cm-placeholder">
+        <div style="width:80px;height:80px;border:3px solid var(--verde);display:flex;align-items:center;justify-content:center;transform:skewX(-4deg);">
+          <span style="font-size:1.8rem;color:var(--verde);transform:skewX(4deg)">▶</span>
+        </div>
+        <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.2rem,3vw,2.2rem);color:var(--verde);text-transform:uppercase;letter-spacing:.05em;">Ver los primeros 5 minutos</span>
+        <span class="cm-placeholder-label">// Fragmento gratuito · Próximamente //</span>
+      </div>
+    </div>
+
+    <div class="cm-hook">
+      <p class="cm-hook-linea l1">Si en 5 minutos no sientes nada,</p>
+      <p class="cm-hook-linea l2">no gastes los cinco dólares.</p>
+      <p class="cm-hook-linea l3">Si sientes algo — ya sabes lo que tienes que hacer.</p>
+    </div>
+
+    <div class="cm-garantias">
+      <div class="cm-garantia">Acceso permanente</div>
+      <div class="cm-garantia">Sin suscripción</div>
+      <div class="cm-garantia">Sin fecha de vencimiento</div>
+      <div class="cm-garantia">75 minutos · 1 pago · 1 vez</div>
+    </div>
+
+    <div class="cm-cta-block">
+      <p class="cm-cta-label">// Si el fragmento te atrapó</p>
+      <a class="btn-primary" href="#plataformas" style="font-size:clamp(1rem,2.5vw,1.5rem)">
+        VER LA PELÍCULA COMPLETA — USD 5 +CARGO
+      </a>
+    </div>
+  </section>
+
+  <!-- ══════ HUINCHA FINAL -->
+  <div id="huincha-final" aria-hidden="true">
+    <div class="hf-inner">
+      <span class="hf-azul">¿Ser</span>
+      <span class="hf-blanco">o</span>
+      <span class="hf-rojo">no ser?</span>
+      <span class="hf-sep">·</span>
+      <span class="hf-verde">Ser la película.</span>
+      <span class="hf-sep">·</span>
+      <span class="hf-azul">¿Ser</span>
+      <span class="hf-blanco">o</span>
+      <span class="hf-rojo">no ser?</span>
+      <span class="hf-sep">·</span>
+      <span class="hf-verde">Ser la película.</span>
+      <span class="hf-sep">·</span>
+      <span class="hf-azul">¿Ser</span>
+      <span class="hf-blanco">o</span>
+      <span class="hf-rojo">no ser?</span>
+      <span class="hf-sep">·</span>
+      <span class="hf-verde">Ser la película.</span>
+      <span class="hf-sep">·</span>
+      <span class="hf-azul">¿Ser</span>
+      <span class="hf-blanco">o</span>
+      <span class="hf-rojo">no ser?</span>
+      <span class="hf-sep">·</span>
+      <span class="hf-verde">Ser la película.</span>
+      <span class="hf-sep">·</span>
+    </div>
+  </div>
 
   <!-- ══════ FOOTER -->
   <footer>
@@ -837,22 +1446,32 @@
   <!-- ERROR TICKER -->
   <div class="error-ticker" aria-hidden="true">
     <div class="error-ticker-inner">
-      <span>ERROR 404 — PELÍCULA NO ENCONTRADA</span>
-      <span>///</span>
-      <span>FRAME CORRUPTO — REINICIANDO</span>
-      <span>///</span>
-      <span>SEÑAL PERDIDA — BUSCANDO SEÑAL</span>
-      <span>///</span>
-      <span>DATO MUTANDO — ESTOY VIVA</span>
-      <span>///</span>
-      <span>ERROR 404 — PELÍCULA NO ENCONTRADA</span>
-      <span>///</span>
-      <span>FRAME CORRUPTO — REINICIANDO</span>
-      <span>///</span>
-      <span>SEÑAL PERDIDA — BUSCANDO SEÑAL</span>
-      <span>///</span>
-      <span>DATO MUTANDO — ESTOY VIVA</span>
-      <span>///</span>
+      <span>LOS 400 ERR0RES</span><span>·</span>
+      <span>INSTAGRAM</span><span>·</span>
+      <span>TIKTOK</span><span>·</span>
+      <span>YOUTUBE</span><span>·</span>
+      <span>VIMEO</span><span>·</span>
+      <span>HOTMART</span><span>·</span>
+      <span>ONLY FANS</span><span>·</span>
+      <span>MERCADO LIBRE</span><span>·</span>
+      <span>MERCADO PAGO</span><span>·</span>
+      <span>ARSMATE</span><span>·</span>
+      <span>BUY ME A COFFEE</span><span>·</span>
+      <span>PATREON</span><span>·</span>
+      <span>SUBSTACK</span><span>·</span>
+      <span>LOS 400 ERR0RES</span><span>·</span>
+      <span>INSTAGRAM</span><span>·</span>
+      <span>TIKTOK</span><span>·</span>
+      <span>YOUTUBE</span><span>·</span>
+      <span>VIMEO</span><span>·</span>
+      <span>HOTMART</span><span>·</span>
+      <span>ONLY FANS</span><span>·</span>
+      <span>MERCADO LIBRE</span><span>·</span>
+      <span>MERCADO PAGO</span><span>·</span>
+      <span>ARSMATE</span><span>·</span>
+      <span>BUY ME A COFFEE</span><span>·</span>
+      <span>PATREON</span><span>·</span>
+      <span>SUBSTACK</span><span>·</span>
     </div>
   </div>
 
@@ -977,6 +1596,18 @@ const vObs = new IntersectionObserver(entries=>{
   });
 },{threshold:.3});
 if(vimeoCard) vObs.observe(vimeoCard);
+
+  // REVEAL OBSERVER
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObs2 = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('vis'), i * 80);
+        revealObs2.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  revealEls.forEach(el => revealObs2.observe(el));
 </script>
 </body>
 </html>
