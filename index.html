@@ -963,6 +963,8 @@
 
   <!-- ══════ HERO -->
   <section id="hero">
+    <div class="hero-bg" style="background-image:url('hero_ser.jpg')"></div>
+    <div class="hero-overlay"></div>
     <p class="hero-eyebrow">SOY UNA PELÍCULA — 75 MIN — NTA FILMS</p>
 
     <h1 class="hero-title">
@@ -1000,24 +1002,27 @@
 
   <!-- ══════ HABLA -->
   <section id="habla">
-    <div class="speak-block">
-      <p class="speak-line white">YO SOY LA PELÍCULA.</p>
-      <p class="speak-line yellow">FOTOGRAMAS.</p>
-      <p class="speak-line cy">PÍXELES.</p>
-      <p class="speak-line mag">ONDAS.</p>
-      <p class="speak-line white">SOY UN ECO EN EL TIEMPO.</p>
-      <p class="speak-line or">SOY DÍGITOS.</p>
-      <p class="speak-line vi">SOY DANZA EN LA MATRIX.</p>
-      <p class="speak-line white" style="color:var(--azul)">MUNDO ESFÉRICO EN UN RECTÁNGULO.</p>
-      <p class="speak-line yellow">LUCHA DE IMÁGENES.</p>
-      <p class="speak-line mag">VIRUTA DIGITAL.</p>
+    <div class="habla-img">
+      <img src="frame_soy.jpg" alt="SOY — La película habla" loading="lazy"/>
+    </div>
+    <div class="habla-text">
+      <p class="habla-line white">YO SOY</p>
+      <p class="habla-line white">LA PELÍCULA.</p>
+      <p class="habla-line yellow">FOTOGRAMAS.</p>
+      <p class="habla-line cy">PÍXELES.</p>
+      <p class="habla-line mag">ONDAS.</p>
+      <p class="habla-line white" style="opacity:.5">SOY UN ECO</p>
+      <p class="habla-line white" style="opacity:.5">EN EL TIEMPO.</p>
+      <p class="habla-line" style="color:var(--verde)">SOY DÍGITOS.</p>
+      <p class="habla-line" style="color:var(--azul)">MUNDO ESFÉRICO EN UN RECTÁNGULO.</p>
+      <p class="habla-line mag">VIRUTA DIGITAL.</p>
     </div>
   </section>
 
 
   <!-- ══════ CUALQUIER VIDEO -->
   <section id="cualquier">
-    <div class="cv-bg" id="cvBg"></div>
+    <div class="cv-bg" style="background-image:url('hero_cualquier.jpg')"></div>
     <div class="cv-content">
       <span class="cv-line1">CUALQUIER VIDEO</span>
       <span class="cv-line1">ES UNA</span>
@@ -1045,7 +1050,12 @@
 
 
   <!-- ══════ MOSAIC -->
-  <div class="mosaic-strip" id="mosaicStrip" aria-hidden="true"></div>
+  <div class="mosaic-strip" id="mosaicStrip" aria-hidden="true">
+    <img src="mosaic_pixel.jpg" alt="" loading="lazy"/>
+    <img src="glitch_red.jpg" alt="" loading="lazy"/>
+    <img src="collage_black.jpg" alt="" loading="lazy"/>
+    <img src="mosaic_col.jpg" alt="" loading="lazy"/>
+  </div>
 
   <!-- ══════ PLATAFORMAS -->
   <section id="plataformas">
@@ -1181,7 +1191,28 @@
   <!-- ══════ GALERÍA -->
   <section id="galeria">
     <p class="section-label g">// ARCHIVO — FRAGMENTOS DE LA PELÍCULA</p>
-    <div class="gal-grid" id="galGrid"></div>
+    <div class="gal-grid" id="galGrid">
+      <div class="gal-cell tall">
+        <img src="collage_tiktok.jpg" alt="ARCHIVO · TIKTOK" loading="lazy"/>
+        <span class="gal-label" style="color:var(--verde)">ARCHIVO · TIKTOK</span>
+      </div>
+      <div class="gal-cell">
+        <img src="glitch_corridor.jpg" alt="GLITCH · CORREDOR" loading="lazy"/>
+        <span class="gal-label" style="color:var(--verde)">GLITCH · CORREDOR</span>
+      </div>
+      <div class="gal-cell span2">
+        <img src="multi_sky.jpg" alt="CORTES · CIELO" loading="lazy"/>
+        <span class="gal-label" style="color:var(--verde)">CORTES · CIELO</span>
+      </div>
+      <div class="gal-cell">
+        <img src="sky_four.jpg" alt="CUATRO TIEMPOS" loading="lazy"/>
+        <span class="gal-label" style="color:var(--verde)">CUATRO TIEMPOS</span>
+      </div>
+      <div class="gal-cell">
+        <img src="glitch_red.jpg" alt="ERROR · ROJO" loading="lazy"/>
+        <span class="gal-label" style="color:var(--verde)">ERROR · ROJO</span>
+      </div>
+    </div>
   </section>
 
   <!-- ══════ TRAILER 2 -->
@@ -1426,73 +1457,6 @@
     }, { threshold: 0.1 });
     lines.forEach(l => revealObs.observe(l));
   
-const I = {
-  collage_black: "collage_black.jpg",
-  collage_tiktok: "collage_tiktok.jpg",
-  frame_soy: "frame_soy.jpg",
-  glitch_corridor: "glitch_corridor.jpg",
-  glitch_red: "glitch_red.jpg",
-  hero_cualquier: "hero_cualquier.jpg",
-  hero_ser: "hero_ser.jpg",
-  mosaic_col: "mosaic_col.jpg",
-  mosaic_pixel: "mosaic_pixel.jpg",
-  multi_sky: "multi_sky.jpg",
-  sky_four: "sky_four.jpg",
-};
-
-// ── ASSIGN IMAGES
-document.getElementById("heroBg").style.backgroundImage = `url(${I.hero_ser})`;
-document.getElementById("hablaImg").innerHTML = `<img src="${I.frame_soy}" alt="SOY — La película habla" loading="lazy"/>`;
-document.getElementById("cvBg").style.backgroundImage = `url(${I.hero_cualquier})`;
-
-// ── MOSAIC STRIP
-const mosaicImgs = [I.mosaic_pixel, I.glitch_red, I.collage_black, I.mosaic_col];
-const strip = document.getElementById("mosaicStrip");
-mosaicImgs.forEach((src,i) => {
-  const img = document.createElement("img");
-  img.src = src;
-  img.alt = "";
-  img.loading = "lazy";
-  strip.appendChild(img);
-});
-
-// ── GALLERY GRID
-const galData = [
-  {src: I.collage_tiktok, label: "ARCHIVO · TIKTOK", cls: "tall"},
-  {src: I.glitch_corridor, label: "GLITCH · CORREDOR"},
-  {src: I.multi_sky, label: "CORTES · CIELO", cls: "span2"},
-  {src: I.sky_four, label: "CUATRO TIEMPOS"},
-  {src: I.glitch_red, label: "ERROR · ROJO"},
-];
-const galGrid = document.getElementById("galGrid");
-galData.forEach(d => {
-  const cell = document.createElement("div");
-  cell.className = "gal-cell" + (d.cls ? " "+d.cls : "");
-  cell.innerHTML = `<img src="${d.src}" alt="${d.label}" loading="lazy"/>
-    <span class="gal-label" style="color:var(--verde)">${d.label}</span>`;
-  galGrid.appendChild(cell);
-});
-
-// ── GLITCH CANVAS
-const gc = document.getElementById("gc");
-const ctx = gc.getContext("2d");
-let W, H;
-function rs(){ W=gc.width=innerWidth; H=gc.height=innerHeight; }
-rs(); window.addEventListener("resize", rs);
-const COLS = ["#FFEC00","#C93F63","#00FF41","#2B2DFF","#FF5200","#00C8FF","#FF0033"];
-function glitch(){
-  ctx.clearRect(0,0,W,H);
-  if(Math.random()>.88){
-    const n=Math.floor(Math.random()*3)+1;
-    for(let i=0;i<n;i++){
-      ctx.fillStyle=COLS[Math.floor(Math.random()*COLS.length)];
-      ctx.fillRect(0,Math.random()*H,W,Math.random()*2+.5);
-    }
-  }
-  requestAnimationFrame(glitch);
-}
-glitch();
-
 // ── SCROLL REVEAL — habla lines
 const lines = document.querySelectorAll(".habla-line");
 const obs = new IntersectionObserver(entries=>{
