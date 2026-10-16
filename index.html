@@ -1,1497 +1,1198 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LOS 400 ERRORES — Una película que fracasa</title>
-  <meta name="description" content="Una película que fracasa. Estoy viva. Mírame. Escúchame. Siénteme." />
-  <meta property="og:title" content="LOS 400 ERRORES" />
-  <meta property="og:description" content="Una película que fracasa. Estoy viva." />
-  <meta property="og:type" content="website" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
-
-  <style>
-    :root {
-      --negro: #0A0008;
-      --amarillo: #FFEC00;
-      --magenta: #FF006E;
-      --verde: #00FF41;
-      --cyan: #08C8FF;
-      --naranja: #FF4500;
-      --violeta: #9B00D4;
-      --blanco: #F5F0E8;
-      --rojo-error: #E8001C;
-      --azul: #2B2DFF;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--negro);
-      color: var(--blanco);
-      font-family: 'Share Tech Mono', monospace;
-      overflow-x: hidden;
-      cursor: crosshair;
-        }
-
-    /* ─── GLITCH CANVAS ─── */
-    #glitch-canvas {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.04;
-    }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.035;
-      pointer-events: none;
-      z-index: 0;
-    }
-
-    section {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 6vw, 5rem);
-    }
-
-    /* ─── HERO ─── */
-    #hero {
-      min-height: 100svh;
-      align-items: flex-start;
-      padding-top: clamp(4rem, 12vw, 8rem);
-      padding-bottom: 3rem;
-    }
-
-    .hero-eyebrow {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: clamp(0.6rem, 1.2vw, 0.78rem);
-      letter-spacing: 0.3em;
-      color: var(--magenta);
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-      opacity: 0;
-      animation: fadeSlide 0.6s 0.3s forwards;
-    }
-
-    .hero-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-weight: 400;
-      font-size: clamp(5.5rem, 22vw, 19rem);
-      line-height: 0.88;
-      text-transform: uppercase;
-      color: var(--blanco);
-      letter-spacing: 0.01em;
-      opacity: 0;
-      animation: fadeSlide 0.8s 0.5s forwards;
-    }
-
-    .hero-title span.block { display: block; }
-
-    .hero-sub {
-      margin-top: 3rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      opacity: 0;
-      animation: fadeSlide 0.8s 1s forwards;
-    }
-
-    .hero-sub-line {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: clamp(0.7rem, 1.4vw, 0.95rem);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-    }
-
-    .hero-sub-line.c-magenta { color: var(--magenta); }
-    .hero-sub-line.c-cyan    { color: var(--cyan); }
-    .hero-sub-line.c-naranja { color: var(--naranja); }
-    .hero-sub-line.c-violeta { color: var(--violeta); }
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 2.5rem;
-      left: clamp(1.5rem, 6vw, 5rem);
-      font-size: 0.62rem;
-      letter-spacing: 0.35em;
-      color: var(--blanco);
-      opacity: 0.2;
-      text-transform: uppercase;
-      animation: pulse 3s infinite;
-    }
-
-    /* ─── HABLA LA PELÍCULA ─── */
-    #habla {
-      min-height: auto;
-      padding-top: 5rem;
-      padding-bottom: 5rem;
-    }
-
-    .speak-block { max-width: 860px; }
-
-    .speak-line {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1.8rem, 5.5vw, 4.5rem);
-      line-height: 1.08;
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-      opacity: 0;
-      transform: translateX(-24px);
-      transition: opacity 0.5s, transform 0.5s;
-      margin-bottom: 0.05em;
-    }
-
-    .speak-line.visible { opacity: 1; transform: translateX(0); }
-    .speak-line.white   { color: var(--blanco); }
-    .speak-line.yellow  { color: var(--amarillo); }
-    .speak-line.mag     { color: var(--magenta); }
-    .speak-line.cy      { color: var(--cyan); }
-    .speak-line.or      { color: var(--naranja); }
-    .speak-line.vi      { color: var(--violeta); }
-
-    /* ─── TRAILER ─── */
-    #trailer {
-      background: #000;
-      min-height: auto;
-      padding-top: 4rem;
-      padding-bottom: 4rem;
-      align-items: flex-start;
-    }
-
-    .trailer-label {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.35em;
-      color: var(--magenta);
-      text-transform: uppercase;
-      margin-bottom: 1.5rem;
-    }
-
-    .video-wrap {
-      width: 100%;
-      max-width: 900px;
-      aspect-ratio: 16/9;
-      background: #0a0a0a;
-      border: 1px solid #1a1a1a;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .video-wrap iframe { width: 100%; height: 100%; border: none; }
-
-    .video-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .video-placeholder-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1.5rem, 4vw, 3rem);
-      text-transform: uppercase;
-      color: var(--amarillo);
-      letter-spacing: 0.05em;
-    }
-
-    .video-placeholder-sub {
-      font-size: 0.65rem;
-      letter-spacing: 0.3em;
-      color: var(--blanco);
-      opacity: 0.25;
-      text-transform: uppercase;
-    }
-
-    /* ─── PLATAFORMAS ─── */
-    #plataformas {
-      min-height: auto;
-      padding-top: 5rem;
-      padding-bottom: 5rem;
-      border-top: 3px solid var(--amarillo);
-    }
-
-    .plataformas-header {
-      display: flex;
-      align-items: baseline;
-      gap: 2rem;
-      margin-bottom: 3rem;
-      flex-wrap: wrap;
-    }
-
-    .plataformas-title {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.5rem, 6vw, 5rem);
-      color: var(--blanco);
-      text-transform: uppercase;
-      letter-spacing: 0.02em;
-    }
-
-    .plataformas-precio {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1.8rem, 4vw, 3.5rem);
-      color: var(--amarillo);
-      letter-spacing: 0.02em;
-    }
-
-    .plataformas-sub {
-      font-size: 0.62rem;
-      letter-spacing: 0.3em;
-      color: var(--blanco);
-      opacity: 0.3;
-      text-transform: uppercase;
-      margin-bottom: 2.5rem;
-    }
-
-    .plataformas-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 2px;
-      max-width: 1000px;
-    }
-
-    .plataforma-btn {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 1.4rem 1.5rem;
-      border: 1px solid #222;
-      text-decoration: none;
-      background: transparent;
-      transition: background 0.15s, border-color 0.15s;
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .plataforma-btn::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 3px;
-      background: var(--color-acento, var(--amarillo));
-      transform: scaleY(0);
-      transform-origin: bottom;
-      transition: transform 0.2s;
-    }
-
-    .plataforma-btn:hover {
-      background: rgba(255,255,255,0.03);
-      border-color: var(--color-acento, var(--amarillo));
-    }
-
-    .plataforma-btn:hover::before { transform: scaleY(1); }
-
-    .plat-nombre {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1.3rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--blanco);
-      margin-bottom: 0.5rem;
-    }
-
-    .plat-tipo {
-      font-size: 0.58rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      opacity: 0.35;
-      color: var(--blanco);
-    }
-
-    .plat-arrow {
-      font-size: 0.9rem;
-      color: var(--color-acento, var(--amarillo));
-      margin-top: 1rem;
-      opacity: 0;
-      transition: opacity 0.15s, transform 0.15s;
-      transform: translateX(-4px);
-    }
-
-    .plataforma-btn:hover .plat-arrow {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    /* ─── INTENTA TICKER ─── */
-    /* ─── SINOPSIS ─── */
-    #sinopsis {
-      min-height: auto;
-      padding-top: 6rem;
-      padding-bottom: 6rem;
-      border-top: 1px solid #1f1f1f;
-    }
-
-    .sinopsis-grid {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-      gap: 4rem;
-      max-width: 1000px;
-      align-items: start;
-    }
-
-    .sinopsis-label {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 0.62rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      padding-top: 0.3rem;
-      line-height: 2;
-    }
-
-    .sinopsis-text p {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: clamp(0.78rem, 1.3vw, 0.95rem);
-      line-height: 2;
-      color: var(--blanco);
-      opacity: 0.7;
-      margin-bottom: 1.5rem;
-    }
-
-    .sinopsis-text p strong {
-      color: var(--amarillo);
-      font-weight: normal;
-    }
-
-    /* ─── DATOS ─── */
-    #datos {
-      min-height: auto;
-      padding-top: 5rem;
-      padding-bottom: 5rem;
-      border-top: 1px solid #1a1a1a;
-    }
-
-    .datos-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 2px;
-      max-width: 900px;
-    }
-
-    .dato-item {
-      padding: 2rem 1.5rem;
-      border: 1px solid #1f1f1f;
-      transition: border-color 0.2s, background 0.2s;
-    }
-
-    .dato-item:hover {
-      border-color: var(--amarillo);
-      background: rgba(255,236,0,0.03);
-    }
-
-    .dato-num {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      line-height: 1;
-      margin-bottom: 0.5rem;
-    }
-
-    .dato-label {
-      font-size: 0.6rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      opacity: 0.35;
-    }
-
-    /* ─── CTA FINAL ─── */
-    #cta {
-      min-height: 80svh;
-      justify-content: center;
-      align-items: flex-start;
-      border-top: 1px solid #1a1a1a;
-    }
-
-    .cta-pre {
-      font-size: 0.62rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: 2rem;
-    }
-
-    .cta-phrase {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.5rem, 8vw, 7rem);
-      line-height: 1;
-      text-transform: uppercase;
-      color: var(--blanco);
-      max-width: 800px;
-      margin-bottom: 1rem;
-    }
-
-    .cta-phrase em {
-      font-style: normal;
-      color: var(--magenta);
-    }
-
-    .cta-elige {
-      font-size: 0.62rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--blanco);
-      opacity: 0.3;
-      margin-bottom: 3rem;
-    }
-
-    /* ─── FOOTER ─── */
-    footer {
-      position: relative;
-      z-index: 1;
-      padding: 2rem clamp(1.5rem, 6vw, 5rem);
-      border-top: 1px solid #161616;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .footer-logo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--blanco);
-      opacity: 0.3;
-    }
-
-    .footer-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .footer-links a {
-      font-size: 0.58rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--blanco);
-      text-decoration: none;
-      opacity: 0.25;
-      transition: opacity 0.2s, color 0.2s;
-    }
-
-    .footer-links a:hover { opacity: 1; color: var(--cyan); }
-
-    /* ─── GLITCH ─── */
-    .glitch { position: relative; display: inline; }
-
-    .glitch::before,
-    .glitch::after {
-      content: attr(data-text);
-      position: absolute;
-      inset: 0;
-      clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
-    }
-
-    .glitch::before {
-      color: var(--verde);
-      transform: translateX(-3px);
-      animation: glitchTop 5s infinite step-end;
-    }
-
-    .glitch::after {
-      color: var(--magenta);
-      clip-path: polygon(0 66%, 100% 66%, 100% 100%, 0 100%);
-      transform: translateX(3px);
-      animation: glitchBot 5s 2s infinite step-end;
-    }
-
-    /* ─── ERROR TICKER ─── */
-    .error-ticker {
-      overflow: hidden;
-      background: var(--negro);
-      border-top: 2px solid var(--amarillo);
-      border-bottom: 2px solid var(--amarillo);
-      padding: 0.8rem 0;
-      margin-top: 3rem;
-    }
-
-    .error-ticker-inner {
-      display: flex;
-      gap: 2rem;
-      white-space: nowrap;
-      animation: scrollText 18s linear infinite;
-      width: max-content;
-    }
-
-    .error-ticker span {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1rem, 2.5vw, 1.6rem);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--amarillo);
-    }
-    
-    .error-ticker span.sep {
-      color: var(--magenta);
-      opacity: .6;
-    }
-
-    .scanline {
-      position: fixed;
-      left: 0; width: 100%; height: 2px;
-      background: linear-gradient(transparent, rgba(8,200,255,0.07), transparent);
-      pointer-events: none;
-      z-index: 50;
-      animation: scanline 9s linear infinite;
-    }
-
-    /* ─── KEYFRAMES ─── */
-    @keyframes fadeSlide {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes scrollText {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
-
-    @keyframes pulse {
-      0%,100% { opacity: 0.2; }
-      50%     { opacity: 0.45; }
-    }
-
-    @keyframes glitchTop {
-      0%,91%,100% { transform: translateX(0); opacity: 0; }
-      92% { transform: translateX(-4px); opacity: 1; }
-      94% { transform: translateX(3px);  opacity: 1; }
-      96% { transform: translateX(-2px); opacity: 1; }
-    }
-
-    @keyframes glitchBot {
-      0%,89%,100% { transform: translateX(0); opacity: 0; }
-      90% { transform: translateX(4px);  opacity: 1; }
-      93% { transform: translateX(-3px); opacity: 1; }
-      95% { transform: translateX(2px);  opacity: 1; }
-    }
-
-    @keyframes scanline {
-      0%   { top: -5%; }
-      100% { top: 105%; }
-    }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 640px) {
-      .sinopsis-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-      .sinopsis-label { display: none; }
-      .footer-links { gap: 1rem; }
-      .plataformas-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation: none !important; transition: none !important; }
-    }
-@media(max-width:768px){ }
-.pq-col.si
-    .pq-col.no
-    .pq-col.si
-    .pq-col.no
-
-/* ═══ HUINCHA FINAL ═══ */
-    #huincha-final {
-      overflow: hidden;
-      padding: .7rem 0;
-      border-top: 2px solid #1a1a1a;
-    }
-    .hf-inner {
-      display: flex;
-      gap: 2.5rem;
-      white-space: nowrap;
-      width: max-content;
-      animation: scrollText 20s linear infinite;
-    }
-    .hf-word {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2rem,5vw,4rem);
-      text-transform: uppercase;
-      line-height: 1;
-    }
-    .hf-azul  { color: var(--azul); }
-    .hf-blanco{ color: var(--blanco); }
-    .hf-rojo  { color: var(--magenta); }
-    .hf-verde { color: var(--verde); }
-    .hf-sep   { color: var(--blanco); opacity: .15; }
-
-    /* ═══ REVEAL ANIMATION ═══ */
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity .6s, transform .6s;
-    }
-    .reveal.vis { opacity: 1; transform: translateY(0); }
-
-    /* ── BLOQUE MANIFIESTO + PARA QUIÉN ── */
-
-  /* ── REVEAL (animación al hacer scroll) ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s, transform 0.6s;
-  }
-  .reveal.vis { opacity: 1; transform: translateY(0); }
-
-  /* ══════════════════════════
-     MANIFIESTO
-  ══════════════════════════ */
-  #manifiesto {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background: var(--azul);
-    padding: 7rem clamp(1.5rem, 6vw, 5rem);
-    border-top: none;
-  }
-
-  .manifiesto-eyebrow {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: var(--amarillo);
-    margin-bottom: 3rem;
-  }
-
-  .manifiesto-columnas {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(3rem, 6vw, 6rem);
-    max-width: 1100px;
-    align-items: start;
-  }
-
-  .manifiesto-frase-grande {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.8rem, 7vw, 6rem);
-    line-height: 1;
-    text-transform: uppercase;
-    color: var(--blanco);
-    letter-spacing: 0.01em;
-    margin-bottom: 2rem;
-  }
-
-  .manifiesto-frase-grande em {
-    font-style: normal;
-    color: var(--amarillo);
-  }
-
-  .manifiesto-cita {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: clamp(0.72rem, 1.2vw, 0.88rem);
-    line-height: 2.1;
-    color: rgba(245, 240, 232, 0.65);
-    border-left: 2px solid var(--amarillo);
-    padding-left: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .manifiesto-col-der {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    padding-top: 1rem;
-  }
-
-  .manifiesto-item {
-    border-bottom: 1px solid rgba(255,255,255,0.12);
-    padding-bottom: 2rem;
-  }
-
-  .manifiesto-item:last-child { border-bottom: none; }
-
-  .manifiesto-num {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.4em;
-    color: var(--amarillo);
-    opacity: 0.7;
-    margin-bottom: 0.6rem;
-  }
-
-  .manifiesto-declaracion {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(1.2rem, 2.5vw, 2rem);
-    text-transform: uppercase;
-    color: var(--blanco);
-    line-height: 1.1;
-  }
-
-  /* ══════════════════════════
-     PARA QUIÉN
-  ══════════════════════════ */
-
-  .pq-col.si
-  .pq-col.no
-
-  .pq-col.si
-  .pq-col.no
-
-  /* ── RESPONSIVE ── */
-  @media (max-width: 700px) {
-    .manifiesto-columnas { grid-template-columns: 1fr; }
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>LOS 400 ERRORES — Soy una película · 79 minutos</title>
+<meta name="description" content="Soy una película. 79 minutos. USD 5."/>
+<meta property="og:title" content="LOS 400 ERRORES"/>
+<meta property="og:description" content="Una película que fracasa. Estoy viva."/>
+<meta property="og:type" content="website"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --negro:    #000000;
+  --amarillo: #FFEC00;
+  --frambuesa:#C93F63;
+  --verde:    #00FF41;
+  --azul:     #2B2DFF;
+  --naranja:  #FF5200;
+  --cyan:     #00C8FF;
+  --blanco:   #F5F0E8;
+  --rojo:     #FF0033;
+  --magenta:  #FF006E;
+  --playhead: #23E5A0;
+  --ambar:    #F5A623;
+  --display:  'Bebas Neue', sans-serif;
+  --mono:     'Share Tech Mono', monospace;
 }
 
-  
-    /* ── INTENTA HUINCHA ── */
-    #intenta {
-      background: var(--amarillo);
-      padding: 4rem 0;
-      overflow: hidden;
-    }
-    .intenta-scroll {
-      display: flex;
-      gap: 4rem;
-      white-space: nowrap;
-      animation: intentaScroll 18s linear infinite;
-      width: max-content;
-    }
-    .intenta-word {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3rem, 10vw, 8rem);
-      text-transform: uppercase;
-      color: var(--negro);
-      letter-spacing: -0.01em;
-      line-height: 1;
-    }
-    .intenta-word.err {
-      color: var(--magenta);
-      -webkit-text-stroke: 2px var(--negro);
-    }
-    @keyframes intentaScroll {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
-    }
+*,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; }
+body {
+  background: var(--negro);
+  color: var(--blanco);
+  font-family: var(--mono);
+  overflow-x: hidden;
+  cursor: crosshair;
+}
 
-    /* ── CTA FINAL ── */
-    #cta {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 80svh;
-      padding: clamp(3rem, 8vw, 6rem) clamp(1.5rem, 6vw, 5rem);
-      border-top: 1px solid #1a1a1a;
-    }
-    .cta-pre {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: 2rem;
-    }
-    .cta-phrase {
+/* ── NOISE */
+body::after {
+  content:'';
+  position:fixed; inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:0.028; pointer-events:none; z-index:9998;
+}
+
+/* ── SCANLINE */
+.scanline {
+  position:fixed; left:0; width:100%; height:1px;
+  background:linear-gradient(transparent,rgba(0,200,255,.06),transparent);
+  z-index:9997; pointer-events:none;
+  animation:scan 10s linear infinite;
+}
+@keyframes scan { 0%{top:-2%} 100%{top:102%} }
+
+/* ── GLITCH CANVAS */
+#gc { position:fixed; inset:0; pointer-events:none; z-index:9996; opacity:.05; }
+
+/* ── SECTION BASE */
+section {
+  position:relative; z-index:1;
+  display:flex; flex-direction:column; justify-content:center;
+  padding: clamp(3rem,8vw,6rem) clamp(1.5rem,6vw,5rem);
+}
+
+/* ══════════════════════════════ HERO */
+#hero {
+  min-height:100svh;
+  align-items:flex-start;
+  padding-top: clamp(4rem,12vw,8rem);
+  overflow:hidden;
+}
+
+/* imagen de fondo del hero — se activa cuando exista la foto */
+.hero-bg {
+  position:absolute; inset:0;
+  background-size:cover; background-position:center top;
+  filter:brightness(.35) contrast(1.2);
+  transform:scale(1.04);
+  animation:subtle-zoom 20s ease-in-out infinite alternate;
+  /* FOTO: descomentar cuando tengas la imagen:
+  background-image: url('hero_ser.jpg'); */
+}
+@keyframes subtle-zoom { 0%{transform:scale(1.04)} 100%{transform:scale(1.0)} }
+
+.hero-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.1) 0%,rgba(0,0,0,0) 40%,rgba(0,0,0,.85) 100%);
+}
+
+.hero-content {
+  position:relative; z-index:2;
+  display:flex; flex-direction:column; justify-content:flex-end;
+  min-height:100svh;
+  padding: clamp(2rem,6vw,5rem);
+}
+
+.hero-eyebrow {
+  font-family:var(--mono);
+  font-size:clamp(.85rem,1.6vw,1.1rem);
+  letter-spacing:.25em; text-transform:uppercase;
+  color:var(--magenta); margin-bottom:1.5rem;
+  opacity:0; animation:fadeup .6s .2s forwards;
+}
+
+.hero-title {
+  font-family:var(--display);
+  font-size:clamp(5.5rem,22vw,19rem);
+  line-height:.88; text-transform:uppercase;
+  color:var(--blanco); letter-spacing:.01em;
+  opacity:0; animation:fadeup .8s .4s forwards;
+}
+.hero-title .block { display:block; }
+
+/* glitch */
+.glitch { position:relative; display:inline; }
+.glitch::before,.glitch::after {
+  content:attr(data-text);
+  position:absolute; inset:0;
+  font-family:var(--display); font-size:inherit;
+  line-height:inherit; text-transform:uppercase; letter-spacing:.01em;
+}
+.glitch::before { color:var(--verde); clip-path:polygon(0 15%,100% 15%,100% 40%,0 40%); animation:gt1 5s infinite step-end; }
+.glitch::after  { color:var(--frambuesa); clip-path:polygon(0 65%,100% 65%,100% 85%,0 85%); animation:gt2 5s 2s infinite step-end; }
+@keyframes gt1 { 0%,89%,100%{transform:translateX(0);opacity:0} 90%{transform:translateX(-5px);opacity:1} 92%{transform:translateX(4px);opacity:1} 94%{opacity:0} }
+@keyframes gt2 { 0%,87%,100%{transform:translateX(0);opacity:0} 88%{transform:translateX(5px);opacity:1} 91%{transform:translateX(-3px);opacity:1} 93%{opacity:0} }
+
+.hero-sub {
+  margin-top:3rem; display:flex; flex-direction:column; gap:.5rem;
+  opacity:0; animation:fadeup .8s 1s forwards;
+}
+.hero-sub-line {
+  font-family:var(--mono);
+  font-size:clamp(.85rem,1.7vw,1.15rem);
+  letter-spacing:.15em; text-transform:uppercase;
+}
+
+.hero-cta-wrap {
+  margin-top:2.5rem; display:flex; align-items:center; gap:2rem; flex-wrap:wrap;
+  opacity:0; animation:fadeup .8s 1.1s forwards;
+}
+
+.btn-primary {
+  font-family:var(--display); font-size:clamp(1rem,2.5vw,1.5rem);
+  text-transform:uppercase; letter-spacing:.06em;
+  background:var(--amarillo); color:var(--negro);
+  padding:.9rem 2.5rem; text-decoration:none;
+  cursor:pointer; position:relative; display:inline-block;
+  transition:background .15s,color .15s;
+}
+.btn-primary::after {
+  content:''; position:absolute; inset:0;
+  border:2px solid var(--negro);
+  transform:translate(5px,5px); pointer-events:none;
+  transition:transform .12s;
+}
+.btn-primary:hover { background:var(--verde); color:var(--negro); }
+.btn-primary:hover::after { transform:translate(7px,7px); }
+
+.hero-price {
+  font-family:var(--mono); font-size:.65rem;
+  letter-spacing:.3em; text-transform:uppercase;
+  color:var(--blanco); opacity:.35;
+}
+
+.scroll-hint {
+  position:absolute; bottom:2.5rem; left:clamp(1.5rem,6vw,5rem);
+  font-size:.62rem; letter-spacing:.35em; text-transform:uppercase;
+  color:var(--blanco); opacity:.2; animation:pulse 3s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:.2} 50%{opacity:.45} }
+
+/* ══════════════════════════════ BAND */
+.band {
+  overflow:hidden; padding:.6rem 0;
+  border-top:1px solid #111; border-bottom:1px solid #111;
+  position:relative; z-index:1;
+}
+.band-inner {
+  display:flex; gap:3rem; white-space:nowrap; width:max-content;
+}
+.band-inner.fwd { animation:ticker 22s linear infinite; }
+.band-inner.rev { animation:ticker-rev 22s linear infinite; }
+.band span {
+  font-family:var(--display);
+  font-size:clamp(1.8rem,4vw,3rem);
+  text-transform:uppercase; letter-spacing:.03em;
+}
+.band span.y { color:var(--amarillo); }
+.band span.g { color:var(--verde); }
+.band span.f { color:var(--frambuesa); }
+.band span.c { color:var(--cyan); }
+.band span.w { color:var(--blanco); opacity:.15; }
+.band span.dot { color:var(--blanco); opacity:.1; }
+.band span.bi  { color:var(--amarillo); }
+.band span.be  { color:var(--frambuesa); -webkit-text-stroke:2px var(--negro); paint-order:stroke fill; }
+
+/* ══════════════════════════════ HABLA */
+#habla {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:0; min-height:80vh;
+  padding:0;
+}
+
+/* imagen izquierda — se activa cuando exista la foto */
+.habla-img {
+  position:relative; overflow:hidden; min-height:60vh;
+  background:var(--negro);
+  display:flex; align-items:center; justify-content:center;
+  border-right:2px solid #111;
+  /* FOTO: cuando tengas la imagen, agrega:
+     background-image:url('frame_soy.jpg');
+     background-size:cover; background-position:center; */
+}
+.habla-img::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(90deg,transparent 60%,var(--negro) 100%);
+}
+/* placeholder visual hasta que llegue la foto */
+.habla-img-placeholder {
+  font-family:var(--display);
+  font-size:clamp(4rem,10vw,8rem);
+  color:var(--verde); opacity:.15;
+  text-transform:uppercase; letter-spacing:.1em;
+  z-index:1;
+}
+
+.habla-text {
+  padding:clamp(2rem,5vw,4rem);
+  display:flex; flex-direction:column; justify-content:center;
+  border-left:3px solid var(--verde);
+}
+.habla-line {
+  font-family:var(--display);
+  font-size:clamp(2rem,5vw,4.5rem);
+  line-height:1.0; text-transform:uppercase;
+  opacity:0; transform:translateX(20px);
+  transition:opacity .5s,transform .5s;
+  margin-bottom:.04em;
+}
+.habla-line.vis { opacity:1; transform:translateX(0); }
+.habla-line.white  { color:var(--blanco); }
+.habla-line.yellow { color:var(--amarillo); }
+.habla-line.mag    { color:var(--magenta); }
+.habla-line.cy     { color:var(--cyan); }
+.habla-line.or     { color:var(--naranja); }
+.habla-line.vi     { color:var(--violeta, #9B00D4); }
+
+/* ══════════════════════════════ CUALQUIER VIDEO */
+#cualquier {
+  position:relative; overflow:hidden;
+  min-height:70vh; display:flex; align-items:center; justify-content:center;
+  padding:0;
+}
+.cv-bg {
+  position:absolute; inset:0;
+  background:var(--negro);
+  /* FOTO: cuando tengas la imagen:
+  background-image:url('hero_cualquier.jpg');
+  background-size:cover; background-position:center;
+  filter:brightness(.25) contrast(1.4) saturate(.6); */
+}
+.cv-content {
+  position:relative; z-index:2; text-align:center;
+  padding:clamp(3rem,8vw,6rem) clamp(1.5rem,6vw,5rem);
+}
+.cv-line1 {
+  font-family:var(--display);
+  font-size:clamp(2.5rem,8vw,8rem);
+  text-transform:uppercase; color:var(--azul);
+  letter-spacing:.01em; line-height:.9; display:block;
+}
+.cv-line2 {
+  font-family:var(--display);
+  font-size:clamp(2.5rem,8vw,8rem);
+  text-transform:uppercase; color:var(--rojo);
+  letter-spacing:.12em; line-height:.9; display:block; margin-top:.08em;
+}
+
+/* ══════════════════════════════ TRAILER */
+#trailer {
+  border-top:1px solid #111;
+  align-items:flex-start;
+}
+.section-label {
+  font-family:var(--mono); font-size:.6rem;
+  letter-spacing:.38em; text-transform:uppercase; margin-bottom:1.5rem;
+}
+.section-label.y { color:var(--amarillo); }
+.section-label.g { color:var(--verde); }
+.section-label.c { color:var(--cyan); }
+.section-label.f { color:var(--frambuesa); }
+
+.video-shell {
+  width:100%; max-width:960px; aspect-ratio:16/9;
+  background:#050505; border:1px solid #1a1a1a;
+  position:relative; overflow:hidden;
+}
+.video-shell iframe { width:100%; height:100%; border:none; }
+.vid-placeholder {
+  width:100%; height:100%;
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:1.2rem;
+}
+.vid-ph-title {
+  font-family:var(--display);
+  font-size:clamp(2rem,5vw,4rem);
+  text-transform:uppercase; color:var(--amarillo); letter-spacing:.03em;
+}
+.vid-ph-sub { font-size:.6rem; letter-spacing:.3em; opacity:.2; text-transform:uppercase; }
+.play-btn {
+  width:80px; height:80px;
+  border:3px solid var(--verde);
+  display:flex; align-items:center; justify-content:center;
+  cursor:pointer; transform:skewX(-4deg);
+  transition:border-color .2s,transform .2s;
+}
+.play-btn::after { content:'▶'; font-size:1.8rem; color:var(--verde); transform:skewX(4deg); }
+.play-btn:hover { border-color:var(--amarillo); transform:skewX(-4deg) scale(1.05); }
+.play-btn:hover::after { color:var(--amarillo); }/* ══════════════════════════════ PLATAFORMAS */
+#plataformas {
+  border-top:4px solid var(--amarillo);
+}
+.plat-header {
+  display:flex; align-items:baseline; gap:2rem;
+  margin-bottom:.5rem; flex-wrap:wrap;
+}
+.plat-h1 {
+  font-family:var(--display);
+  font-size:clamp(3rem,8vw,7rem);
+  text-transform:uppercase; color:var(--blanco);
+  line-height:.9; letter-spacing:.01em;
+}
+.plat-price {
+  font-family:var(--display);
+  font-size:clamp(2rem,5vw,4.5rem);
+  color:var(--amarillo); letter-spacing:.01em;
+}
+.plat-price small {
+  font-size:.5em; opacity:.6; letter-spacing:.05em;
+}
+.plat-sub {
+  font-size:.6rem; letter-spacing:.3em; text-transform:uppercase;
+  color:var(--blanco); opacity:.28; margin-bottom:3rem;
+}
+.plat-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+  gap:2px; max-width:1100px;
+}
+.plat-card {
+  display:flex; flex-direction:column; justify-content:space-between;
+  padding:1.4rem 1.5rem;
+  border:1px solid #1c1c1c; text-decoration:none;
+  background:transparent; position:relative; overflow:hidden;
+  transition:background .15s,border-color .15s;
+}
+.plat-card::before {
+  content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+  background:var(--ac,var(--amarillo));
+  transform:scaleY(0); transform-origin:bottom; transition:transform .2s;
+}
+.plat-card:hover { background:rgba(255,255,255,.02); border-color:var(--ac,var(--amarillo)); }
+.plat-card:hover::before { transform:scaleY(1); }
+.plat-card.featured {
+  border-color:var(--amarillo); background:rgba(255,236,0,.04);
+  grid-column:span 2;
+}
+.plat-card.featured::before { transform:scaleY(1); }
+.plat-name {
+  font-family:var(--display); font-size:1.4rem;
+  text-transform:uppercase; letter-spacing:.04em; color:var(--blanco);
+  margin-bottom:.3rem;
+}
+.plat-card.featured .plat-name { font-size:2rem; color:var(--amarillo); }
+.plat-tipo {
+  font-size:.55rem; letter-spacing:.25em; text-transform:uppercase;
+  opacity:.3; color:var(--blanco);
+}
+.plat-arrow {
+  font-size:.8rem; color:var(--ac,var(--amarillo));
+  margin-top:1.2rem; opacity:0;
+  transition:opacity .15s,transform .15s; transform:translateX(-4px);
+}
+.plat-card.featured .plat-arrow { opacity:1; transform:translateX(0); }
+.plat-card:hover .plat-arrow { opacity:1; transform:translateX(0); }
+
+/* ══════════════════════════════ INTENTA */
+#intenta {
+  background:var(--amarillo);
+  padding:1.8rem 0; overflow:hidden;
+}
+.intenta-scroll {
+  display:flex; align-items:baseline; gap:0;
+  white-space:nowrap; width:max-content;
+  animation:intentaScroll 14s linear infinite;
+  gap:0;
+}
+.intenta-word {
+  font-family:var(--display);
+  font-size:clamp(1.8rem,3.5vw,3.2rem);
+  text-transform:uppercase; color:var(--negro);
+  letter-spacing:-.02em; line-height:1;
+  padding:0;
+}
+.intenta-word.err {
+  color:var(--frambuesa); -webkit-text-stroke:1px var(--negro); paint-order:stroke fill;
+}
+.intenta-sep {
+  color:var(--negro);
+  opacity:.25;
+  font-size:clamp(1.5rem,2.5vw,2.5rem);
+  padding:0 4rem;
+  line-height:1;
+}
+@keyframes intentaScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ══════════════════════════════ SINOPSIS */
+#sinopsis {
+  border-top:1px solid #1f1f1f;
+}
+.sinopsis-grid {
+  display:grid; grid-template-columns:1fr 2fr;
+  gap:4rem; max-width:1000px; align-items:start;
+}
+.sinopsis-label {
+  font-family:var(--mono); font-size:.62rem;
+  letter-spacing:.35em; text-transform:uppercase;
+  color:var(--cyan); line-height:2;
+}
+.sinopsis-text p {
+  font-family:var(--mono);
+  font-size:clamp(.78rem,1.3vw,.95rem);
+  line-height:2; color:var(--blanco); opacity:.7; margin-bottom:1.5rem;
+}
+.sinopsis-text p strong { color:var(--amarillo); font-weight:normal; }
+.sinopsis-firma {
+  font-family:var(--mono); font-size:.75rem;
+  color:var(--amarillo); opacity:.7;
+  letter-spacing:.1em; margin-top:.5rem;
+}
+
+/* ══════════════════════════════ DATOS */
+#datos { border-top:1px solid #1a1a1a; }
+.datos-grid {
+  display:grid; grid-template-columns:repeat(5,1fr);
+  gap:2px; max-width:1000px; margin-top:2rem;
+}
+.dato {
+  padding:1.8rem 1.2rem; border:1px solid #1c1c1c;
+  transition:border-color .2s,background .2s;
+}
+.dato:hover { border-color:var(--amarillo); background:rgba(255,236,0,.03); }
+.dato-n {
+  font-family:var(--display);
+  font-size:clamp(2.2rem,4.5vw,3.5rem);
+  line-height:1; margin-bottom:.4rem;
+}
+.dato-l { font-size:.55rem; letter-spacing:.28em; text-transform:uppercase; opacity:.3; }
+
+/* ══════════════════════════════ GALERÍA */
+#galeria { border-top:1px solid #111; }
+.gal-grid {
+  display:grid;
+  grid-template-columns:1.6fr 1fr 1.2fr;
+  grid-template-rows:auto auto;
+  gap:3px; margin-top:2rem;
+}
+.gal-cell {
+  overflow:hidden; position:relative;
+  min-height:200px;
+  background:var(--negro);
+  border:1px solid #111;
+  display:flex; align-items:center; justify-content:center;
+}
+.gal-cell img {
+  width:100%; height:100%; object-fit:cover; display:block;
+  filter:contrast(1.1) saturate(.95);
+  transition:filter .4s,transform .4s;
+}
+.gal-cell:hover img { filter:contrast(1.3) saturate(1.3); transform:scale(1.02); }
+.gal-cell.span2 { grid-column:span 2; }
+.gal-cell.tall  { grid-row:span 2; }
+.gal-label {
+  position:absolute; bottom:0; left:0; right:0;
+  padding:.6rem .8rem;
+  background:linear-gradient(transparent,rgba(0,0,0,.8));
+  font-family:var(--mono); font-size:.55rem;
+  letter-spacing:.25em; text-transform:uppercase;
+  opacity:0; transition:opacity .3s;
+}
+.gal-cell:hover .gal-label { opacity:1; }
+/* placeholder visual */
+.gal-ph {
+  font-family:var(--display);
+  font-size:clamp(1rem,2vw,2rem);
+  color:var(--verde); opacity:.08; text-transform:uppercase;
+}
+
+/* ══════════════════════════════ TRAILER 2 */
+#trailer2 { border-top:1px solid #1a1a1a; align-items:flex-start; }
+
+/* ══════════════════════════════ MANIFIESTO */
+#manifiesto {
+  background:var(--azul);
+  padding:7rem clamp(1.5rem,6vw,5rem);
+}
+.manifiesto-eyebrow {
+  font-family:var(--mono); font-size:.6rem;
+  letter-spacing:.38em; text-transform:uppercase;
+  color:rgba(255,255,255,.5); margin-bottom:3rem;
+}
+.manifiesto-columnas {
+  display:grid; grid-template-columns:1fr 1fr;
+  gap:4rem; align-items:start;
+}
+.manifiesto-frase-grande {
+  font-family:var(--display);
+  font-size:clamp(3rem,7vw,6rem);
+  line-height:.92; text-transform:uppercase;
+  color:var(--blanco); margin-bottom:2.5rem;
+}
+.manifiesto-frase-grande em { font-style:normal; color:var(--amarillo); }
+.manifiesto-cita {
+  font-family:var(--mono);
+  font-size:clamp(.78rem,1.3vw,.95rem);
+  line-height:2.1; color:var(--blanco); opacity:.7;
+  border-left:2px solid var(--verde); padding-left:1.5rem;
+}
+.manifiesto-cita span { color:var(--amarillo); opacity:1; }
+.manifiesto-item {
+  padding:1.5rem 0; border-bottom:1px solid rgba(255,255,255,.1);
+}
+.manifiesto-num {
+  font-family:var(--mono); font-size:.58rem;
+  letter-spacing:.3em; text-transform:uppercase;
+  color:var(--amarillo); margin-bottom:.6rem;
+}
+.manifiesto-declaracion {
+  font-family:var(--display);
+  font-size:clamp(1.2rem,2.5vw,2rem);
+  text-transform:uppercase; color:var(--blanco); line-height:1.2;
+}
+
+/* ══════════════════════════════ CTA */
+#cta {
+  min-height:80svh; justify-content:center;
+  align-items:flex-start; border-top:1px solid #1a1a1a;
+}
+.cta-pre {
+  font-family:var(--mono); font-size:.62rem;
+  letter-spacing:.35em; text-transform:uppercase;
+  color:var(--cyan); margin-bottom:2rem;
+}
+.cta-phrase {
+  font-family:var(--display);
+  font-size:clamp(2.5rem,8vw,7rem);
+  line-height:1; text-transform:uppercase;
+  color:var(--blanco); max-width:800px; margin-bottom:1rem;
+}
+.cta-phrase em { font-style:normal; color:var(--magenta); }
+.cta-elige {
+  font-family:var(--mono); font-size:.62rem;
+  letter-spacing:.3em; text-transform:uppercase;
+  color:var(--blanco); opacity:.3; margin-bottom:3rem;
+}
+.btn-principal {
+  display:inline-flex; align-items:center; gap:1rem;
+  background:var(--amarillo); color:var(--negro);
+  font-family:var(--display);
+  font-size:clamp(1.2rem,2.5vw,1.8rem);
+  text-transform:uppercase; letter-spacing:.05em;
+  padding:1.1rem 2.5rem; text-decoration:none;
+  cursor:pointer; position:relative; overflow:hidden;
+  transition:background .15s,transform .1s,color .15s;
+}
+.btn-principal::after {
+  content:''; position:absolute; inset:0;
+  background:var(--magenta);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .3s; z-index:0;
+}
+.btn-principal:hover::after { transform:scaleX(1); }
+.btn-principal:hover { color:#fff; }
+.btn-principal span { position:relative; z-index:1; }
+.precio-nota {
+  margin-top:1.5rem; font-family:var(--mono);
+  font-size:.6rem; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--blanco); opacity:.2; max-width:500px; line-height:1.8;
+}
+
+/* ══════════════════════════════ TICKER PLATAFORMAS */
+.plat-ticker {
+  overflow:hidden; background:var(--negro);
+  border-top:2px solid var(--amarillo); border-bottom:2px solid var(--amarillo);
+  padding:.8rem 0; position:relative; z-index:1;
+}
+.plat-ticker-inner {
+  display:flex; gap:2rem; white-space:nowrap; width:max-content;
+  animation:ticker 18s linear infinite;
+}
+.plat-ticker-inner span {
+  font-family:var(--display);
+  font-size:clamp(1rem,2.5vw,1.6rem);
+  letter-spacing:.1em; text-transform:uppercase; color:var(--amarillo);
+}
+.plat-ticker-inner span.sep { color:var(--magenta); opacity:.6; }
+
+/* ══════════════════════════════ HUINCHA FINAL */
+#huincha-final {
+  overflow:hidden; padding:.7rem 0; border-top:2px solid #1a1a1a;
+  position:relative; z-index:1;
+}
+.hf-inner {
+  display:flex; gap:2.5rem; white-space:nowrap; width:max-content;
+  animation:ticker 20s linear infinite;
+}
+.hf-word { font-family:var(--display); font-size:clamp(2rem,5vw,4rem); text-transform:uppercase; line-height:1; }
+.hf-azul   { color:var(--azul); }
+.hf-blanco { color:var(--blanco); }
+.hf-rojo   { color:var(--magenta); }
+.hf-verde  { color:var(--verde); }
+.hf-sep    { color:var(--blanco); opacity:.15; }
+
+/* ══════════════════════════════ FOOTER */
+footer {
+  position:relative; z-index:1;
+  padding:1.8rem clamp(1.5rem,6vw,5rem);
+  border-top:1px solid #111;
+  display:flex; justify-content:space-between;
+  align-items:center; flex-wrap:wrap; gap:1rem;
+}
+.foot-logo {
+  font-family:var(--display); font-size:1.1rem;
+  text-transform:uppercase; letter-spacing:.08em;
+  color:var(--blanco); opacity:.4;
+}
+.foot-links { display:flex; gap:1.8rem; list-style:none; }
+.foot-links a {
+  font-size:.55rem; letter-spacing:.28em; text-transform:uppercase;
+  color:var(--blanco); text-decoration:none; opacity:.5;
+  transition:opacity .2s,color .2s;
+}
+.foot-links a:hover { opacity:1; color:var(--cyan); }
+
+/* ══════════════════════════════ REVEAL */
+.reveal { opacity:0; transform:translateY(20px); transition:opacity .6s,transform .6s; }
+.reveal.vis { opacity:1; transform:translateY(0); }
+
+/* ══════════════════════════════ ANIMATIONS */
+@keyframes fadeup { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+@keyframes ticker { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+@keyframes ticker-rev { from{transform:translateX(-50%)} to{transform:translateX(0)} }
+
+/* ══════════════════════════════ RESPONSIVE */
+@media(max-width:768px) {
+  #habla { grid-template-columns:1fr; }
+  .habla-img { display:none; }
+  .manifiesto-columnas { grid-template-columns:1fr; }
+  .gal-grid { grid-template-columns:1fr 1fr; }
+  .gal-cell.tall { grid-row:span 1; }
+  .datos-grid { grid-template-columns:repeat(3,1fr); }
+  .sinopsis-grid { grid-template-columns:1fr; }
+  .plat-card.featured { grid-column:span 1; }
+}
+@media(prefers-reduced-motion:reduce) {
+  *,*::before,*::after { animation:none!important; transition:none!important; }
+}
+
+    /* ── CTA YA ME ESTÁS VIENDO ── */
+    .cta-declaracion {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(2.5rem, 8vw, 7rem);
-      line-height: 1;
+      font-size: clamp(3rem,10vw,9rem);
+      line-height: 0.95;
       text-transform: uppercase;
       color: var(--blanco);
-      max-width: 800px;
-      margin-bottom: 1rem;
+      max-width: 900px;
+      margin-bottom: 0;
       font-weight: 400;
+      letter-spacing: 0.01em;
     }
-    .cta-phrase em { font-style: normal; color: var(--magenta); }
-    .cta-elige {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.3em;
-      text-transform: uppercase;
-      color: var(--blanco);
-      opacity: 0.3;
-      margin-bottom: 3rem;
+    .cta-declaracion em { font-style:normal; color:var(--amarillo); display:block; }
+
+    .cta-gratis {
+      width:100%; max-width:900px; margin-top:3.5rem;
+      border:1px solid rgba(0,255,65,0.2);
+      background:rgba(0,255,65,0.03);
     }
-    .cta-botones {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
+    .cta-gratis-head {
+      padding:1.5rem 2rem;
+      border-bottom:1px solid rgba(0,255,65,0.15);
+      display:flex; justify-content:space-between;
+      align-items:center; flex-wrap:wrap; gap:.5rem;
     }
-    .btn-principal {
-      display: inline-flex;
-      align-items: center;
-      gap: 1rem;
-      background: var(--amarillo);
-      color: var(--negro);
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      padding: 1.1rem 2.5rem;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: background 0.15s, transform 0.1s, color 0.15s;
-      position: relative;
-      overflow: hidden;
+    .cta-gratis-label {
+      font-family:var(--mono); font-size:.6rem;
+      letter-spacing:.4em; text-transform:uppercase; color:var(--verde);
     }
-    .btn-principal:hover { background: var(--blanco); transform: translateY(-2px); }
-    .btn-principal::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--magenta);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s;
-      z-index: 0;
+    .cta-gratis-badge {
+      font-family:var(--mono); font-size:.55rem;
+      letter-spacing:.3em; text-transform:uppercase;
+      color:var(--negro); background:var(--verde); padding:.3rem .8rem;
     }
-    .btn-principal:hover::after { transform: scaleX(1); }
-    .btn-principal:hover { color: #fff; }
-    .btn-principal span { position: relative; z-index: 1; }
-    .btn-secundario {
-      font-family: var(--mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--blanco);
-      opacity: 0.35;
-      text-decoration: none;
-      border-bottom: 1px solid currentColor;
-      padding-bottom: 2px;
-      transition: opacity 0.2s;
-      background: none;
-      border-top: none;
-      border-left: none;
-      border-right: none;
-      cursor: pointer;
+    .cta-gratis-player {
+      width:100%; aspect-ratio:16/9;
+      background:#000; position:relative; overflow:hidden;
     }
-    .btn-secundario:hover { opacity: 0.8; }
-    .precio-nota {
-      margin-top: 1.5rem;
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--blanco);
-      opacity: 0.2;
-      max-width: 500px;
-      line-height: 1.8;
+    .cta-gratis-player iframe { width:100%; height:100%; border:none; display:block; }
+    .cta-gratis-placeholder {
+      width:100%; height:100%;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      gap:1.2rem; cursor:pointer;
     }
-    /* ── 5 MINUTOS en CTA ── */
-    .cta-cinco {
-      margin-top: 3rem;
-      padding-top: 3rem;
-      border-top: 1px solid #1a1a1a;
-      width: 100%;
-      max-width: 960px;
+    .cta-gratis-play {
+      width:72px; height:72px;
+      border:2px solid var(--verde);
+      display:flex; align-items:center; justify-content:center;
+      transition:background .2s;
     }
-    .cta-cinco-label {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.38em;
-      text-transform: uppercase;
-      color: var(--verde);
-      margin-bottom: 1rem;
+    .cta-gratis-play:hover { background:rgba(0,255,65,0.1); }
+    .cta-gratis-play svg { fill:var(--verde); width:28px; height:28px; margin-left:4px; }
+    .cta-gratis-txt {
+      font-family:var(--display);
+      font-size:clamp(1rem,2vw,1.5rem);
+      text-transform:uppercase; color:var(--blanco);
+      opacity:.4; letter-spacing:.05em;
     }
-    .cta-cinco-titulo {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1.8rem, 4vw, 3.5rem);
-      text-transform: uppercase;
-      color: var(--blanco);
-      line-height: 1;
-      margin-bottom: 1.5rem;
+    .cta-gratis-foot {
+      padding:1.2rem 2rem;
+      border-top:1px solid rgba(0,255,65,0.1);
+      display:flex; justify-content:space-between;
+      align-items:center; flex-wrap:wrap; gap:1rem;
     }
-    .cta-cinco-titulo em { font-style: normal; color: var(--verde); }
-    .cta-cinco-player {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: #0a0a0a;
-      border: 1px solid #1a1a1a;
-      position: relative;
-      overflow: hidden;
-      margin-bottom: 1.5rem;
+    .cta-gratis-nota {
+      font-family:var(--mono); font-size:.58rem;
+      letter-spacing:.2em; text-transform:uppercase;
+      color:var(--blanco); opacity:.2;
     }
-    .cta-cinco-player iframe { width: 100%; height: 100%; border: none; }
-    .cta-cinco-placeholder {
-      width: 100%; height: 100%;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 1rem;
+    .cta-divisor {
+      width:100%; max-width:900px;
+      margin:2.5rem 0;
+      display:flex; align-items:center; gap:1.5rem;
     }
-    .cta-cinco-hook {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(1rem, 2vw, 1.6rem);
-      text-transform: uppercase;
-      color: var(--blanco);
-      opacity: 0.45;
-      line-height: 1.3;
-      max-width: 600px;
+    .cta-divisor-line { flex:1; height:1px; background:#1f1f1f; }
+    .cta-divisor-txt {
+      font-family:var(--mono); font-size:.55rem;
+      letter-spacing:.35em; text-transform:uppercase;
+      color:var(--blanco); opacity:.2; white-space:nowrap;
     }
-    .cta-cinco-hook strong { color: var(--amarillo); opacity: 1; font-weight: 400; }
-    .cta-garantias {
-      display: flex;
-      gap: 2px;
-      flex-wrap: wrap;
-      margin-top: 1.2rem;
-    }
-    .cta-garantia {
-      padding: 0.5rem 1rem;
-      border: 1px solid #222;
-      font-family: var(--mono);
-      font-size: 0.55rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: var(--blanco);
-      opacity: 0.35;
+    .cta-pago { display:flex; flex-wrap:wrap; gap:1rem; align-items:center; max-width:900px; }
+    @media(max-width:600px){
+      .cta-gratis-head { flex-direction:column; align-items:flex-start; }
+      .cta-divisor-txt { display:none; }
     }
 </style>
 </head>
 <body>
+<canvas id="gc"></canvas>
+<div class="scanline"></div>
 
-  <canvas id="glitch-canvas"></canvas>
-  <div class="scanline"></div>
-
-  <!-- ══════ HERO -->
-  <section id="hero">
-    <div class="hero-bg" style="background-image:url('hero_ser.jpg')"></div>
-    <div class="hero-overlay"></div>
-    <p class="hero-eyebrow">SOY UNA PELÍCULA — 75 MIN — NTA FILMS</p>
-
+<!-- ══════ HERO -->
+<section id="hero">
+  <div class="hero-bg"><!-- FOTO: hero_ser.jpg --></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">SOY UNA PELÍCULA — 79 MIN</p>
     <h1 class="hero-title">
       <span class="block glitch" data-text="LOS 400">LOS 400</span>
       <span class="block">ERRORES</span>
     </h1>
-
     <div class="hero-sub">
-      <span class="hero-sub-line c-magenta">UNA PELÍCULA QUE FRACASA.</span>
-      <span class="hero-sub-line c-cyan">ESTOY VIVA.</span>
-      <span class="hero-sub-line c-naranja">MÍRAME.</span>
-      <span class="hero-sub-line c-violeta">ESCÚCHAME.</span>
+      <span class="hero-sub-line" style="color:var(--frambuesa)">UNA PELÍCULA QUE FRACASA.</span>
+      <span class="hero-sub-line" style="color:var(--cyan)">ESTOY VIVA.</span>
+      <span class="hero-sub-line" style="color:var(--amarillo)">MÍRAME.</span>
+      <span class="hero-sub-line" style="color:#9B00D4">ESCÚCHAME.</span>
       <span class="hero-sub-line" style="color:var(--verde)">SIÉNTEME.</span>
     </div>
-
-    <span class="scroll-hint">↓ &nbsp; scroll</span>
-  </section>
-
-
-  <!-- ══════ BAND -->
-  <div class="band">
-    <div class="band-inner fwd" aria-hidden="true">
-      <span class="y">EL CINE ES LÍQUIDO</span><span class="dot">·</span>
-      <span class="w">CUALQUIER VIDEO ES UNA PELÍCULA</span><span class="dot">·</span>
-      <span class="g">SOY UN ECO EN EL TIEMPO</span><span class="dot">·</span>
-      <span class="f">ERROR PERO VIVO</span><span class="dot">·</span>
-      <span class="c">13 AÑOS ADENTRO</span><span class="dot">·</span>
-      <span class="y">EL CINE ES LÍQUIDO</span><span class="dot">·</span>
-      <span class="w">CUALQUIER VIDEO ES UNA PELÍCULA</span><span class="dot">·</span>
-      <span class="g">SOY UN ECO EN EL TIEMPO</span><span class="dot">·</span>
-      <span class="f">ERROR PERO VIVO</span><span class="dot">·</span>
-      <span class="c">13 AÑOS ADENTRO</span><span class="dot">·</span>
-    </div>
   </div>
+  <span class="scroll-hint">↓ &nbsp; scroll</span>
+</section>
 
-  <!-- ══════ HABLA -->
-  <section id="habla">
-    <div class="habla-img">
-      <img src="frame_soy.jpg" alt="SOY — La película habla" loading="lazy"/>
-    </div>
-    <div class="habla-text">
-      <p class="habla-line white">YO SOY</p>
-      <p class="habla-line white">LA PELÍCULA.</p>
-      <p class="habla-line yellow">FOTOGRAMAS.</p>
-      <p class="habla-line cy">PÍXELES.</p>
-      <p class="habla-line mag">ONDAS.</p>
-      <p class="habla-line white" style="opacity:.5">SOY UN ECO</p>
-      <p class="habla-line white" style="opacity:.5">EN EL TIEMPO.</p>
-      <p class="habla-line" style="color:var(--verde)">SOY DÍGITOS.</p>
+<!-- ══════ BAND -->
+<div class="band">
+  <div class="band-inner fwd" aria-hidden="true">
+    <span class="bi">INTENTA</span>
+    <span class="be">ERROR</span>
+    <span class="bi">INTENTA</span>
+    <span class="be">FRACASA</span>
+    <span class="bi">INTENTA</span>
+    <span class="be">MUTA</span>
+    <span class="bi">INTENTA</span>
+    <span class="be">EXISTE</span>
+    <span class="bi">INTENTA</span>
+    <span class="be">ERROR</span>
+    <span class="bi">INTENTA</span>
+    <span class="be">FRACASA</span>
+    <span class="bi">INTENTA</span>
+    <span class="be">MUTA</span>
+    <span class="bi">INTENTA</span>
+    <span class="be">EXISTE</span>
+  </div>
+</div>
+
+<!-- ══════ HABLA -->
+<section id="habla" style="display:flex;flex-direction:column;padding:clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,5rem);min-height:auto;border-top:1px solid #1a1a1a;">
+    <div class="habla-text" style="border-left:3px solid var(--verde);padding-left:2rem;max-width:700px;">
+      <p class="habla-line" style="color:var(--blanco)">YO SOY LA PELÍCULA.</p>
+      <p class="habla-line" style="color:var(--amarillo)">FOTOGRAMAS.</p>
+      <p class="habla-line" style="color:var(--frambuesa)">PÍXELES.</p>
+      <p class="habla-line" style="color:var(--verde)">ONDAS.</p>
+      <p class="habla-line" style="color:var(--blanco)">SOY UN ECO EN EL TIEMPO.</p>
+      <p class="habla-line" style="color:var(--cyan)">DANZA EN LA MATRIX.</p>
       <p class="habla-line" style="color:var(--azul)">MUNDO ESFÉRICO EN UN RECTÁNGULO.</p>
-      <p class="habla-line mag">VIRUTA DIGITAL.</p>
+      <p class="habla-line" style="color:var(--rojo)">VIRUTA DIGITAL.</p>
     </div>
   </section>
 
 
-  <!-- ══════ CUALQUIER VIDEO -->
-  <section id="cualquier">
-    <div class="cv-bg" style="background-image:url('hero_cualquier.jpg')"></div>
-    <div class="cv-content">
-      <span class="cv-line1">CUALQUIER VIDEO</span>
-      <span class="cv-line1">ES UNA</span>
-      <span class="cv-line2">PELÍCULA</span>
-    </div>
-  </section>
+<!-- ══════ TRAILER 1 -->
+<section id="trailer">
+  <p class="section-label y">// ESTOY VIVA</p>
+  <div class="video-shell">
+    <iframe src="https://www.youtube.com/embed/twjxBIJ0Mko?rel=0&color=white" allowfullscreen allow="autoplay; fullscreen" style="width:100%;height:100%;border:none;display:block;"></iframe>
+  </div>
+</section>
 
-  <!-- ══════ TRAILER -->
-  <section id="trailer">
-    <p class="trailer-label">TRAILER — UNA PELÍCULA QUE FRACASA</p>
-    <div class="video-wrap">
-      <!--
-        Reemplaza con tu iframe:
-        <iframe src="https://player.vimeo.com/video/TU_ID?color=ffec00&title=0&byline=0" allowfullscreen></iframe>
-      -->
-      <div class="video-placeholder">
-        <span class="video-placeholder-title">TRAILER</span>
-        <span class="video-placeholder-sub">// INSERTAR IFRAME //</span>
+<!-- ══════ INTENTA -->
+<section id="intenta">
+  <div class="intenta-scroll" aria-hidden="true">
+    <span class="intenta-word">ESTOY EN TU BOLSILLO</span>
+    <span class="intenta-sep">·</span>
+    <span class="intenta-word">ESTOY EN TU CHAQUETA</span>
+    <span class="intenta-sep">·</span>
+    <span class="intenta-word">ESTOY EN TU CARTERA</span>
+    <span class="intenta-sep">·</span>
+    <span class="intenta-word">ESTOY EN TU BOLSILLO</span>
+    <span class="intenta-sep">·</span>
+    <span class="intenta-word">ESTOY EN TU CHAQUETA</span>
+    <span class="intenta-sep">·</span>
+    <span class="intenta-word">ESTOY EN TU CARTERA</span>
+    <span class="intenta-sep">·</span>
+  </div>
+</section>
+
+
+<!-- ══════ PLATAFORMAS -->
+<section id="plataformas">
+  <div class="plat-header">
+    <h2 class="plat-h1">VER LA<br>PELÍCULA</h2>
+    <span class="plat-price">USD 5 <small></small></span>
+  </div>
+  <p class="plat-sub">ELIGE TU PLATAFORMA · ACCESO COMPLETO · 79 MIN</p>
+  <div class="plat-grid">
+    <a href="https://vimeo.com/1235391799/d85a88ea92?fl=ip&fe=ec" target="_blank" rel="noopener" class="plat-card featured" style="--ac:var(--amarillo)">
+      <div><div class="plat-name">VIMEO</div><div class="plat-tipo">STREAMING PRINCIPAL · VOD</div></div>
+      <div class="plat-arrow">→ VER AHORA</div>
+    </a>
+    <a href="#" target="_blank" rel="noopener" class="plat-card" style="--ac:var(--frambuesa)">
+      <div><div class="plat-name">ONLYFANS</div><div class="plat-tipo">ARCHIVO · LO DIGITAL</div></div>
+      <div class="plat-arrow">→</div>
+    </a>
+    <a href="https://los400errores.gumroad.com/l/soyunapelicula" target="_blank" rel="noopener" class="plat-card" style="--ac:var(--verde)">
+      <div><div class="plat-name">GUMROAD</div><div class="plat-tipo">DESCARGA DIGITAL</div></div>
+      <div class="plat-arrow">→</div>
+    </a>
+    <a href="https://go.hotmart.com/E108008409K" target="_blank" rel="noopener" class="plat-card" style="--ac:var(--naranja)">
+      <div><div class="plat-name">HOTMART</div><div class="plat-tipo">PAGO ONLINE</div></div>
+      <div class="plat-arrow">→</div>
+    </a>
+    <a href="#" target="_blank" rel="noopener" class="plat-card" style="--ac:var(--cyan)">
+      <div><div class="plat-name">ITCH.IO</div><div class="plat-tipo">ARTE DIGITAL</div></div>
+      <div class="plat-arrow">→</div>
+    </a>
+    <a href="#" target="_blank" rel="noopener" class="plat-card" style="--ac:var(--azul)">
+      <div><div class="plat-name">MERCADO LIBRE</div><div class="plat-tipo">LATAM · PAGO LOCAL</div></div>
+      <div class="plat-arrow">→</div>
+    </a>
+    <a href="#" target="_blank" rel="noopener" class="plat-card" style="--ac:var(--azul)">
+      <div><div class="plat-name">MERCADO PAGO</div><div class="plat-tipo">LATAM · PAGO LOCAL</div></div>
+      <div class="plat-arrow">→</div>
+    </a>
+    <a href="#" target="_blank" rel="noopener" class="plat-card" style="--ac:var(--ambar)">
+      <div><div class="plat-name">PATREON</div><div class="plat-tipo">COMUNIDAD · ARCHIVO</div></div>
+      <div class="plat-arrow">→</div>
+    </a>
+    <a href="https://ko-fi.com/s/9f5dc86c3a" target="_blank" rel="noopener" class="plat-card" style="--ac:var(--playhead)">
+      <div><div class="plat-name">KO-FI</div><div class="plat-tipo">APOYO DIRECTO</div></div>
+      <div class="plat-arrow">→</div>
+    </a>
+    <a href="#" target="_blank" rel="noopener" class="plat-card" style="--ac:var(--frambuesa)">
+      <div><div class="plat-name">ARSMATE</div><div class="plat-tipo">ARTE · COLECCIÓN</div></div>
+      <div class="plat-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+
+<!-- ══════ SINOPSIS / EL DIRECTOR HABLA -->
+
+
+
+
+<section id="sinopsis">
+  <div class="sinopsis-grid">
+    <div><p class="sinopsis-label">// EL DIRECTOR<br>HABLA.</p></div>
+    <div class="sinopsis-text">
+      <p>Escribí un guión original. Al tercer día de rodaje entendí que no iba a ser capaz de filmarlo como había imaginado.</p>
+      <p>Éramos un equipo de aficionados. No había dinero. La producción era deficiente. Mi actuación era mala. Mi dirección errática. <strong>Pero nunca abandoné la película.</strong></p>
+      <p>Durante trece años seguí filmando, montando, reescribiendo, probando, mostrándola y fracasando. La volví a editar una y otra vez, hasta encontrar la película que realmente estaba intentando hacer.</p>
+      <p>Los 400 Errores no es una ficción, ni un thriller, ni un documental. Ninguna de las películas que intentó ser. <strong>Tienes que verla para saber qué es.</strong></p>
+      <br>
+      <p>"Bienvenido al infinito": un lugar donde se pueden imaginar películas diferentes.</p>
+      <p class="sinopsis-firma">Samuel Astorga Artigas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ DATOS -->
+<section id="datos">
+  <p class="section-label c">// DATOS DUROS</p>
+  <div class="datos-grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">
+    <div class="dato"><div class="dato-n" style="color:var(--verde)">400</div><div class="dato-l">ERRORES</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--amarillo)">13</div><div class="dato-l">AÑOS DE PRODUCCIÓN</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--frambuesa)">79</div><div class="dato-l">MINUTOS</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--naranja)">∞</div><div class="dato-l">CORTES</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--cyan)">1</div><div class="dato-l">MALETÍN VACÍO</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--amarillo)">5</div><div class="dato-l">USD</div></div>
+  </div>
+</section>
+
+
+
+<!-- ══════ TRAILER 2 -->
+<section id="trailer2">
+  <p class="section-label g">// UNA PELÍCULA QUE FRACASA</p>
+  <div class="video-shell">
+    <iframe src="https://www.youtube.com/embed/KDdM963HQvs?rel=0&color=white" allowfullscreen allow="autoplay; fullscreen" style="width:100%;height:100%;border:none;display:block;"></iframe>
+  </div>
+</section>
+
+
+<!-- ══════ MANIFIESTO -->
+
+  
+<section id="manifiesto" style="background:var(--azul);padding:clamp(5rem,10vw,8rem) clamp(1.5rem,6vw,5rem);position:relative;overflow:hidden;">
+
+  <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.05) 3px,rgba(0,0,0,.05) 4px);pointer-events:none;z-index:0;"></div>
+
+  <div style="position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;">
+
+    <!-- COLUMNA IZQUIERDA -->
+    <div>
+      <p style="font-family:var(--mono);font-size:.58rem;letter-spacing:.38em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:3rem;">Voz de la película</p>
+
+      <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(4.5rem,10vw,9rem);line-height:.88;text-transform:uppercase;letter-spacing:.01em;margin-bottom:2.5rem;">
+        <span style="color:var(--blanco);">EL CINE</span><br>
+        <span style="color:var(--blanco);">ES </span><span style="color:var(--amarillo);">LÍQUIDO.</span>
+      </h2>
+
+      <h3 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2.5rem,5.5vw,5rem);line-height:.9;text-transform:uppercase;letter-spacing:.01em;margin-bottom:4rem;">
+        <span style="color:rgba(255,255,255,.45);">CUALQUIER VIDEO</span><br>
+        <span style="color:rgba(255,255,255,.45);">ES UNA PELÍCULA.</span>
+      </h3>
+
+      <div style="width:60px;height:2px;background:var(--amarillo);margin-bottom:2.5rem;"></div>
+
+      <div style="font-family:var(--mono);font-size:clamp(.82rem,1.3vw,1rem);line-height:2.4;color:rgba(255,255,255,.5);border-left:2px solid var(--amarillo);padding-left:1.5rem;">
+        Tómame. Mírame. Siénteme.<br>
+        Imagíname. Complétame. Recuérdame.
       </div>
     </div>
-  </section>
 
+    <!-- COLUMNA DERECHA -->
+    <div style="display:flex;flex-direction:column;gap:0;">
 
+      <div style="padding:2rem 0;border-bottom:1px solid rgba(255,255,255,.12);">
+        <p style="font-family:var(--mono);font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.7rem;">DECLARACIÓN / 01</p>
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,2vw,1.6rem);text-transform:uppercase;color:rgba(255,255,255,.85);line-height:1.25;">
+          No estoy en Spotify.<br>
+          No estoy en Apple Music, Tidal, Deezer…<br>
+          No me paro en el escenario.<br>
+          No soy Mc. Soy una película.
+        </p>
+      </div>
 
+      <div style="padding:2rem 0;border-bottom:1px solid rgba(255,255,255,.12);">
+        <p style="font-family:var(--mono);font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:var(--amarillo);margin-bottom:.8rem;">DECLARACIÓN / 02</p>
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);text-transform:uppercase;color:var(--blanco);line-height:1;margin-bottom:.4rem;">
+          NO SOY UNA PELÍCULA.
+        </p>
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);text-transform:uppercase;color:rgba(255,255,255,.45);line-height:1;">
+          SOY TODAS MIS PELÍCULAS.
+        </p>
+      </div>
 
+      <div style="padding:2rem 0;">
+        <p style="font-family:var(--mono);font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.7rem;">DECLARACIÓN / 03</p>
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,2vw,1.6rem);text-transform:uppercase;color:rgba(255,255,255,.85);line-height:1.25;">
+          No pertenezco a una industria.<br>
+          No pertenezco a una sala.<br>
+          No pertenezco a una plataforma.<br>
+          <span style="color:var(--amarillo);">Pertenezco a quien me mira.</span>
+        </p>
+      </div>
 
-  <!-- ══════ MOSAIC -->
-  <div class="mosaic-strip" id="mosaicStrip" aria-hidden="true">
-    <img src="mosaic_pixel.jpg" alt="" loading="lazy"/>
-    <img src="glitch_red.jpg" alt="" loading="lazy"/>
-    <img src="collage_black.jpg" alt="" loading="lazy"/>
-    <img src="mosaic_col.jpg" alt="" loading="lazy"/>
+    </div>
+
   </div>
 
-  <!-- ══════ PLATAFORMAS -->
-  <section id="plataformas">
-    <div class="plataformas-header">
-      <h2 class="plataformas-title">VER LA PELÍCULA</h2>
-      <span class="plataformas-precio">USD 5 <span style="font-size:.55em;opacity:.7">+CARGO</span></span>
+</section>
+
+<!-- ══════ CTA FINAL -->
+<section id="cta">
+
+  <!-- DECLARACIÓN -->
+  <h2 class="cta-declaracion">
+    Ya me<br>estás<br><em>viendo.</em>
+  </h2>
+
+  <!-- BLOQUE 5 MINUTOS GRATIS -->
+  <div class="cta-gratis">
+    <div class="cta-gratis-head">
+      <span class="cta-gratis-label">Los próximos 3 minutos · Sin registro · Sin email</span>
+      <span class="cta-gratis-badge">Gratis</span>
     </div>
-    <p class="plataformas-sub">ELIGE TU PLATAFORMA · ACCESO COMPLETO · 75 MIN</p>
-
-    <div class="plataformas-grid">
-
-      <a href="#" target="_blank" rel="noopener" class="plataforma-btn" style="--color-acento:var(--cyan)">
-        <div>
-          <div class="plat-nombre">VIMEO</div>
-          <div class="plat-tipo">Streaming / VOD</div>
-        </div>
-        <div class="plat-arrow">→</div>
-      </a>
-
-      <a href="#" target="_blank" rel="noopener" class="plataforma-btn" style="--color-acento:var(--amarillo)">
-        <div>
-          <div class="plat-nombre">GUMROAD</div>
-          <div class="plat-tipo">Descarga digital</div>
-        </div>
-        <div class="plat-arrow">→</div>
-      </a>
-
-      <a href="#" target="_blank" rel="noopener" class="plataforma-btn" style="--color-acento:var(--magenta)">
-        <div>
-          <div class="plat-nombre">ONLYFANS</div>
-          <div class="plat-tipo">Archivo · Lo digital</div>
-        </div>
-        <div class="plat-arrow">→</div>
-      </a>
-
-      <a href="#" target="_blank" rel="noopener" class="plataforma-btn" style="--color-acento:var(--naranja)">
-        <div>
-          <div class="plat-nombre">HOTMART</div>
-          <div class="plat-tipo">Pago online</div>
-        </div>
-        <div class="plat-arrow">→</div>
-      </a>
-
-      <a href="#" target="_blank" rel="noopener" class="plataforma-btn" style="--color-acento:var(--violeta)">
-        <div>
-          <div class="plat-nombre">MERCADO LIBRE</div>
-          <div class="plat-tipo">LATAM · PAGO LOCAL</div>
-        </div>
-        <div class="plat-arrow">→</div>
-      </a>
-
-      <a href="#" target="_blank" rel="noopener" class="plataforma-btn" style="--color-acento:var(--cyan)">
-        <div>
-          <div class="plat-nombre">ITCH.IO</div>
-          <div class="plat-tipo">Arte digital</div>
-        </div>
-        <div class="plat-arrow">→</div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- ══════ INTENTA TICKER -->
-  
-
-
-  <!-- ══════ INTENTA -->
-  <section id="intenta">
-    <div class="intenta-scroll">
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word err">ERROR</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word err">FRACASA</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word err">MUTA</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word err">EXISTE</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word err">ERROR</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word err">FRACASA</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word err">MUTA</span>
-      <span class="intenta-word">INTENTA</span>
-      <span class="intenta-word err">EXISTE</span>
-    </div>
-  </section>
-
-  <!-- ══════ SINOPSIS -->
-  <section id="sinopsis">
-    <div class="sinopsis-grid">
-      <div>
-        <p class="sinopsis-label">// EL DIRECTOR<br>HABLA.</p>
-      </div>
-      <div class="sinopsis-text">
-        <p>Escribí un guión original. Al tercer día de rodaje entendí que no iba a ser capaz de filmarlo como había imaginado.</p>
-        <p>Éramos un equipo de aficionados. No había dinero. Mi actuación era mala. Mi dirección errática. La producción deficiente. <strong>Pero nunca abandoné la película.</strong></p>
-        <p>Durante trece años seguí filmando, montando, reescribiendo, probando, mostrándola y fracasando. La volví a editar una y otra vez, hasta encontrar la película que realmente estaba intentando hacer.</p>
-        <p>Los 400 Errores no es una ficción, ni un thriller, ni un documental, ni una autobiografía. Ninguna de las películas que intentó ser. <strong>Es una reflexión sobre el propio cine.</strong></p>
-        <p>"Bienvenido al infinito": un lugar donde se pueden imaginar películas diferentes.</p>
-        <p style="margin-top:1.5rem;color:var(--amarillo);opacity:.7">A.A. Santiago, Chile.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════ DATOS -->
-  <section id="datos">
-    <div class="datos-grid">
-      <div class="dato-item">
-        <div class="dato-num" style="color:var(--verde)">400</div>
-        <div class="dato-label">ERRORES</div>
-      </div>
-      <div class="dato-item">
-        <div class="dato-num" style="color:var(--amarillo)">13</div>
-        <div class="dato-label">AÑOS</div>
-      </div>
-      <div class="dato-item">
-        <div class="dato-num" style="color:var(--magenta)">75</div>
-        <div class="dato-label">MINUTOS</div>
-      </div>
-      <div class="dato-item">
-        <div class="dato-num" style="color:var(--naranja)">∞</div>
-        <div class="dato-label">CORTES ANTERIORES</div>
-      </div>
-      <div class="dato-item">
-        <div class="dato-num" style="color:var(--violeta)">1</div>
-        <div class="dato-label">MALETÍN VACÍO</div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ══════ GALERÍA -->
-  <section id="galeria">
-    <p class="section-label g">// ARCHIVO — FRAGMENTOS DE LA PELÍCULA</p>
-    <div class="gal-grid" id="galGrid">
-      <div class="gal-cell tall">
-        <img src="collage_tiktok.jpg" alt="ARCHIVO · TIKTOK" loading="lazy"/>
-        <span class="gal-label" style="color:var(--verde)">ARCHIVO · TIKTOK</span>
-      </div>
-      <div class="gal-cell">
-        <img src="glitch_corridor.jpg" alt="GLITCH · CORREDOR" loading="lazy"/>
-        <span class="gal-label" style="color:var(--verde)">GLITCH · CORREDOR</span>
-      </div>
-      <div class="gal-cell span2">
-        <img src="multi_sky.jpg" alt="CORTES · CIELO" loading="lazy"/>
-        <span class="gal-label" style="color:var(--verde)">CORTES · CIELO</span>
-      </div>
-      <div class="gal-cell">
-        <img src="sky_four.jpg" alt="CUATRO TIEMPOS" loading="lazy"/>
-        <span class="gal-label" style="color:var(--verde)">CUATRO TIEMPOS</span>
-      </div>
-      <div class="gal-cell">
-        <img src="glitch_red.jpg" alt="ERROR · ROJO" loading="lazy"/>
-        <span class="gal-label" style="color:var(--verde)">ERROR · ROJO</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════ TRAILER 2 -->
-  <section id="trailer2" style="background:#000;padding:clamp(3rem,8vw,6rem) clamp(1.5rem,6vw,5rem);align-items:flex-start;display:flex;flex-direction:column;border-top:1px solid #1a1a1a;">
-    <p style="font-family:'Share Tech Mono',monospace;font-size:.68rem;letter-spacing:.35em;color:var(--verde);text-transform:uppercase;margin-bottom:1.5rem;">SOY, SOY, SOY, SOY, SOY, SOY, SOY</p>
-    <div style="width:100%;max-width:960px;aspect-ratio:16/9;background:#0a0a0a;border:1px solid #1a1a1a;position:relative;overflow:hidden;">
+    <div class="cta-gratis-player">
       <!--
-        Reemplaza con tu iframe:
-        <iframe src="https://player.vimeo.com/video/TU_ID_2?color=00ff41&title=0&byline=0" allowfullscreen allow="autoplay"></iframe>
+        INSERTAR IFRAME:
+        <iframe
+          src="https://player.vimeo.com/video/TU_ID?color=00ff41&title=0&byline=0&portrait=0&autoplay=0"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowfullscreen>
+        </iframe>
       -->
-      <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;background:var(--negro);">
-        <div style="width:80px;height:80px;border:3px solid var(--verde);display:flex;align-items:center;justify-content:center;transform:skewX(-4deg);">
-          <span style="font-size:1.8rem;color:var(--verde);transform:skewX(4deg)">▶</span>
+      <div class="cta-gratis-placeholder">
+        <div class="cta-gratis-play">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
         </div>
-        <span style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.5rem,4vw,3rem);text-transform:uppercase;color:var(--verde);letter-spacing:.05em;">SOY, SOY, SOY</span>
-        <span style="font-size:.6rem;letter-spacing:.3em;color:var(--blanco);opacity:.2;text-transform:uppercase;">// PRÓXIMAMENTE //</span>
+        <div class="cta-gratis-txt">Ver los primeros 3 minutos</div>
       </div>
     </div>
-  </section>
-
-  
-
-
-  
-  <!-- ─── MANIFIESTO ─── -->
-<section id="manifiesto" style="background:var(--azul);padding:7rem clamp(1.5rem,6vw,5rem);">
-    <div class="manifiesto-eyebrow">Voz de la película · Contenido</div>
-    <div class="manifiesto-columnas">
-      <div class="manifiesto-col-izq">
-        <div class="manifiesto-frase-grande">
-          El cine<br>es <em>líquido.</em><br>Cualquier<br>video es<br>una película.
-        </div>
-        <div class="manifiesto-cita">
-          Estoy hecha de errores.<br>
-          Datos. Informática. Big Bang.<br>
-          <span style="color:var(--amarillo)">Estoy en tu chaqueta.</span><br>
-          Tómame. Mírame. Siénteme.<br>
-          Imagíname. Complétame. Recuérdame.
-        </div>
-      </div>
-      <div class="manifiesto-col-der">
-        <div class="manifiesto-item">
-          <div class="manifiesto-num">DECLARACIÓN / 01</div>
-          <div class="manifiesto-declaracion">
-            Intenté ser una película.<br>
-            Intenté ser una historia.<br>
-            Intenté ser un documental.<br>
-            Intenté ser un thriller.<br>
-            Intenté ser personaje.<br>
-            Intenté ser un actor.<br>
-            Intenté ser un director.
-          </div>
-        </div>
-        <div class="manifiesto-item">
-          <div class="manifiesto-num">DECLARACIÓN / 02</div>
-          <div class="manifiesto-declaracion">
-            No estoy en Spotify.<br>
-            No estoy en Apple Music, Tidal, Deezer…<br>
-            No me paro en el escenario.<br>
-            No soy Mc. Soy una película.
-          </div>
-        </div>
-        <div class="manifiesto-item">
-          <div class="manifiesto-num">DECLARACIÓN / 03</div>
-          <div class="manifiesto-declaracion">
-            No pertenezco a una industria.<br>
-            No pertenezco a una sala.<br>
-            No pertenezco a una plataforma.<br>
-            <span style="color:var(--amarillo)">Pertenezco a quien me mira.</span>
-          </div>
-        </div>
-      </div>
+    <div class="cta-gratis-foot">
+      <span class="cta-gratis-nota">Sin registro · Sin email · Sin tarjeta</span>
     </div>
-  </section>
+  </div>
 
+  <!-- DIVISOR -->
+  <div class="cta-divisor">
+    <div class="cta-divisor-line"></div>
+    <div class="cta-divisor-txt">¿Querés entrar del todo?</div>
+    <div class="cta-divisor-line"></div>
+  </div>
 
-  
-  <!-- ─── PARA QUIÉN ─── -->
+  <!-- BLOQUE PAGO -->
+  <div class="cta-pago">
+    <a href="#plataformas" class="btn-principal">
+      <span>Acceso completo · USD 5</span>
+      <span>→</span>
+    </a>
+  </div>
 
+  <div class="precio-nota">
+    Acceso permanente · Sin suscripción · Sin fecha de vencimiento
+  </div>
 
-
-
-
-
-  
-  <!-- ══════ CTA FINAL -->
-  <section id="cta">
-    <div class="cta-pre">Última pregunta</div>
-    <h2 class="cta-phrase">
-      ¿Cuántas veces<br>
-      me viste <em>sin verme?</em>
-    </h2>
-    <div class="cta-elige">↑ SELECCIONA UNA PLATAFORMA ARRIBA</div>
-
-    <div class="cta-botones">
-      <a href="#plataformas" class="btn-principal">
-        <span>Entrar por USD 5 +CARGO</span>
-        <span>→</span>
-      </a>
-    </div>
-
-    <div class="precio-nota">
-      Acceso permanente · Sin suscripción · Sin fecha de vencimiento
-    </div>
-
-
-  </section>
+</section>
 
 <!-- ══════ TICKER PLATAFORMAS -->
-  <div class="error-ticker" aria-hidden="true">
-    <div class="error-ticker-inner">
-      <span>LOS 400 ERR0RES</span><span class="sep">·</span>
-      <span>INSTAGRAM</span><span class="sep">·</span>
-      <span>TIKTOK</span><span class="sep">·</span>
-      <span>YOUTUBE</span><span class="sep">·</span>
-      <span>VIMEO</span><span class="sep">·</span>
-      <span>HOTMART</span><span class="sep">·</span>
-      <span>ONLY FANS</span><span class="sep">·</span>
-      <span>MERCADO LIBRE</span><span class="sep">·</span>
-      <span>MERCADO PAGO</span><span class="sep">·</span>
-      <span>ARSMATE</span><span class="sep">·</span>
-      <span>BUY ME A COFFEE</span><span class="sep">·</span>
-      <span>PATREON</span><span class="sep">·</span>
-      <span>SUBSTACK</span><span class="sep">·</span>
-      <span>LOS 400 ERR0RES</span><span class="sep">·</span>
-      <span>INSTAGRAM</span><span class="sep">·</span>
-      <span>TIKTOK</span><span class="sep">·</span>
-      <span>YOUTUBE</span><span class="sep">·</span>
-      <span>VIMEO</span><span class="sep">·</span>
-      <span>HOTMART</span><span class="sep">·</span>
-      <span>ONLY FANS</span><span class="sep">·</span>
-      <span>MERCADO LIBRE</span><span class="sep">·</span>
-      <span>MERCADO PAGO</span><span class="sep">·</span>
-      <span>ARSMATE</span><span class="sep">·</span>
-      <span>BUY ME A COFFEE</span><span class="sep">·</span>
-      <span>PATREON</span><span class="sep">·</span>
-      <span>SUBSTACK</span><span class="sep">·</span>
-    </div>
+<div class="plat-ticker" aria-hidden="true">
+  <div class="plat-ticker-inner">
+    <span>LOS 400 ERR0RES</span><span class="sep">·</span>
+    <span>INSTAGRAM</span><span class="sep">·</span>
+    <span>TIKTOK</span><span class="sep">·</span>
+    <span>YOUTUBE</span><span class="sep">·</span>
+    <span>VIMEO</span><span class="sep">·</span>
+    <span>HOTMART</span><span class="sep">·</span>
+    <span>ONLY FANS</span><span class="sep">·</span>
+    <span>MERCADO LIBRE</span><span class="sep">·</span>
+    <span>MERCADO PAGO</span><span class="sep">·</span>
+    <span>ARSMATE</span><span class="sep">·</span>
+    <span>BUY ME A COFFEE</span><span class="sep">·</span>
+    <span>PATREON</span><span class="sep">·</span>
+    <span>SUBSTACK</span><span class="sep">·</span>
+    <span>LOS 400 ERR0RES</span><span class="sep">·</span>
+    <span>INSTAGRAM</span><span class="sep">·</span>
+    <span>TIKTOK</span><span class="sep">·</span>
+    <span>YOUTUBE</span><span class="sep">·</span>
+    <span>VIMEO</span><span class="sep">·</span>
+    <span>HOTMART</span><span class="sep">·</span>
+    <span>ONLY FANS</span><span class="sep">·</span>
+    <span>MERCADO LIBRE</span><span class="sep">·</span>
+    <span>MERCADO PAGO</span><span class="sep">·</span>
+    <span>ARSMATE</span><span class="sep">·</span>
+    <span>BUY ME A COFFEE</span><span class="sep">·</span>
+    <span>PATREON</span><span class="sep">·</span>
+    <span>SUBSTACK</span><span class="sep">·</span>
   </div>
+</div>
 
-  <!-- ══════ HUINCHA FINAL -->
-  <div id="huincha-final" aria-hidden="true">
-    <div class="hf-inner">
-      <span class="hf-azul">¿Ser</span>
-      <span class="hf-blanco">o</span>
-      <span class="hf-rojo">no ser?</span>
-      <span class="hf-sep">·</span>
-      <span class="hf-verde">Ser la película.</span>
-      <span class="hf-sep">·</span>
-      <span class="hf-azul">¿Ser</span>
-      <span class="hf-blanco">o</span>
-      <span class="hf-rojo">no ser?</span>
-      <span class="hf-sep">·</span>
-      <span class="hf-verde">Ser la película.</span>
-      <span class="hf-sep">·</span>
-      <span class="hf-azul">¿Ser</span>
-      <span class="hf-blanco">o</span>
-      <span class="hf-rojo">no ser?</span>
-      <span class="hf-sep">·</span>
-      <span class="hf-verde">Ser la película.</span>
-      <span class="hf-sep">·</span>
-      <span class="hf-azul">¿Ser</span>
-      <span class="hf-blanco">o</span>
-      <span class="hf-rojo">no ser?</span>
-      <span class="hf-sep">·</span>
-      <span class="hf-verde">Ser la película.</span>
-      <span class="hf-sep">·</span>
-    </div>
+<!-- ══════ HUINCHA FINAL -->
+<div id="huincha-final" aria-hidden="true">
+  <div class="hf-inner">
+    <span class="hf-word hf-azul">¿Ser</span><span class="hf-word hf-blanco">o</span><span class="hf-word hf-rojo">no ser?</span><span class="hf-word hf-sep">·</span>
+    <span class="hf-word hf-verde">Ser la película</span><span class="hf-word hf-sep">·</span>
+    <span class="hf-word hf-azul">¿Ser</span><span class="hf-word hf-blanco">o</span><span class="hf-word hf-rojo">no ser?</span><span class="hf-word hf-sep">·</span>
+    <span class="hf-word hf-verde">Ser la película</span><span class="hf-word hf-sep">·</span>
+    <span class="hf-word hf-azul">¿Ser</span><span class="hf-word hf-blanco">o</span><span class="hf-word hf-rojo">no ser?</span><span class="hf-word hf-sep">·</span>
+    <span class="hf-word hf-verde">Ser la película</span><span class="hf-word hf-sep">·</span>
+    <span class="hf-word hf-azul">¿Ser</span><span class="hf-word hf-blanco">o</span><span class="hf-word hf-rojo">no ser?</span><span class="hf-word hf-sep">·</span>
+    <span class="hf-word hf-verde">Ser la película</span><span class="hf-word hf-sep">·</span>
   </div>
+</div>
 
-  <!-- ══════ FOOTER -->
-  <footer>
-    <span class="footer-logo">LOS 400 ERRORES</span>
-    <ul class="footer-links">
-      <li><a href="https://instagram.com/los400errores" target="_blank" rel="noopener">INSTAGRAM</a></li>
-      <li><a href="https://tiktok.com/@los400errores" target="_blank" rel="noopener">TIKTOK</a></li>
-      <li><a href="https://youtube.com/@los400errores" target="_blank" rel="noopener">YOUTUBE</a></li>
-      <li><a href="https://letterboxd.com/film/los-400-errores" target="_blank" rel="noopener">LETTERBOXD</a></li>
-    </ul>
-  </footer>
+<!-- ══════ FOOTER -->
+<footer>
+  <span class="foot-logo">LOS 400 ERRORES — NTA FILMS</span>
+  <ul class="foot-links">
+    <li><a href="https://instagram.com/los400errores" target="_blank" rel="noopener">INSTAGRAM</a></li>
+    <li><a href="https://tiktok.com/@los400errores" target="_blank" rel="noopener">TIKTOK</a></li>
+    <li><a href="https://youtube.com/@los400errores" target="_blank" rel="noopener">YOUTUBE</a></li>
+    <li><a href="https://letterboxd.com" target="_blank" rel="noopener">LETTERBOXD</a></li>
+  </ul>
+</footer>
 
-  <!-- ERROR TICKER -->
-  <div class="error-ticker" aria-hidden="true">
-    <div class="error-ticker-inner">
-      <span>LOS 400 ERR0RES</span><span>·</span>
-      <span>INSTAGRAM</span><span>·</span>
-      <span>TIKTOK</span><span>·</span>
-      <span>YOUTUBE</span><span>·</span>
-      <span>VIMEO</span><span>·</span>
-      <span>HOTMART</span><span>·</span>
-      <span>ONLY FANS</span><span>·</span>
-      <span>MERCADO LIBRE</span><span>·</span>
-      <span>MERCADO PAGO</span><span>·</span>
-      <span>ARSMATE</span><span>·</span>
-      <span>BUY ME A COFFEE</span><span>·</span>
-      <span>PATREON</span><span>·</span>
-      <span>SUBSTACK</span><span>·</span>
-      <span>LOS 400 ERR0RES</span><span>·</span>
-      <span>INSTAGRAM</span><span>·</span>
-      <span>TIKTOK</span><span>·</span>
-      <span>YOUTUBE</span><span>·</span>
-      <span>VIMEO</span><span>·</span>
-      <span>HOTMART</span><span>·</span>
-      <span>ONLY FANS</span><span>·</span>
-      <span>MERCADO LIBRE</span><span>·</span>
-      <span>MERCADO PAGO</span><span>·</span>
-      <span>ARSMATE</span><span>·</span>
-      <span>BUY ME A COFFEE</span><span>·</span>
-      <span>PATREON</span><span>·</span>
-      <span>SUBSTACK</span><span>·</span>
-    </div>
-  </div>
-
-  <script>
-    // GLITCH CANVAS
-    const canvas = document.getElementById('glitch-canvas');
-    const ctx = canvas.getContext('2d');
-    let W, H;
-    function resizeCanvas() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-    const COLORS = ['#FFEC00','#FF006E','#08C8FF','#FF4500','#9B00D4'];
-    function drawGlitch() {
-      ctx.clearRect(0,0,W,H);
-      if (Math.random() > 0.87) {
-        const n = Math.floor(Math.random()*3)+1;
-        for (let i=0;i<n;i++) {
-          ctx.fillStyle = COLORS[Math.floor(Math.random()*COLORS.length)];
-          ctx.fillRect(0, Math.random()*H, W, Math.random()*2+1);
-        }
-      }
-      requestAnimationFrame(drawGlitch);
+<script>
+// ── GLITCH CANVAS
+const gc = document.getElementById('gc');
+const ctx = gc.getContext('2d');
+let W, H;
+function rs(){ W=gc.width=innerWidth; H=gc.height=innerHeight; }
+rs(); window.addEventListener('resize', rs);
+const COLS = ['#FFEC00','#C93F63','#00FF41','#2B2DFF','#FF5200','#00C8FF','#FF0033'];
+function glitch(){
+  ctx.clearRect(0,0,W,H);
+  if(Math.random()>.88){
+    const n=Math.floor(Math.random()*3)+1;
+    for(let i=0;i<n;i++){
+      ctx.fillStyle=COLS[Math.floor(Math.random()*COLS.length)];
+      ctx.fillRect(0,Math.random()*H,W,Math.random()*2+.5);
     }
-    drawGlitch();
+  }
+  requestAnimationFrame(glitch);
+}
+glitch();
 
-    // SCROLL REVEAL
-    const lines = document.querySelectorAll('.speak-line');
-    const revealObs = new IntersectionObserver((entries) => {
-      entries.forEach((e, i) => {
-        if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 75);
-      });
-    }, { threshold: 0.1 });
-    lines.forEach(l => revealObs.observe(l));
-  
 // ── SCROLL REVEAL — habla lines
-const lines = document.querySelectorAll(".habla-line");
+const lines = document.querySelectorAll('.habla-line');
 const obs = new IntersectionObserver(entries=>{
   entries.forEach((e,i)=>{
-    if(e.isIntersecting) setTimeout(()=>e.target.classList.add("vis"), i*70);
+    if(e.isIntersecting) setTimeout(()=>e.target.classList.add('vis'), i*70);
   });
 },{threshold:.1});
 lines.forEach(l=>obs.observe(l));
 
-// ── CRO: highlight Vimeo card on scroll into view
-const vimeoCard = document.querySelector(".plat-card.featured");
-const vObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.style.transform="scale(1.01)";
-      e.target.style.transition="transform .3s";
-    } else {
-      e.target.style.transform="";
-    }
+// ── SCROLL REVEAL — general .reveal
+const revealEls = document.querySelectorAll('.reveal');
+const obs2 = new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('vis'), i*80); obs2.unobserve(e.target); }
   });
-},{threshold:.3});
-if(vimeoCard) vObs.observe(vimeoCard);
+},{threshold:.08});
+revealEls.forEach(el=>obs2.observe(el));
 
-  // REVEAL OBSERVER
-  const revealEls = document.querySelectorAll('.reveal');
-  const revealObs2 = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('vis'), i * 80);
-        revealObs2.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.08 });
-  revealEls.forEach(el => revealObs2.observe(el));
+// ══════════════════════════════════════════════
+// INSTRUCCIONES PARA AGREGAR FOTOS EN EL FUTURO
+// ══════════════════════════════════════════════
+//
+// 1. HERO (fondo): busca el div.hero-bg y descomenta la línea:
+//    background-image: url('hero_ser.jpg');
+//    O bien en el CSS busca .hero-bg y agrega: background-image: url('hero_ser.jpg');
+//
+// 2. HABLA (izquierda): busca el div.habla-img y reemplaza el span por:
+//    <img src="frame_soy.jpg" alt="SOY" style="width:100%;height:100%;object-fit:cover"/>
+//
+// 3. CUALQUIER VIDEO (fondo): busca el div.cv-bg y agrega en su estilo inline:
+//    style="background-image:url('hero_cualquier.jpg');background-size:cover;filter:brightness(.25)contrast(1.4)"
+//
+// 4. MOSAIC STRIP: busca los 4 div.mosaic-cell y reemplaza los spans por:
+//    <img src="mosaic_pixel.jpg" alt=""/>  etc.
+//
+// 5. GALERÍA: busca los div.gal-cell y reemplaza los spans gal-ph por:
+//    <img src="collage_tiktok.jpg" alt="ARCHIVO · TIKTOK"/>
+//    Luego agrega el span.gal-label después del img.
+//
+// Archivos de imagen a subir a GitHub junto con index.html:
+//   hero_ser.jpg, frame_soy.jpg, hero_cualquier.jpg,
+//   mosaic_pixel.jpg, glitch_red.jpg, collage_black.jpg, mosaic_col.jpg,
+//   collage_tiktok.jpg, glitch_corridor.jpg, multi_sky.jpg, sky_four.jpg
 </script>
 </body>
-
 </html>
