@@ -492,42 +492,6 @@ section {
   border-top:1px solid #1a1a1a; padding-top:1.5rem;
 }
 
-/* ══════════════════════════════ ERRORES */
-#errores {
-  position:relative; z-index:1;
-  background:var(--negro);
-  padding:clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,5rem);
-  border-top:4px solid var(--amarillo);
-}
-.errores-eyebrow {
-  font-family:var(--mono); font-size:.85rem;
-  letter-spacing:.32em; text-transform:uppercase;
-  color:var(--amarillo); opacity:.85; margin-bottom:2rem;
-  text-shadow:2px 2px 0 #000;
-}
-.errores-parrafo {
-  max-width:900px;
-  font-family:var(--mono);
-  font-size:clamp(.95rem,1.4vw,1.05rem);
-  line-height:2;
-  color:var(--amarillo); opacity:.92;
-  margin-bottom:3.5rem;
-  text-shadow:1px 1px 0 #000;
-}
-.err-num { font-size:.78em; opacity:.6; margin-right:.3em; letter-spacing:.05em; }
-.err-sep { opacity:.35; margin:0 .6em; }
-.errores-cierre {
-  max-width:900px;
-  border-top:1px solid rgba(255,236,0,.12);
-  padding-top:2.5rem;
-}
-.errores-cierre-sub {
-  font-family:var(--mono); font-size:.88rem;
-  letter-spacing:.2em; line-height:1.8; text-transform:uppercase;
-  color:var(--amarillo); opacity:.75;
-  text-shadow:1px 1px 0 #000;
-}
-
 /* ══════════════════════════════ DATOS */
 #datos { border-top:1px solid #1a1a1a; }
 .datos-grid {
@@ -745,19 +709,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      target="_blank" rel="noopener" class="mini-cta-btn">Mírame</a>
 </div>
 
-<!-- ══════ SINOPSIS / EL DIRECTOR HABLA -->
-<section id="sinopsis">
-  <div class="sinopsis-grid">
-    <div><p class="sinopsis-label">// EL DIRECTOR<br>HABLA.</p></div>
-    <div class="sinopsis-text">
-      <p>Escribí un guión original. Al tercer día de rodaje entendí que no iba a ser capaz de filmarlo como había imaginado.</p>
-      <p>Éramos un equipo de aficionados. No había dinero. La producción era deficiente. Mi actuación era mala. Mi dirección errática. <strong>Pero nunca abandoné la película.</strong></p>
-      <p>Durante trece años seguí filmando, montando, reescribiendo, probando, mostrándola y fracasando. La volví a editar una y otra vez, hasta encontrar la película que realmente estaba intentando hacer.</p>
-      <p>Los 400 Errores no es una ficción, ni un thriller, ni un documental. Ninguna de las películas que intentó ser. <strong>Tienes que verla para saber qué es.</strong></p>
-      <br>
-      <p>"Bienvenido al infinito": un lugar donde se pueden imaginar películas diferentes.</p>
-      <p class="sinopsis-firma">Samuel Astorga Artigas.</p>
-    </div>
+<!-- ══════ DATOS -->
+<section id="datos">
+  <p class="section-label c">// DATOS DUROS</p>
+  <div class="datos-grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">
+    <div class="dato"><div class="dato-n" style="color:var(--verde)">400</div><div class="dato-l">ERRORES</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--amarillo)">13</div><div class="dato-l">AÑOS DE PRODUCCIÓN</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--frambuesa)">79</div><div class="dato-l">MINUTOS</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--naranja);font-size:clamp(2rem,6vw,4rem)">∞</div><div class="dato-l">CORTES</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--cyan)">1</div><div class="dato-l">MALETÍN VACÍO</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--amarillo)">5</div><div class="dato-l">USD</div></div>
   </div>
 </section>
 
@@ -799,29 +760,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- ══════ ERRORES -->
-<section id="errores">
-  <div class="errores-eyebrow">// LOS 400 ERRORES</div>
-
-  <p class="errores-parrafo">
-    <span class="err-num">1.</span> Mala dirección<span class="err-sep">/</span><span class="err-num">3.</span> Actores amateurs<span class="err-sep">/</span><span class="err-num">12.</span> Película pretenciosa<span class="err-sep">/</span><span class="err-num">41.</span> Sin viaje del héroe<span class="err-sep">/</span><span class="err-num">57.</span> No tiene tres actos<span class="err-sep">/</span><span class="err-num">73.</span> Rompe la cuarta pared<span class="err-sep">/</span><span class="err-num">87.</span> El protagonista escupe a la cámara<span class="err-sep">/</span><span class="err-num">93.</span> Se ríe del público<span class="err-sep">/</span><span class="err-num">108.</span> Vanguardista light<span class="err-sep">/</span><span class="err-num">201.</span> Producción pobre<span class="err-sep">/</span><span class="err-num">305.</span> Sin sonidista<span class="err-sep">/</span><span class="err-num">389.</span> Imagen quemada<span class="err-sep">/</span><span class="err-num">400.</span> Sobran 7 minutos
-  </p>
-
-  <div class="errores-cierre">
-    <p class="errores-cierre-sub" style="font-size:clamp(.85rem,1.6vw,1.1rem);opacity:1;letter-spacing:.15em;color:var(--amarillo);text-shadow:2px 2px 0 #000;">Si esto te molesta, no me mires.<br>Si te da curiosidad, ya empezaste a verme.</p>
-  </div>
-</section>
-
-<!-- ══════ DATOS -->
-<section id="datos">
-  <p class="section-label c">// DATOS DUROS</p>
-  <div class="datos-grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">
-    <div class="dato"><div class="dato-n" style="color:var(--verde)">400</div><div class="dato-l">ERRORES</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--amarillo)">13</div><div class="dato-l">AÑOS DE PRODUCCIÓN</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--frambuesa)">79</div><div class="dato-l">MINUTOS</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--naranja);font-size:clamp(2rem,6vw,4rem)">∞</div><div class="dato-l">CORTES</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--cyan)">1</div><div class="dato-l">MALETÍN VACÍO</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--amarillo)">5</div><div class="dato-l">USD</div></div>
+<!-- ══════ SINOPSIS / EL DIRECTOR HABLA -->
+<section id="sinopsis">
+  <div class="sinopsis-grid">
+    <div><p class="sinopsis-label">// EL DIRECTOR<br>HABLA.</p></div>
+    <div class="sinopsis-text">
+      <p>Escribí un guión original. Al tercer día de rodaje entendí que no iba a ser capaz de filmarlo como había imaginado.</p>
+      <p>Éramos un equipo de aficionados. No había dinero. La producción era deficiente. Mi actuación era mala. Mi dirección errática. <strong>Pero nunca abandoné la película.</strong></p>
+      <p>Durante trece años seguí filmando, montando, reescribiendo, probando, mostrándola y fracasando. La volví a editar una y otra vez, hasta encontrar la película que realmente estaba intentando hacer.</p>
+      <p>Los 400 Errores no es una ficción, ni un thriller, ni un documental. Ninguna de las películas que intentó ser. <strong>Tienes que verla para saber qué es.</strong></p>
+      <br>
+      <p>"Bienvenido al infinito": un lugar donde se pueden imaginar películas diferentes.</p>
+      <p class="sinopsis-firma">Samuel Astorga Artigas.</p>
+    </div>
   </div>
 </section>
 
