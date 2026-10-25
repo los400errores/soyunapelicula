@@ -324,7 +324,7 @@ section {
 /* ══════════════════════════════ INTENTA */
 #intenta {
   background:var(--amarillo);
-  padding:1.8rem 0; overflow:hidden;
+  padding:1.2rem 0; overflow:hidden;
 }
 .intenta-scroll {
   display:flex; align-items:baseline; gap:0;
@@ -367,7 +367,7 @@ section {
 .sinopsis-text p {
   font-family:var(--mono);
   font-size:clamp(.78rem,1.3vw,.95rem);
-  line-height:2; color:var(--blanco); opacity:.7; margin-bottom:1.5rem;
+  line-height:2; color:var(--blanco); opacity:1; margin-bottom:1.5rem;
 }
 .sinopsis-text p strong { color:var(--amarillo); font-weight:normal; }
 .sinopsis-firma {
@@ -433,7 +433,7 @@ section {
 .cta-muestra-nota {
   font-family:var(--mono); font-size:.48rem;
   letter-spacing:.22em; text-transform:uppercase;
-  color:var(--verde); opacity:.25;
+  color:var(--verde); opacity:.7;
 }
 
 /* ACCIONES */
@@ -488,7 +488,7 @@ section {
   margin-top:3rem; max-width:560px;
   font-family:var(--mono); font-size:.58rem;
   letter-spacing:.18em; text-transform:uppercase;
-  color:var(--blanco); opacity:.15; line-height:2;
+  color:var(--blanco); opacity:.65; line-height:2;
   border-top:1px solid #1a1a1a; padding-top:1.5rem;
 }
 
@@ -733,6 +733,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- ══════ DATOS -->
+<section id="datos">
+  <p class="section-label c">// DATOS DUROS</p>
+  <div class="datos-grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">
+    <div class="dato"><div class="dato-n" style="color:var(--verde)">400</div><div class="dato-l">ERRORES</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--amarillo)">13</div><div class="dato-l">AÑOS DE PRODUCCIÓN</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--frambuesa)">79</div><div class="dato-l">MINUTOS</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--naranja);font-size:clamp(2rem,6vw,4rem)">∞</div><div class="dato-l">CORTES</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--cyan)">1</div><div class="dato-l">MALETÍN VACÍO</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--amarillo)">5</div><div class="dato-l">USD</div></div>
+  </div>
+</section>
+
 <!-- ══════ INTENTA -->
 <section id="intenta">
   <div class="intenta-scroll" aria-hidden="true">
@@ -760,19 +773,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span class="intenta-sep">·</span>
     <a href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="intenta-word err" style="text-decoration:none;">MÍRAME</a>
     <span class="intenta-sep">·</span>
-  </div>
-</section>
-
-<!-- ══════ DATOS -->
-<section id="datos">
-  <p class="section-label c">// DATOS DUROS</p>
-  <div class="datos-grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">
-    <div class="dato"><div class="dato-n" style="color:var(--verde)">400</div><div class="dato-l">ERRORES</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--amarillo)">13</div><div class="dato-l">AÑOS DE PRODUCCIÓN</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--frambuesa)">79</div><div class="dato-l">MINUTOS</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--naranja);font-size:clamp(2rem,6vw,4rem)">∞</div><div class="dato-l">CORTES</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--cyan)">1</div><div class="dato-l">MALETÍN VACÍO</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--amarillo)">5</div><div class="dato-l">USD</div></div>
   </div>
 </section>
 
