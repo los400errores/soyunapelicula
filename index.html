@@ -261,37 +261,6 @@ section {
 .habla-line.or     { color:var(--naranja); }
 .habla-line.vi     { color:var(--violeta, #9B00D4); }
 
-/* ══════════════════════════════ CUALQUIER VIDEO */
-#cualquier {
-  position:relative; overflow:hidden;
-  min-height:70vh; display:flex; align-items:center; justify-content:center;
-  padding:0;
-}
-.cv-bg {
-  position:absolute; inset:0;
-  background:var(--negro);
-  /* FOTO: cuando tengas la imagen:
-  background-image:url('hero_cualquier.jpg');
-  background-size:cover; background-position:center;
-  filter:brightness(.25) contrast(1.4) saturate(.6); */
-}
-.cv-content {
-  position:relative; z-index:2; text-align:center;
-  padding:clamp(3rem,8vw,6rem) clamp(1.5rem,6vw,5rem);
-}
-.cv-line1 {
-  font-family:var(--display);
-  font-size:clamp(2.5rem,8vw,8rem);
-  text-transform:uppercase; color:var(--azul);
-  letter-spacing:.01em; line-height:.9; display:block;
-}
-.cv-line2 {
-  font-family:var(--display);
-  font-size:clamp(2.5rem,8vw,8rem);
-  text-transform:uppercase; color:var(--rojo);
-  letter-spacing:.12em; line-height:.9; display:block; margin-top:.08em;
-}
-
 /* ══════════════════════════════ TRAILER */
 #trailer {
   border-top:1px solid #111;
@@ -332,74 +301,26 @@ section {
 }
 .play-btn::after { content:'▶'; font-size:1.8rem; color:var(--verde); transform:skewX(4deg); }
 .play-btn:hover { border-color:var(--amarillo); transform:skewX(-4deg) scale(1.05); }
-.play-btn:hover::after { color:var(--amarillo); }/* ══════════════════════════════ PLATAFORMAS */
-#plataformas {
-  border-top:4px solid var(--amarillo);
+.play-btn:hover::after { color:var(--amarillo); }
+/* ══════════════════════════════ MINI CTA */
+.mini-cta {
+  border-top:1px solid #111; padding:1.8rem clamp(1.5rem,6vw,5rem);
+  display:flex; align-items:center; gap:2rem; flex-wrap:wrap;
+  position:relative; z-index:1;
 }
-.plat-header {
-  display:flex; align-items:baseline; gap:2rem;
-  margin-bottom:.5rem; flex-wrap:wrap;
+.mini-cta-txt {
+  font-family:var(--mono); font-size:.58rem;
+  letter-spacing:.22em; text-transform:uppercase;
+  color:var(--blanco); opacity:.35;
 }
-.plat-h1 {
-  font-family:var(--display);
-  font-size:clamp(3rem,8vw,7rem);
-  text-transform:uppercase; color:var(--blanco);
-  line-height:.9; letter-spacing:.01em;
+.mini-cta-btn {
+  font-family:var(--display); font-size:1rem;
+  text-transform:uppercase; letter-spacing:.08em;
+  color:var(--negro); background:var(--amarillo);
+  padding:.5rem 1.4rem; text-decoration:none;
+  transition:background .2s,color .2s;
 }
-.plat-price {
-  font-family:var(--display);
-  font-size:clamp(2rem,5vw,4.5rem);
-  color:var(--amarillo); letter-spacing:.01em;
-}
-.plat-price small {
-  font-size:.5em; opacity:.6; letter-spacing:.05em;
-}
-.plat-sub {
-  font-size:.6rem; letter-spacing:.3em; text-transform:uppercase;
-  color:var(--blanco); opacity:.28; margin-bottom:3rem;
-}
-.plat-grid {
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
-  gap:2px; max-width:1100px;
-}
-.plat-card {
-  display:flex; flex-direction:column; justify-content:space-between;
-  padding:1.4rem 1.5rem;
-  border:1px solid #1c1c1c; text-decoration:none;
-  background:transparent; position:relative; overflow:hidden;
-  transition:background .15s,border-color .15s;
-}
-.plat-card::before {
-  content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
-  background:var(--ac,var(--amarillo));
-  transform:scaleY(0); transform-origin:bottom; transition:transform .2s;
-}
-.plat-card:hover { background:rgba(255,255,255,.02); border-color:var(--ac,var(--amarillo)); }
-.plat-card:hover::before { transform:scaleY(1); }
-.plat-card.featured {
-  border-color:var(--amarillo); background:rgba(255,236,0,.04);
-  grid-column:span 2;
-}
-.plat-card.featured::before { transform:scaleY(1); }
-.plat-name {
-  font-family:var(--display); font-size:1.4rem;
-  text-transform:uppercase; letter-spacing:.04em; color:var(--blanco);
-  margin-bottom:.3rem;
-}
-.plat-card.featured .plat-name { font-size:2rem; color:var(--amarillo); }
-.plat-tipo {
-  font-size:.55rem; letter-spacing:.25em; text-transform:uppercase;
-  opacity:.3; color:var(--blanco);
-}
-.plat-arrow {
-  font-size:.8rem; color:var(--ac,var(--amarillo));
-  margin-top:1.2rem; opacity:0;
-  transition:opacity .15s,transform .15s; transform:translateX(-4px);
-}
-.plat-card.featured .plat-arrow { opacity:1; transform:translateX(0); }
-.plat-card:hover .plat-arrow { opacity:1; transform:translateX(0); }
-
+.mini-cta-btn:hover { background:var(--frambuesa); color:#fff; }
 /* ══════════════════════════════ INTENTA */
 #intenta {
   background:var(--amarillo);
@@ -455,6 +376,158 @@ section {
   letter-spacing:.1em; margin-top:.5rem;
 }
 
+/* ══════════════════════════════ CTA */
+#cta {
+  position:relative; z-index:1;
+  background:var(--negro);
+  padding:clamp(5rem,10vw,8rem) clamp(1.5rem,6vw,5rem);
+  border-top:1px solid #1a1a1a;
+  overflow:hidden;
+}
+#cta::before {
+  content:''; position:absolute;
+  left:0; top:0; bottom:0; width:3px;
+  background:var(--amarillo); opacity:.15;
+}
+.cta-declaracion-num {
+  font-family:var(--mono); font-size:.52rem;
+  letter-spacing:.3em; text-transform:uppercase;
+  color:var(--amarillo); opacity:.6; margin-bottom:1.2rem;
+}
+.cta-declaracion-txt {
+  font-family:var(--display);
+  font-size:clamp(3.5rem,10vw,9rem);
+  line-height:.9; text-transform:uppercase;
+  color:var(--blanco); max-width:900px;
+  margin-bottom:.5rem; font-weight:400; letter-spacing:.01em;
+}
+.cta-declaracion-txt em { font-style:normal; color:var(--amarillo); display:block; }
+
+/* MUESTRA */
+.cta-muestra-bloque {
+  margin-top:.4rem; margin-bottom:3rem;
+  max-width:560px;
+}
+.cta-muestra-label {
+  font-family:var(--display);
+  font-size:clamp(2rem,4.5vw,3.8rem);
+  line-height:.92; text-transform:uppercase;
+  color:var(--verde); margin-bottom:.7rem; font-weight:400;
+  letter-spacing:.02em;
+}
+.cta-muestra-sub {
+  font-family:var(--mono); font-size:.7rem;
+  letter-spacing:.2em; text-transform:uppercase;
+  color:var(--blanco); opacity:.45;
+  margin-bottom:1.4rem;
+}
+.cta-muestra-player {
+  width:100%; max-width:560px;
+  aspect-ratio:16/9; background:#000;
+  border:1px solid #1c1c1c;
+  overflow:hidden; margin-bottom:.7rem;
+}
+.cta-muestra-player iframe {
+  width:100%; height:100%; border:none; display:block;
+}
+.cta-muestra-nota {
+  font-family:var(--mono); font-size:.48rem;
+  letter-spacing:.22em; text-transform:uppercase;
+  color:var(--verde); opacity:.25;
+}
+
+/* ACCIONES */
+.cta-acciones {
+  display:flex; flex-direction:column; gap:1.5rem; max-width:560px;
+}
+.cta-btn-encender {
+  display:inline-flex; align-items:center;
+  justify-content:space-between; gap:2rem;
+  background:var(--amarillo); color:var(--negro);
+  font-family:var(--display);
+  font-size:clamp(1.5rem,3vw,2.2rem);
+  text-transform:uppercase; letter-spacing:.05em;
+  padding:1.2rem 2.5rem; text-decoration:none;
+  cursor:pointer; position:relative; overflow:hidden;
+  transition:color .15s; width:100%;
+}
+.cta-btn-encender::after {
+  content:''; position:absolute; inset:0;
+  background:var(--frambuesa);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .3s; z-index:0;
+}
+.cta-btn-encender:hover::after { transform:scaleX(1); }
+.cta-btn-encender:hover { color:#fff; }
+.cta-btn-encender span { position:relative; z-index:1; }
+.cta-btn-precio {
+  position:relative; z-index:1;
+  font-family:var(--mono); font-size:.65rem;
+  letter-spacing:.2em; opacity:.6;
+}
+.cta-plataformas-mini {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:.6rem; max-width:560px;
+}
+.cta-plat-link {
+  font-family:var(--display);
+  font-size:clamp(.9rem,1.8vw,1.2rem);
+  letter-spacing:.06em; text-transform:uppercase;
+  color:var(--negro); text-decoration:none;
+  padding:.6rem .8rem; text-align:center;
+  transition:opacity .2s, transform .15s;
+  display:block;
+}
+.cta-plat-link:hover { opacity:.85; transform:translateY(-2px); }
+.cta-plat-link.kofi    { background:var(--amarillo); }
+.cta-plat-link.patreon { background:var(--frambuesa); color:#fff; }
+.cta-plat-link.hotmart { background:var(--naranja); }
+.cta-plat-link.gumroad { background:var(--verde); }
+.cta-nota-final {
+  margin-top:3rem; max-width:560px;
+  font-family:var(--mono); font-size:.58rem;
+  letter-spacing:.18em; text-transform:uppercase;
+  color:var(--blanco); opacity:.15; line-height:2;
+  border-top:1px solid #1a1a1a; padding-top:1.5rem;
+}
+
+/* ══════════════════════════════ ERRORES */
+#errores {
+  position:relative; z-index:1;
+  background:var(--negro);
+  padding:clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,5rem);
+  border-top:4px solid var(--amarillo);
+}
+.errores-eyebrow {
+  font-family:var(--mono); font-size:.85rem;
+  letter-spacing:.32em; text-transform:uppercase;
+  color:var(--amarillo); opacity:.85; margin-bottom:2rem;
+  text-shadow:2px 2px 0 #000;
+}
+.errores-parrafo {
+  max-width:900px;
+  font-family:var(--mono);
+  font-size:clamp(.95rem,1.4vw,1.05rem);
+  line-height:2;
+  color:var(--amarillo); opacity:.92;
+  margin-bottom:3.5rem;
+  text-shadow:1px 1px 0 #000;
+}
+.err-num { font-size:.78em; opacity:.6; margin-right:.3em; letter-spacing:.05em; }
+.err-sep { opacity:.35; margin:0 .6em; }
+.errores-cierre {
+  max-width:900px;
+  border-top:1px solid rgba(255,236,0,.12);
+  padding-top:2.5rem;
+}
+.errores-cierre-sub {
+  font-family:var(--mono); font-size:.88rem;
+  letter-spacing:.2em; line-height:1.8; text-transform:uppercase;
+  color:var(--amarillo); opacity:.75;
+  text-shadow:1px 1px 0 #000;
+}
+
 /* ══════════════════════════════ DATOS */
 #datos { border-top:1px solid #1a1a1a; }
 .datos-grid {
@@ -473,137 +546,15 @@ section {
 }
 .dato-l { font-size:.55rem; letter-spacing:.28em; text-transform:uppercase; opacity:.3; }
 
-/* ══════════════════════════════ GALERÍA */
-#galeria { border-top:1px solid #111; }
-.gal-grid {
-  display:grid;
-  grid-template-columns:1.6fr 1fr 1.2fr;
-  grid-template-rows:auto auto;
-  gap:3px; margin-top:2rem;
-}
-.gal-cell {
-  overflow:hidden; position:relative;
-  min-height:200px;
-  background:var(--negro);
-  border:1px solid #111;
-  display:flex; align-items:center; justify-content:center;
-}
-.gal-cell img {
-  width:100%; height:100%; object-fit:cover; display:block;
-  filter:contrast(1.1) saturate(.95);
-  transition:filter .4s,transform .4s;
-}
-.gal-cell:hover img { filter:contrast(1.3) saturate(1.3); transform:scale(1.02); }
-.gal-cell.span2 { grid-column:span 2; }
-.gal-cell.tall  { grid-row:span 2; }
-.gal-label {
-  position:absolute; bottom:0; left:0; right:0;
-  padding:.6rem .8rem;
-  background:linear-gradient(transparent,rgba(0,0,0,.8));
-  font-family:var(--mono); font-size:.55rem;
-  letter-spacing:.25em; text-transform:uppercase;
-  opacity:0; transition:opacity .3s;
-}
-.gal-cell:hover .gal-label { opacity:1; }
-/* placeholder visual */
-.gal-ph {
-  font-family:var(--display);
-  font-size:clamp(1rem,2vw,2rem);
-  color:var(--verde); opacity:.08; text-transform:uppercase;
-}
-
-/* ══════════════════════════════ TRAILER 2 */
-#trailer2 { border-top:1px solid #1a1a1a; align-items:flex-start; }
-
 /* ══════════════════════════════ MANIFIESTO */
 #manifiesto {
   background:var(--azul);
   padding:7rem clamp(1.5rem,6vw,5rem);
 }
-.manifiesto-eyebrow {
-  font-family:var(--mono); font-size:.6rem;
-  letter-spacing:.38em; text-transform:uppercase;
-  color:rgba(255,255,255,.5); margin-bottom:3rem;
-}
 .manifiesto-columnas {
   display:grid; grid-template-columns:1fr 1fr;
   gap:4rem; align-items:start;
 }
-.manifiesto-frase-grande {
-  font-family:var(--display);
-  font-size:clamp(3rem,7vw,6rem);
-  line-height:.92; text-transform:uppercase;
-  color:var(--blanco); margin-bottom:2.5rem;
-}
-.manifiesto-frase-grande em { font-style:normal; color:var(--amarillo); }
-.manifiesto-cita {
-  font-family:var(--mono);
-  font-size:clamp(.78rem,1.3vw,.95rem);
-  line-height:2.1; color:var(--blanco); opacity:.7;
-  border-left:2px solid var(--verde); padding-left:1.5rem;
-}
-.manifiesto-cita span { color:var(--amarillo); opacity:1; }
-.manifiesto-item {
-  padding:1.5rem 0; border-bottom:1px solid rgba(255,255,255,.1);
-}
-.manifiesto-num {
-  font-family:var(--mono); font-size:.58rem;
-  letter-spacing:.3em; text-transform:uppercase;
-  color:var(--amarillo); margin-bottom:.6rem;
-}
-.manifiesto-declaracion {
-  font-family:var(--display);
-  font-size:clamp(1.2rem,2.5vw,2rem);
-  text-transform:uppercase; color:var(--blanco); line-height:1.2;
-}
-
-/* ══════════════════════════════ CTA */
-#cta {
-  min-height:80svh; justify-content:center;
-  align-items:flex-start; border-top:1px solid #1a1a1a;
-}
-.cta-pre {
-  font-family:var(--mono); font-size:.62rem;
-  letter-spacing:.35em; text-transform:uppercase;
-  color:var(--cyan); margin-bottom:2rem;
-}
-.cta-phrase {
-  font-family:var(--display);
-  font-size:clamp(2.5rem,8vw,7rem);
-  line-height:1; text-transform:uppercase;
-  color:var(--blanco); max-width:800px; margin-bottom:1rem;
-}
-.cta-phrase em { font-style:normal; color:var(--magenta); }
-.cta-elige {
-  font-family:var(--mono); font-size:.62rem;
-  letter-spacing:.3em; text-transform:uppercase;
-  color:var(--blanco); opacity:.3; margin-bottom:3rem;
-}
-.btn-principal {
-  display:inline-flex; align-items:center; gap:1rem;
-  background:var(--amarillo); color:var(--negro);
-  font-family:var(--display);
-  font-size:clamp(1.2rem,2.5vw,1.8rem);
-  text-transform:uppercase; letter-spacing:.05em;
-  padding:1.1rem 2.5rem; text-decoration:none;
-  cursor:pointer; position:relative; overflow:hidden;
-  transition:background .15s,transform .1s,color .15s;
-}
-.btn-principal::after {
-  content:''; position:absolute; inset:0;
-  background:var(--magenta);
-  transform:scaleX(0); transform-origin:left;
-  transition:transform .3s; z-index:0;
-}
-.btn-principal:hover::after { transform:scaleX(1); }
-.btn-principal:hover { color:#fff; }
-.btn-principal span { position:relative; z-index:1; }
-.precio-nota {
-  margin-top:1.5rem; font-family:var(--mono);
-  font-size:.6rem; letter-spacing:.2em; text-transform:uppercase;
-  color:var(--blanco); opacity:.2; max-width:500px; line-height:1.8;
-}
-
 /* ══════════════════════════════ TICKER PLATAFORMAS */
 .plat-ticker {
   overflow:hidden; background:var(--negro);
@@ -682,92 +633,36 @@ footer {
   *,*::before,*::after { animation:none!important; transition:none!important; }
 }
 
-    /* ── CTA YA ME ESTÁS VIENDO ── */
-    .cta-declaracion {
-      font-family: 'Bebas Neue', sans-serif;
-      font-size: clamp(3rem,10vw,9rem);
-      line-height: 0.95;
-      text-transform: uppercase;
-      color: var(--blanco);
-      max-width: 900px;
-      margin-bottom: 0;
-      font-weight: 400;
-      letter-spacing: 0.01em;
-    }
-    .cta-declaracion em { font-style:normal; color:var(--amarillo); display:block; }
-
-    .cta-gratis {
-      width:100%; max-width:900px; margin-top:3.5rem;
-      border:1px solid rgba(0,255,65,0.2);
-      background:rgba(0,255,65,0.03);
-    }
-    .cta-gratis-head {
-      padding:1.5rem 2rem;
-      border-bottom:1px solid rgba(0,255,65,0.15);
-      display:flex; justify-content:space-between;
-      align-items:center; flex-wrap:wrap; gap:.5rem;
-    }
-    .cta-gratis-label {
-      font-family:var(--mono); font-size:.6rem;
-      letter-spacing:.4em; text-transform:uppercase; color:var(--verde);
-    }
-    .cta-gratis-badge {
-      font-family:var(--mono); font-size:.55rem;
-      letter-spacing:.3em; text-transform:uppercase;
-      color:var(--negro); background:var(--verde); padding:.3rem .8rem;
-    }
-    .cta-gratis-player {
-      width:100%; aspect-ratio:16/9;
-      background:#000; position:relative; overflow:hidden;
-    }
-    .cta-gratis-player iframe { width:100%; height:100%; border:none; display:block; }
-    .cta-gratis-placeholder {
-      width:100%; height:100%;
-      display:flex; flex-direction:column;
-      align-items:center; justify-content:center;
-      gap:1.2rem; cursor:pointer;
-    }
-    .cta-gratis-play {
-      width:72px; height:72px;
-      border:2px solid var(--verde);
-      display:flex; align-items:center; justify-content:center;
-      transition:background .2s;
-    }
-    .cta-gratis-play:hover { background:rgba(0,255,65,0.1); }
-    .cta-gratis-play svg { fill:var(--verde); width:28px; height:28px; margin-left:4px; }
-    .cta-gratis-txt {
-      font-family:var(--display);
-      font-size:clamp(1rem,2vw,1.5rem);
-      text-transform:uppercase; color:var(--blanco);
-      opacity:.4; letter-spacing:.05em;
-    }
-    .cta-gratis-foot {
-      padding:1.2rem 2rem;
-      border-top:1px solid rgba(0,255,65,0.1);
-      display:flex; justify-content:space-between;
-      align-items:center; flex-wrap:wrap; gap:1rem;
-    }
-    .cta-gratis-nota {
-      font-family:var(--mono); font-size:.58rem;
-      letter-spacing:.2em; text-transform:uppercase;
-      color:var(--blanco); opacity:.2;
-    }
-    .cta-divisor {
-      width:100%; max-width:900px;
-      margin:2.5rem 0;
-      display:flex; align-items:center; gap:1.5rem;
-    }
-    .cta-divisor-line { flex:1; height:1px; background:#1f1f1f; }
-    .cta-divisor-txt {
-      font-family:var(--mono); font-size:.55rem;
-      letter-spacing:.35em; text-transform:uppercase;
-      color:var(--blanco); opacity:.2; white-space:nowrap;
-    }
-    .cta-pago { display:flex; flex-wrap:wrap; gap:1rem; align-items:center; max-width:900px; }
-    @media(max-width:600px){
-      .cta-gratis-head { flex-direction:column; align-items:flex-start; }
-      .cta-divisor-txt { display:none; }
-    }
+/* ══════════════════════════════ FLOAT CTA */
+#float-cta {
+  position:fixed; bottom:1.8rem; right:1.8rem; z-index:9000;
+  opacity:0; transform:translateY(8px);
+  transition:opacity .4s, transform .4s;
+  pointer-events:none;
+}
+#float-cta.vis { opacity:1; transform:translateY(0); pointer-events:auto; }
+.float-cta-link {
+  display:flex; align-items:center; gap:1rem;
+  background:var(--amarillo); color:var(--negro);
+  font-family:var(--display); font-size:1.1rem;
+  text-transform:uppercase; letter-spacing:.06em;
+  padding:.75rem 1.4rem; text-decoration:none;
+  position:relative; overflow:hidden;
+}
+.float-cta-link::after {
+  content:''; position:absolute; inset:0;
+  background:var(--frambuesa);
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .25s; z-index:0;
+}
+.float-cta-link:hover::after { transform:scaleX(1); }
+.float-cta-link:hover { color:#fff; }
+.float-cta-link span { position:relative; z-index:1; }
+.float-cta-price {
+  position:relative; z-index:1;
+  font-family:var(--mono); font-size:.5rem;
+  letter-spacing:.2em; opacity:.65;
+}
 </style>
 </head>
 <body>
@@ -843,75 +738,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- ══════ INTENTA -->
-<section id="intenta">
-  <div class="intenta-scroll" aria-hidden="true">
-    <span class="intenta-word">ESTOY EN TU BOLSILLO</span>
-    <span class="intenta-sep">·</span>
-    <span class="intenta-word">ESTOY EN TU CHAQUETA</span>
-    <span class="intenta-sep">·</span>
-    <span class="intenta-word">ESTOY EN TU CARTERA</span>
-    <span class="intenta-sep">·</span>
-    <span class="intenta-word">ESTOY EN TU BOLSILLO</span>
-    <span class="intenta-sep">·</span>
-    <span class="intenta-word">ESTOY EN TU CHAQUETA</span>
-    <span class="intenta-sep">·</span>
-    <span class="intenta-word">ESTOY EN TU CARTERA</span>
-    <span class="intenta-sep">·</span>
-  </div>
-</section>
-
-
-<!-- ══════ PLATAFORMAS -->
-<section id="plataformas">
-  <div class="plat-header">
-    <h2 class="plat-h1">VER LA<br>PELÍCULA</h2>
-    <span class="plat-price">USD 5 <small>+ imp.</small></span>
-  </div>
-  <p class="plat-sub">ELIGE TU PLATAFORMA · ACCESO COMPLETO · 79 MIN</p>
-  <div class="plat-grid">
-    <a href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="plat-card featured" style="--ac:var(--playhead)">
-      <div><div class="plat-name">KO-FI</div><div class="plat-tipo">APOYO DIRECTO</div></div>
-      <div class="plat-arrow">→ VER AHORA</div>
-    </a>
-    <a href="https://www.patreon.com/Los400Errores/posts/los-400-errores-172594546" target="_blank" rel="noopener" class="plat-card" style="--ac:var(--ambar)">
-      <div><div class="plat-name">PATREON</div><div class="plat-tipo">COMUNIDAD · ARCHIVO</div></div>
-      <div class="plat-arrow">→</div>
-    </a>
-    <a href="https://los400errores.gumroad.com/l/soyunapelicula" target="_blank" rel="noopener" class="plat-card" style="--ac:var(--verde)">
-      <div><div class="plat-name">GUMROAD</div><div class="plat-tipo">PAGO DIRECTO · VOD</div></div>
-      <div class="plat-arrow">→</div>
-    </a>
-    <a href="https://go.hotmart.com/E108008409K" target="_blank" rel="noopener" class="plat-card" style="--ac:var(--naranja)">
-      <div><div class="plat-name">HOTMART</div><div class="plat-tipo">PAGO ONLINE</div></div>
-      <div class="plat-arrow">→</div>
-    </a>
-  </div>
-</section>
-
-<!-- ══════ DATOS -->
-<section id="datos">
-  <p class="section-label c">// DATOS DUROS</p>
-  <div class="datos-grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">
-    <div class="dato"><div class="dato-n" style="color:var(--verde)">400</div><div class="dato-l">ERRORES</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--amarillo)">13</div><div class="dato-l">AÑOS DE PRODUCCIÓN</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--frambuesa)">79</div><div class="dato-l">MINUTOS</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--naranja);font-size:clamp(2rem,6vw,4rem)">∞</div><div class="dato-l">CORTES</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--cyan)">1</div><div class="dato-l">MALETÍN VACÍO</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--amarillo)">5</div><div class="dato-l">USD</div></div>
-  </div>
-</section>
-
-<!-- ══════ ESTOY VIVA -->
-<section id="trailer-estoy-viva">
-  <p class="section-label y">// ESTOY VIVA</p>
-  <div class="video-shell">
-    <iframe src="https://www.youtube.com/embed/twjxBIJ0Mko?rel=0&color=white" allowfullscreen allow="autoplay; fullscreen" style="width:100%;height:100%;border:none;display:block;"></iframe>
-  </div>
-</section>
+<!-- ══════ MINI CTA -->
+<div class="mini-cta">
+  <span class="mini-cta-txt">USD 5 · Acceso permanente · Sin suscripción</span>
+  <a href="https://los400errores.gumroad.com/l/soyunapelicula"
+     target="_blank" rel="noopener" class="mini-cta-btn">Mírame</a>
+</div>
 
 <!-- ══════ SINOPSIS / EL DIRECTOR HABLA -->
-
 <section id="sinopsis">
   <div class="sinopsis-grid">
     <div><p class="sinopsis-label">// EL DIRECTOR<br>HABLA.</p></div>
@@ -927,7 +761,69 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- ══════ ESTOY VIVA -->
+<section id="trailer-estoy-viva">
+  <p class="section-label y">// ESTOY VIVA</p>
+  <div class="video-shell">
+    <iframe src="https://www.youtube.com/embed/twjxBIJ0Mko?rel=0&color=white" allowfullscreen allow="autoplay; fullscreen" style="width:100%;height:100%;border:none;display:block;"></iframe>
+  </div>
+</section>
 
+<!-- ══════ INTENTA -->
+<section id="intenta">
+  <div class="intenta-scroll" aria-hidden="true">
+    <span class="intenta-word">ESTOY EN TU BOLSILLO</span>
+    <span class="intenta-sep">·</span>
+    <a href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="intenta-word err" style="text-decoration:none;">MÍRAME</a>
+    <span class="intenta-sep">·</span>
+    <span class="intenta-word">ESTOY EN TU CHAQUETA</span>
+    <span class="intenta-sep">·</span>
+    <a href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="intenta-word err" style="text-decoration:none;">MÍRAME</a>
+    <span class="intenta-sep">·</span>
+    <span class="intenta-word">ESTOY EN TU CARTERA</span>
+    <span class="intenta-sep">·</span>
+    <a href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="intenta-word err" style="text-decoration:none;">MÍRAME</a>
+    <span class="intenta-sep">·</span>
+    <span class="intenta-word">ESTOY EN TU BOLSILLO</span>
+    <span class="intenta-sep">·</span>
+    <a href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="intenta-word err" style="text-decoration:none;">MÍRAME</a>
+    <span class="intenta-sep">·</span>
+    <span class="intenta-word">ESTOY EN TU CHAQUETA</span>
+    <span class="intenta-sep">·</span>
+    <a href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="intenta-word err" style="text-decoration:none;">MÍRAME</a>
+    <span class="intenta-sep">·</span>
+    <span class="intenta-word">ESTOY EN TU CARTERA</span>
+    <span class="intenta-sep">·</span>
+    <a href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="intenta-word err" style="text-decoration:none;">MÍRAME</a>
+    <span class="intenta-sep">·</span>
+  </div>
+</section>
+
+<!-- ══════ ERRORES -->
+<section id="errores">
+  <div class="errores-eyebrow">// LOS 400 ERRORES</div>
+
+  <p class="errores-parrafo">
+    <span class="err-num">1.</span> Mala dirección<span class="err-sep">/</span><span class="err-num">3.</span> Actores amateurs<span class="err-sep">/</span><span class="err-num">12.</span> Película pretenciosa<span class="err-sep">/</span><span class="err-num">41.</span> Sin viaje del héroe<span class="err-sep">/</span><span class="err-num">57.</span> No tiene tres actos<span class="err-sep">/</span><span class="err-num">73.</span> Rompe la cuarta pared<span class="err-sep">/</span><span class="err-num">87.</span> El protagonista escupe a la cámara<span class="err-sep">/</span><span class="err-num">93.</span> Se ríe del público<span class="err-sep">/</span><span class="err-num">108.</span> Vanguardista light<span class="err-sep">/</span><span class="err-num">201.</span> Producción pobre<span class="err-sep">/</span><span class="err-num">305.</span> Sin sonidista<span class="err-sep">/</span><span class="err-num">389.</span> Imagen quemada<span class="err-sep">/</span><span class="err-num">400.</span> Sobran 7 minutos
+  </p>
+
+  <div class="errores-cierre">
+    <p class="errores-cierre-sub" style="font-size:clamp(.85rem,1.6vw,1.1rem);opacity:1;letter-spacing:.15em;color:var(--amarillo);text-shadow:2px 2px 0 #000;">Si esto te molesta, no me mires.<br>Si te da curiosidad, ya empezaste a verme.</p>
+  </div>
+</section>
+
+<!-- ══════ DATOS -->
+<section id="datos">
+  <p class="section-label c">// DATOS DUROS</p>
+  <div class="datos-grid" style="grid-template-columns:repeat(auto-fit,minmax(140px,1fr))">
+    <div class="dato"><div class="dato-n" style="color:var(--verde)">400</div><div class="dato-l">ERRORES</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--amarillo)">13</div><div class="dato-l">AÑOS DE PRODUCCIÓN</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--frambuesa)">79</div><div class="dato-l">MINUTOS</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--naranja);font-size:clamp(2rem,6vw,4rem)">∞</div><div class="dato-l">CORTES</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--cyan)">1</div><div class="dato-l">MALETÍN VACÍO</div></div>
+    <div class="dato"><div class="dato-n" style="color:var(--amarillo)">5</div><div class="dato-l">USD</div></div>
+  </div>
+</section>
 
 <!-- ══════ MANIFIESTO -->
 
@@ -996,6 +892,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 </section>
 
+
+<!-- ══════ CTA -->
+<section id="cta">
+  <div class="cta-declaracion-num">DECLARACIÓN / 04</div>
+
+  <h2 class="cta-declaracion-txt">
+    Sin proyector<br>no hay<br><em>película.</em>
+  </h2>
+
+  <div class="cta-muestra-bloque">
+    <p class="cta-muestra-label">// 2 PRIMEROS MINUTOS GRATIS</p>
+    <p class="cta-muestra-sub">Sin registro. Sin promesa.</p>
+    <div class="cta-muestra-player">
+      <iframe
+        src="https://www.youtube.com/embed/G6VqHtK-ZFk?rel=0&modestbranding=1&color=white&controls=1&showinfo=0&iv_load_policy=3"
+        allowfullscreen
+        allow="autoplay; fullscreen">
+      </iframe>
+    </div>
+    <p class="cta-muestra-nota">2 min · acceso completo desde USD 5</p>
+  </div>
+
+  <div class="cta-acciones">
+    <a href="https://los400errores.gumroad.com/l/soyunapelicula"
+       target="_blank" rel="noopener"
+       class="cta-btn-encender">
+      <span>Mírame</span>
+      <span class="cta-btn-precio">USD 5 · Acceso permanente</span>
+    </a>
+
+    <div class="cta-plataformas-mini">
+      <a href="https://ko-fi.com/s/a2c5c5401b"
+         target="_blank" rel="noopener" class="cta-plat-link kofi">Ko-fi</a>
+      <a href="https://www.patreon.com/Los400Errores/posts/los-400-errores-172594546"
+         target="_blank" rel="noopener" class="cta-plat-link patreon">Patreon</a>
+      <a href="https://go.hotmart.com/E108008409K"
+         target="_blank" rel="noopener" class="cta-plat-link hotmart">Hotmart</a>
+      <a href="https://los400errores.gumroad.com/l/soyunapelicula"
+         target="_blank" rel="noopener" class="cta-plat-link gumroad">Gumroad</a>
+    </div>
+  </div>
+
+  <div class="cta-nota-final">
+    Acceso permanente · Sin suscripción · Sin fecha de vencimiento<br>
+    NTA Films · Santiago, Chile · 2026
+  </div>
+</section>
 
 <!-- ══════ TICKER PLATAFORMAS -->
 <div class="plat-ticker" aria-hidden="true">
@@ -1107,6 +1050,28 @@ revealEls.forEach(el=>obs2.observe(el));
 //   hero_ser.jpg, frame_soy.jpg, hero_cualquier.jpg,
 //   mosaic_pixel.jpg, glitch_red.jpg, collage_black.jpg, mosaic_col.jpg,
 //   collage_tiktok.jpg, glitch_corridor.jpg, multi_sky.jpg, sky_four.jpg
+
+// ── FLOAT CTA — init después de que el DOM está listo
+document.addEventListener('DOMContentLoaded', function(){
+  const floatCta = document.getElementById('float-cta');
+  const heroEl   = document.getElementById('hero');
+  if (!floatCta || !heroEl) return;
+  const heroObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) floatCta.classList.add('vis');
+      else floatCta.classList.remove('vis');
+    });
+  }, { threshold: 0.1 });
+  heroObs.observe(heroEl);
+});
 </script>
+
+<div id="float-cta">
+  <a href="https://los400errores.gumroad.com/l/soyunapelicula"
+     target="_blank" rel="noopener" class="float-cta-link">
+    <span>Mírame</span>
+    <span class="float-cta-price">USD 5</span>
+  </a>
+</div>
 </body>
 </html>
