@@ -399,25 +399,6 @@ section {
   border-top:1px solid #1a1a1a; padding-top:1.5rem;
 }
 
-/* ══════════════════════════════ DATOS */
-#datos { border-top:1px solid #1a1a1a; }
-.datos-grid {
-  display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-  gap:2px; max-width:1000px; margin-top:2rem;
-}
-.dato {
-  padding:1.8rem 1.2rem; border:1px solid #1c1c1c;
-  transition:border-color .2s,background .2s;
-}
-.dato:hover { border-color:var(--amarillo); background:rgba(255,236,0,.03); }
-.dato-n {
-  font-family:var(--display);
-  font-size:clamp(2.2rem,4.5vw,3.5rem);
-  line-height:1; margin-bottom:.4rem;
-}
-.dato-l { font-size:.55rem; letter-spacing:.28em; text-transform:uppercase; opacity:.45; }
-.dato.wide { grid-column:span 2; }
-.dato.wide .dato-n { font-size:clamp(1.8rem,3.6vw,3rem); }
 
 /* ══════════════════════════════ ERRORES */
 #errores { border-top:1px solid #1a1a1a; padding:clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,5rem); }
@@ -428,8 +409,8 @@ section {
 }
 .errores-titulo .n400 { font-size:clamp(6rem,17vw,15rem); color:var(--frambuesa); line-height:.8; }
 .errores-lista {
-  font-family:var(--mono); font-size:clamp(.95rem,1.6vw,1.2rem);
-  line-height:2.1; color:#FFFFFF; text-transform:uppercase; letter-spacing:.04em;
+  font-family:var(--mono); font-size:clamp(.72rem,1.15vw,.9rem);
+  line-height:2.2; color:#FFFFFF; text-transform:uppercase; letter-spacing:.04em;
   max-width:1100px; padding-bottom:1.8rem; border-bottom:1px solid #222;
 }
 .errores-lista .n { color:var(--frambuesa); }
@@ -540,9 +521,6 @@ footer {
 @keyframes ticker-rev { from{transform:translateX(-50%)} to{transform:translateX(0)} }
 
 /* ══════════════════════════════ RESPONSIVE */
-@media(max-width:480px) {
-  .dato.wide { grid-column:1 / -1; }
-}
 @media(max-width:768px) {
   .manifiesto-columnas { grid-template-columns:1fr; }
   .sinopsis-grid { grid-template-columns:1fr; }
@@ -709,7 +687,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p class="section-label f">// LOS 400 ERRORES</p>
   <h2 class="errores-titulo">Son <span class="n400">400</span> razones para abandonar.</h2>
   <p class="errores-lista">
-    <span class="n">1.</span> MI DIRECCIÓN ERRÁTICA<span class="sl">/</span><span class="n">3.</span> MI ACTUACIÓN MALA<span class="sl">/</span><span class="n">12.</span> NO TENÍA DINERO<span class="sl">/</span><span class="n">41.</span> NO TIENE TRES ACTOS<span class="sl">/</span><span class="n">57.</span> ROMPE LA CUARTA PARED<span class="sl">/</span><span class="n">73.</span> NO HAY HÉROE NI VIAJE<span class="sl">/</span><span class="n">87.</span> EL PROTAGONISTA ESCUPE A LA CÁMARA<span class="sl">/</span><span class="n">109.</span> SE RÍE DEL PÚBLICO<span class="sl">/</span><span class="n">233.</span> DEMASIADO AVANT GARDE<span class="sl">/</span><span class="n">310.</span> MUY PRETENCIOSA<span class="sl">/</span><span class="n">400.</span> EXCEDEN 7 MINUTOS...
+    <span class="n">1.</span> MI DIRECCIÓN ERRÁTICA<span class="sl">/</span><span class="n">3.</span> MI ACTUACIÓN MALA<span class="sl">/</span><span class="n">12.</span> NO TENÍA DINERO<span class="sl">/</span><span class="n">41.</span> NO TIENE TRES ACTOS<span class="sl">/</span><span class="n">57.</span> ROMPE LA CUARTA PARED<span class="sl">/</span><span class="n">73.</span> NO HAY HÉROE NI VIAJE<span class="sl">/</span><span class="n">87.</span> EL PROTAGONISTA ESCUPE A LA CÁMARA<span class="sl">/</span><span class="n">109.</span> SE RÍE DEL PÚBLICO<span class="sl">/</span><span class="n">233.</span> MUY AVANT GARDE<span class="sl">/</span><span class="n">310.</span> MUY PRETENCIOSA<span class="sl">/</span><span class="n">400.</span> EXCEDEN 7 MINUTOS...
   </p>
   <p class="errores-cierre">Si esto te molesta, no me mires.<br><span>Si te da curiosidad, descubre todos mis errores.</span></p>
 </section>
@@ -805,28 +783,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </section>
 
 
-<!-- ══════ DATOS -->
-<section id="datos">
-  <p class="section-label c">// DATOS DUROS</p>
-  <div class="datos-grid">
-    <div class="dato"><div class="dato-n" style="color:var(--verde)">400</div><div class="dato-l">ERRORES</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--amarillo)">13</div><div class="dato-l">AÑOS DE PRODUCCIÓN</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--frambuesa)">79</div><div class="dato-l">MINUTOS</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--cyan)">1</div><div class="dato-l">MALETÍN VACÍO</div></div>
-    <div class="dato wide"><div class="dato-n" style="color:var(--blanco)">285.628</div><div class="dato-l">FOTOGRAMAS</div></div>
-    <div class="dato wide"><div class="dato-n" style="color:var(--verde)">592.278.220.800</div><div class="dato-l">PÍXELES</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--ambar)">∞</div><div class="dato-l">CORTES</div></div>
-  </div>
-</section>
-
 <!-- ══════ INCLUYE (value stack) -->
 <section id="incluye">
   <p class="section-label y">// INCLUYE</p>
-  <h2 class="stack-head">79 minutos.<br>13 años.<br><em>285.628 fotogramas.</em></h2>
+  <h2 class="stack-head">79 minutos.<br>285.628 fotogramas.<br><em>592.278.220.800 píxeles.</em></h2>
   <ul class="stack-list">
-    <li><span class="n">01</span>Subtítulos.</li>
-    <li><span class="n">02</span>Interpelaciones directas.</li>
-    <li><span class="n">03</span>Faltas de respeto.</li>
+    <li><span class="n">01</span>13 años de producción.</li>
+    <li><span class="n">02</span>Subtítulos en español.</li>
+    <li><span class="n">03</span>Interpelaciones directas.</li>
     <li class="odio"><span class="n">04</span>Sensaciones de odio.</li>
     <li class="amor"><span class="n">05</span>Sentimientos de amor.</li>
     <li><span class="n">06</span>Algunas risas.</li>
