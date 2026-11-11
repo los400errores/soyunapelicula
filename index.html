@@ -88,8 +88,7 @@ section {
 /* ══════════════════════════════ HERO */
 #hero {
   min-height:100svh;
-  align-items:flex-start;
-  padding-top: clamp(4rem,12vw,8rem);
+  padding:0;
   overflow:hidden;
 }
 
@@ -114,7 +113,7 @@ section {
   position:relative; z-index:2;
   display:flex; flex-direction:column; justify-content:flex-end;
   min-height:100svh;
-  padding: clamp(2rem,6vw,5rem);
+  padding: clamp(4rem,10vh,7rem) clamp(1.5rem,6vw,5rem) clamp(4.5rem,11vh,7rem);
 }
 
 .hero-eyebrow {
@@ -133,6 +132,12 @@ section {
   opacity:0; animation:fadeup .8s .4s forwards;
 }
 .hero-title .block { display:block; }
+/* escritorio: título en una sola línea, formato panorámico */
+@media(min-width:900px){
+  .hero-title { font-size:clamp(5rem,13.4vw,13rem); white-space:nowrap; }
+  .hero-title .block { display:inline; }
+  .hero-title .block + .block::before { content:' '; }
+}
 
 /* glitch */
 .glitch { position:relative; display:inline; }
@@ -218,6 +223,27 @@ section {
   position:relative; overflow:hidden;
 }
 .video-shell iframe { width:100%; height:100%; border:none; }
+/* ══════════════════════════════ TÍTULOS DE VIDEO (estilo único) */
+.video-title {
+  font-family:var(--display); font-weight:400;
+  font-size:clamp(1.8rem,3.4vw,2.8rem); line-height:1;
+  text-transform:uppercase; letter-spacing:.04em; margin-bottom:1.3rem;
+}
+.video-sub {
+  font-family:var(--mono); font-size:.62rem; letter-spacing:.25em;
+  text-transform:uppercase; opacity:.5; margin:-.6rem 0 1.3rem;
+}
+#muestra .cta-muestra-player { margin-bottom:2rem; }
+
+/* ══════════════════════════════ HABLA CTA */
+.habla-cta { margin-top:3rem; }
+.habla-garantia {
+  margin-top:1.6rem; font-family:var(--display);
+  font-size:clamp(1.3rem,2.6vw,2.2rem); text-transform:uppercase;
+  letter-spacing:.03em; line-height:1.1; color:var(--blanco);
+}
+@media(min-width:900px){ .habla-garantia { white-space:nowrap; } }
+
 /* ══════════════════════════════ MINI CTA */
 .mini-cta {
   border-top:1px solid #111; padding:1.8rem clamp(1.5rem,6vw,5rem);
@@ -328,7 +354,7 @@ section {
   color:var(--blanco); opacity:.45;
   margin-bottom:1.4rem;
 }
-.cta-muestra-player {
+.cta-muestra-player { margin-top:0;
   width:100%; max-width:960px;
   aspect-ratio:16/9; background:#000;
   border:1px solid #1c1c1c;
@@ -426,6 +452,7 @@ section {
   text-transform:uppercase; color:#FFFFFF; letter-spacing:.02em; line-height:1.15; margin-top:1.8rem;
 }
 .errores-cierre span { color:var(--amarillo); }
+@media(min-width:900px){ .errores-cierre { white-space:nowrap; } }
 
 /* ══════════════════════════════ INCLUYE (value stack) */
 #incluye { border-top:1px solid #1a1a1a; }
@@ -459,6 +486,7 @@ section {
 /* ══════════════════════════════ HERO BUY (Hotmart) */
 .hero-buy-wrap { margin-top:2.2rem; opacity:0; animation:fadeup .8s 1.3s forwards; }
 .hero-buy {
+  white-space:nowrap;
   display:inline-flex; align-items:center; gap:1rem;
   font-family:var(--display); font-size:clamp(1.3rem,2.8vw,1.9rem);
   text-transform:uppercase; letter-spacing:.06em; text-decoration:none;
@@ -506,18 +534,6 @@ section {
 }
 .no-latam #geo-aviso { display:block; }
 
-/* ══════════════════════════════ FICHA TÉCNICA */
-#ficha { border-top:1px solid #1a1a1a; }
-.datos-grid {
-  display:grid; grid-template-columns:repeat(6,1fr);
-  gap:2px; max-width:1000px; margin-top:.5rem;
-}
-.dato { grid-column:span 2; padding:1.8rem 1.2rem; border:1px solid #1c1c1c; transition:border-color .2s,background .2s; }
-.dato:hover { border-color:var(--amarillo); background:rgba(255,236,0,.03); }
-.dato-n { font-family:var(--display); font-size:clamp(2.2rem,4.5vw,3.5rem); line-height:1; margin-bottom:.4rem; }
-.dato-l { font-size:.55rem; letter-spacing:.28em; text-transform:uppercase; opacity:.5; }
-.dato.half { grid-column:span 3; }
-.dato.half .dato-n { font-size:clamp(1.8rem,3.6vw,3rem); }
 
 /* ══════════════════════════════ MUESTRA */
 #muestra { border-top:1px solid #1a1a1a; }
@@ -598,10 +614,6 @@ footer {
   .sinopsis-grid { grid-template-columns:1fr; }
   .cta-plataformas-mini { grid-template-columns:repeat(2,1fr); }
   .errores-par { grid-template-columns:1fr; gap:2.5rem; }
-  .datos-grid { grid-template-columns:repeat(2,1fr); }
-  .dato { grid-column:span 1; }
-  .dato.half { grid-column:span 1; }
-  .dato.half .dato-n { font-size:1.75rem; line-height:1.05; }
 }
 @media(prefers-reduced-motion:reduce) {
   *,*::before,*::after { animation:none!important; transition:none!important; }
@@ -638,6 +650,41 @@ footer {
   font-family:var(--mono); font-size:.5rem;
   letter-spacing:.2em; opacity:.65;
 }
+/* ══════════════════════════════ LEGIBILIDAD (mínimos para textos chicos) */
+.section-label, .sinopsis-label, .cta-declaracion-num { font-size:.72rem; opacity:1; }
+.video-sub { font-size:.74rem; opacity:.8; }
+.mini-cta-txt { font-size:.74rem; opacity:.8; letter-spacing:.16em; }
+.stack-precio-txt { font-size:.74rem; opacity:.85; letter-spacing:.16em; }
+.cta-btn-precio { font-size:.74rem; opacity:.85; }
+.cta-nota-final { font-size:.72rem; opacity:.8; }
+.stack-list li .n { font-size:.72rem; }
+.hero-buy small, .float-cta-price { font-size:.68rem; opacity:.85; }
+.foot-links a { font-size:.66rem; opacity:.75; }
+.foot-logo { opacity:.6; }
+#geo-aviso { font-size:.74rem; }
+#manifiesto p[style*="font-size:.52rem"], #manifiesto p[style*="font-size:.58rem"] {
+  font-size:.7rem !important; color:rgba(255,255,255,.7) !important;
+}
+.sinopsis-firma { font-size:.82rem; opacity:.9; }
+
+/* ══════════════════════════════ CITA */
+#cita { border-top:1px solid #1a1a1a; }
+.cita-wrap { max-width:860px; position:relative; padding-left:clamp(0rem,4vw,3rem); }
+.cita-wrap::before {
+  content:'“'; position:absolute; left:-.5rem; top:-2.6rem;
+  font-family:var(--display); font-size:clamp(7rem,14vw,11rem); line-height:1;
+  color:var(--amarillo); opacity:.9;
+}
+.cita-txt {
+  font-family:var(--mono); font-size:clamp(.95rem,1.6vw,1.2rem);
+  line-height:1.95; color:var(--blanco); position:relative;
+}
+.cita-txt em { font-style:normal; color:var(--amarillo); }
+.cita-autor {
+  margin-top:1.6rem; font-family:var(--display);
+  font-size:clamp(1.3rem,2.4vw,1.9rem); letter-spacing:.05em;
+  text-transform:uppercase; color:var(--frambuesa);
+}
 </style>
 </head>
 <body>
@@ -667,8 +714,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span class="hero-sub-line" style="color:var(--verde)">SIÉNTEME.</span>
     </div>
     <div class="hero-buy-wrap">
-      <a data-cta="hero" href="https://go.hotmart.com/E108008409K" target="_blank" rel="noopener" class="hero-buy">
-        USD 5 · Exclusivo Latinoamérica <small>→</small>
+      <a data-cta="hero" href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="hero-buy">
+        ▶ 13 años · USD 5
       </a>
     </div>
   </div>
@@ -697,6 +744,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </div>
 
+<!-- ══════ UNA PELÍCULA QUE FRACASA -->
+<section id="trailer-fracasa">
+  <h2 class="video-title" style="color:var(--frambuesa)">Una película que fracasa</h2>
+  <div class="video-shell">
+    <div class="yt" data-id="omnzXFrNTcQ" data-title="Una película que fracasa"></div>
+  </div>
+</section>
+
 <!-- ══════ HABLA -->
 <section id="habla">
     <div class="habla-text">
@@ -709,37 +764,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="habla-line" style="color:var(--azul)">MUNDO ESFÉRICO EN UN RECTÁNGULO.</p>
       <p class="habla-line" style="color:var(--rojo)">VIRUTA DIGITAL.</p>
     </div>
+    <div class="habla-cta">
+      <a data-cta="habla" href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="hero-buy">▶ 13 años · USD 5</a>
+      <p class="habla-garantia">Si encuentras una película igual, te devolvemos tu dinero.</p>
+    </div>
   </section>
-
-<!-- ══════ TRAILER -->
-<section id="trailer-fracasa">
-  <p class="section-label" style="color:var(--frambuesa)">// LOS 400 ERRORES — TRAILER</p>
-  <div class="video-shell">
-    <div class="yt" data-id="omnzXFrNTcQ" data-title="Trailer"></div>
-  </div>
-</section>
-
-<!-- ══════ FICHA TÉCNICA -->
-<section id="ficha">
-  <p class="section-label c">// FICHA TÉCNICA</p>
-  <div class="datos-grid">
-    <div class="dato"><div class="dato-n" style="color:var(--verde)">400</div><div class="dato-l">Errores</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--frambuesa)">79</div><div class="dato-l">Minutos</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--ambar)">∞</div><div class="dato-l">Cortes</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--cyan)">1</div><div class="dato-l">Maletín</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--amarillo)">5</div><div class="dato-l">USD</div></div>
-    <div class="dato"><div class="dato-n" style="color:var(--blanco)">285.628</div><div class="dato-l">Fotogramas</div></div>
-    <div class="dato half"><div class="dato-n" style="color:var(--rojo)">592.<wbr>278.<wbr>220.<wbr>800</div><div class="dato-l">Píxeles</div></div>
-    <div class="dato half"><div class="dato-n" style="color:var(--violeta)">1.<wbr>776.<wbr>834.<wbr>662.<wbr>400</div><div class="dato-l">Valores de color</div></div>
-  </div>
-</section>
-
-<!-- ══════ MINI CTA -->
-<div class="mini-cta">
-  <span class="mini-cta-txt">USD 5 · Acceso permanente · Sin suscripción</span>
-  <a data-cta="ficha" href="https://go.hotmart.com/E108008409K"
-     target="_blank" rel="noopener" class="mini-cta-btn">Mírame</a>
-</div>
 
 <!-- ══════ SINOPSIS / EL DIRECTOR HABLA -->
 <section id="sinopsis">
@@ -757,75 +786,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- ══════ UNA PELÍCULA QUE FRACASA -->
-<section id="trailer-fracasa-2">
-  <p class="section-label f">// UNA PELÍCULA QUE FRACASA</p>
-  <div class="video-shell">
-    <div class="yt" data-id="omnzXFrNTcQ" data-title="Una película que fracasa"></div>
-  </div>
-</section>
-
-<!-- ══════ MINI CTA 2 -->
-<div class="mini-cta">
-  <span class="mini-cta-txt">USD 5 · Acceso permanente · Sin suscripción</span>
-  <a data-cta="fracasa" href="https://go.hotmart.com/E108008409K"
-     target="_blank" rel="noopener" class="mini-cta-btn">Escúchame</a>
-</div>
-
-<!-- ══════ ERRORES -->
-<section id="errores">
-  <h2 class="errores-titulo"><span class="n400">400</span> razones</h2>
-  <div class="errores-par">
-    <div class="errores-col abandonar">
-      <p class="errores-sub">Para abandonar.</p>
-      <p class="errores-lista"><span class="n">1.</span> MI DIRECCIÓN ERRÁTICA<span class="sl">/</span><span class="n">3.</span> MI ACTUACIÓN MALA<span class="sl">/</span><span class="n">12.</span> NO TENÍA DINERO<span class="sl">/</span><span class="n">41.</span> NO TIENE TRES ACTOS<span class="sl">/</span><span class="n">57.</span> ROMPE LA CUARTA PARED<span class="sl">/</span><span class="n">73.</span> NO HAY HÉROE NI VIAJE<span class="sl">/</span><span class="n">87.</span> EL PROTAGONISTA ESCUPE A LA CÁMARA<span class="sl">/</span><span class="n">109.</span> SE RÍE DEL PÚBLICO<span class="sl">/</span><span class="n">233.</span> MUY AVANT GARDE<span class="sl">/</span><span class="n">310.</span> PRETENCIOSA<span class="sl">/</span><span class="n">400.</span> EXCEDEN 4 MINUTOS...</p>
-    </div>
-    <div class="errores-col quedarse">
-      <p class="errores-sub">Para quedarse.</p>
-      <p class="errores-lista"><span class="n">1.</span> NO SE PARECE A NADA<span class="sl">/</span><span class="n">3.</span> ABSURDA<span class="sl">/</span><span class="n">12.</span> HECHA CON NADA<span class="sl">/</span><span class="n">41.</span> NO TIENE TRES ACTOS<span class="sl">/</span><span class="n">57.</span> ROMPE LA CUARTA PARED<span class="sl">/</span><span class="n">73.</span> NO HAY HÉROE NI VIAJE<span class="sl">/</span><span class="n">87.</span> EL PROTAGONISTA ESCUPE A LA CÁMARA<span class="sl">/</span><span class="n">109.</span> SE RÍE DEL PÚBLICO<span class="sl">/</span><span class="n">233.</span> MUY AVANT GARDE<span class="sl">/</span><span class="n">310.</span> TRECE AÑOS SIN RENDIRSE<span class="sl">/</span><span class="n">400.</span> EL SECRETO DEL MALETÍN...</p>
+<!-- ══════ MIS PRIMEROS MINUTOS -->
+<section id="muestra">
+  <div class="cta-muestra-bloque">
+    <h2 class="video-title" style="color:var(--verde)">Mis primeros minutos</h2>
+    <p class="video-sub">Gratis. Sin registro.</p>
+    <div class="cta-muestra-player">
+      <div class="yt" data-id="G6VqHtK-ZFk" data-title="Primeros minutos"></div>
     </div>
   </div>
-  <p class="errores-cierre">Si encuentras una película igual,<br><span>te devolvemos el dinero.</span></p>
-</section>
-
-<!-- ══════ ESTOY VIVA -->
-<section id="estoy-viva">
-  <p class="section-label y">// ESTOY VIVA</p>
-  <div class="video-shell">
-    <div class="yt" data-id="twjxBIJ0Mko" data-title="Estoy viva"></div>
-  </div>
-</section>
-
-<!-- ══════ HUINCHA ESTOY EN TU BOLSILLO -->
-<section id="bolsillo">
-  <div class="intenta-scroll" aria-hidden="true">
-    <span class="intenta-word">ESTOY EN TU BOLSILLO</span>
-    <span class="intenta-word">ESTOY EN TU COMPUTADOR</span>
-    <span class="intenta-word">ESTOY EN TU TELEVISOR</span>
-    <span class="intenta-word">ESTOY EN TU BOLSILLO</span>
-    <span class="intenta-word">ESTOY EN TU COMPUTADOR</span>
-    <span class="intenta-word">ESTOY EN TU TELEVISOR</span>
-    <span class="intenta-word">ESTOY EN TU BOLSILLO</span>
-    <span class="intenta-word">ESTOY EN TU COMPUTADOR</span>
-    <span class="intenta-word">ESTOY EN TU TELEVISOR</span>
-    <span class="intenta-word">ESTOY EN TU BOLSILLO</span>
-    <span class="intenta-word">ESTOY EN TU COMPUTADOR</span>
-    <span class="intenta-word">ESTOY EN TU TELEVISOR</span>
-    <span class="intenta-word">ESTOY EN TU BOLSILLO</span>
-    <span class="intenta-word">ESTOY EN TU COMPUTADOR</span>
-    <span class="intenta-word">ESTOY EN TU TELEVISOR</span>
-    <span class="intenta-word">ESTOY EN TU BOLSILLO</span>
-    <span class="intenta-word">ESTOY EN TU COMPUTADOR</span>
-    <span class="intenta-word">ESTOY EN TU TELEVISOR</span>
+  <div class="stack-precio" style="margin-top:0;">
+    <a data-cta="muestra" href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="mini-cta-btn">▶ Faltan 77 minutos · USD 5</a>
   </div>
 </section>
 
 <!-- ══════ INCLUYE (value stack) -->
 <section id="incluye">
   <p class="section-label y">// INCLUYE</p>
-  <h2 class="stack-head"><em>79 minutos.</em></h2>
+  <h2 class="stack-head"><em>13 años de producción.</em></h2>
   <ul class="stack-list">
-    <li><span class="n">01</span>13 años de producción.</li>
+    <li><span class="n">01</span>79 minutos.</li>
     <li><span class="n">02</span>Subtítulos en español.</li>
     <li><span class="n">03</span>Interpelaciones directas.</li>
     <li class="odio"><span class="n">04</span>Sensaciones de odio.</li>
@@ -836,17 +816,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </ul>
   <p class="stack-maletin">Y una gran interrogante:<br><span>¿Qué hay dentro del maletín?</span></p>
   <div class="stack-precio">
-    <a data-cta="incluye" href="https://go.hotmart.com/E108008409K" target="_blank" rel="noopener" class="mini-cta-btn">Mírame · USD 5</a>
-    <span class="stack-precio-txt">Menos que una entrada al cine<br>Si encuentras una película igual, te devolvemos el dinero</span>
-  </div>
-</section>
-
-<!-- ══════ SIÉNTEME — DELIRIO III -->
-<!-- REEMPLAZA DELIRIO_III_ID por el ID del video en YouTube (lo que va después de watch?v=) -->
-<section id="delirio">
-  <p class="section-label g">// SIÉNTEME — DELIRIO III</p>
-  <div class="video-shell">
-    <div class="yt" data-id="DELIRIO_III_ID" data-title="Delirio III — Los 400 Errores"></div>
+    <a data-cta="incluye" href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="mini-cta-btn">▶ 13 años · USD 5</a>
+    <span class="stack-precio-txt">Acceso permanente<br>Sin suscripción</span>
   </div>
 </section>
 
@@ -909,19 +880,59 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 </section>
 
-<!-- ══════ MIRA MIS PRIMEROS MINUTOS -->
-<section id="muestra">
-  <div class="cta-muestra-bloque">
-    <p class="cta-muestra-label">Mira mis primeros minutos</p>
-    <p class="cta-muestra-sub">Sin registro. Sin promesa.</p>
-    <div class="cta-muestra-player">
-      <div class="yt" data-id="G6VqHtK-ZFk" data-title="Primeros minutos"></div>
+<!-- ══════ HUINCHA ESTOY EN TU BOLSILLO -->
+<section id="bolsillo">
+  <div class="intenta-scroll" aria-hidden="true">
+    <span class="intenta-word">ESTOY EN TU BOLSILLO</span>
+    <span class="intenta-word">ESTOY EN TU COMPUTADOR</span>
+    <span class="intenta-word">ESTOY EN TU TELEVISOR</span>
+    <span class="intenta-word">ESTOY EN TU BOLSILLO</span>
+    <span class="intenta-word">ESTOY EN TU COMPUTADOR</span>
+    <span class="intenta-word">ESTOY EN TU TELEVISOR</span>
+    <span class="intenta-word">ESTOY EN TU BOLSILLO</span>
+    <span class="intenta-word">ESTOY EN TU COMPUTADOR</span>
+    <span class="intenta-word">ESTOY EN TU TELEVISOR</span>
+    <span class="intenta-word">ESTOY EN TU BOLSILLO</span>
+    <span class="intenta-word">ESTOY EN TU COMPUTADOR</span>
+    <span class="intenta-word">ESTOY EN TU TELEVISOR</span>
+    <span class="intenta-word">ESTOY EN TU BOLSILLO</span>
+    <span class="intenta-word">ESTOY EN TU COMPUTADOR</span>
+    <span class="intenta-word">ESTOY EN TU TELEVISOR</span>
+    <span class="intenta-word">ESTOY EN TU BOLSILLO</span>
+    <span class="intenta-word">ESTOY EN TU COMPUTADOR</span>
+    <span class="intenta-word">ESTOY EN TU TELEVISOR</span>
+  </div>
+</section>
+
+<!-- ══════ ESTOY VIVA -->
+<section id="estoy-viva">
+  <h2 class="video-title" style="color:var(--amarillo)">Estoy viva</h2>
+  <div class="video-shell">
+    <div class="yt" data-id="twjxBIJ0Mko" data-title="Estoy viva"></div>
+  </div>
+</section>
+
+<!-- ══════ MINI CTA -->
+<div class="mini-cta">
+  <span class="mini-cta-txt">USD 5 · Acceso permanente · Sin suscripción</span>
+  <a data-cta="estoyviva" href="https://ko-fi.com/s/a2c5c5401b"
+     target="_blank" rel="noopener" class="mini-cta-btn">▶ 13 años</a>
+</div>
+
+<!-- ══════ ERRORES -->
+<section id="errores">
+  <h2 class="errores-titulo"><span class="n400">400</span> razones</h2>
+  <div class="errores-par">
+    <div class="errores-col abandonar">
+      <p class="errores-sub">Para abandonar.</p>
+      <p class="errores-lista"><span class="n">1.</span> MI DIRECCIÓN ERRÁTICA<span class="sl">/</span><span class="n">3.</span> MI ACTUACIÓN MALA<span class="sl">/</span><span class="n">12.</span> NO TENÍA DINERO<span class="sl">/</span><span class="n">41.</span> NO TIENE TRES ACTOS<span class="sl">/</span><span class="n">57.</span> ROMPE LA CUARTA PARED<span class="sl">/</span><span class="n">73.</span> NO HAY HÉROE NI VIAJE<span class="sl">/</span><span class="n">87.</span> EL PROTAGONISTA ESCUPE A LA CÁMARA<span class="sl">/</span><span class="n">109.</span> SE RÍE DEL PÚBLICO<span class="sl">/</span><span class="n">233.</span> MUY AVANT GARDE<span class="sl">/</span><span class="n">310.</span> PRETENCIOSA<span class="sl">/</span><span class="n">400.</span> EXCEDEN 4 MINUTOS...</p>
     </div>
-    <p class="cta-muestra-nota" style="margin-bottom:2rem;">Si llegaste hasta acá, ya sabes.</p>
+    <div class="errores-col quedarse">
+      <p class="errores-sub">Para quedarse.</p>
+      <p class="errores-lista"><span class="n">1.</span> NO SE PARECE A NADA<span class="sl">/</span><span class="n">3.</span> ABSURDA<span class="sl">/</span><span class="n">12.</span> HECHA CON NADA<span class="sl">/</span><span class="n">41.</span> NO TIENE TRES ACTOS<span class="sl">/</span><span class="n">57.</span> ROMPE LA CUARTA PARED<span class="sl">/</span><span class="n">73.</span> NO HAY HÉROE NI VIAJE<span class="sl">/</span><span class="n">87.</span> EL PROTAGONISTA ESCUPE A LA CÁMARA<span class="sl">/</span><span class="n">109.</span> SE RÍE DEL PÚBLICO<span class="sl">/</span><span class="n">233.</span> MUY AVANT GARDE<span class="sl">/</span><span class="n">310.</span> TRECE AÑOS SIN RENDIRSE<span class="sl">/</span><span class="n">400.</span> EL SECRETO DEL MALETÍN...</p>
+    </div>
   </div>
-  <div class="stack-precio" style="margin-top:0;">
-    <a data-cta="muestra" href="https://go.hotmart.com/E108008409K" target="_blank" rel="noopener" class="mini-cta-btn">Sigue mirándome · USD 5</a>
-  </div>
+  <p class="errores-cierre">Si encuentras una película igual, <span>te devolvemos tu dinero.</span></p>
 </section>
 
 <!-- ══════ CTA -->
@@ -933,16 +944,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </h2>
 
   <div class="cta-acciones">
-    <a data-cta="cierre" href="https://go.hotmart.com/E108008409K"
+    <a data-cta="cierre" href="https://ko-fi.com/s/a2c5c5401b"
        target="_blank" rel="noopener"
        class="cta-btn-encender">
-      <span>Mírame</span>
-      <span class="cta-btn-precio">USD 5 · Hotmart · pago seguro</span>
+      <span>▶ 13 años</span>
+      <span class="cta-btn-precio">USD 5 · Ko-fi · pago seguro</span>
     </a>
 
   </div>
 
-  <p class="cta-garantia"><span>Garantía:</span> si encuentras una película igual, te devolvemos el dinero.</p>
 
   <div class="cta-nota-final">
     Acceso permanente · Sin fecha de vencimiento<br>
@@ -957,12 +967,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span>INSTAGRAM</span><span class="sep">·</span>
     <span>TIKTOK</span><span class="sep">·</span>
     <span>YOUTUBE</span><span class="sep">·</span>
-    <span>HOTMART</span><span class="sep">·</span>
+    <span>KO-FI</span><span class="sep">·</span>
     <span>LOS 400 ERR0RES</span><span class="sep">·</span>
     <span>INSTAGRAM</span><span class="sep">·</span>
     <span>TIKTOK</span><span class="sep">·</span>
     <span>YOUTUBE</span><span class="sep">·</span>
-    <span>HOTMART</span><span class="sep">·</span>
+    <span>KO-FI</span><span class="sep">·</span>
   </div>
 </div>
 
@@ -991,9 +1001,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </footer>
 
 <div id="float-cta">
-  <a data-cta="flotante" href="https://go.hotmart.com/E108008409K"
+  <a data-cta="flotante" href="https://ko-fi.com/s/a2c5c5401b"
      target="_blank" rel="noopener" class="float-cta-link">
-    <span>Mírame</span>
+    <span>▶ 13 años</span>
     <span class="float-cta-price">USD 5</span>
   </a>
 </div>
@@ -1060,7 +1070,7 @@ BUY.forEach(function(a){
     if (document.documentElement.classList.contains('no-latam'))
       track('cta_blocked', {cta_location:a.dataset.cta});
     else
-      track('cta_click', {cta_location:a.dataset.cta, cta_platform:'hotmart'});
+      track('cta_click', {cta_location:a.dataset.cta, cta_platform:(a.href.indexOf('ko-fi')>-1?'kofi':'hotmart')});
   });
 });
 
