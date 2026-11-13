@@ -118,8 +118,8 @@ section {
 
 .hero-eyebrow {
   font-family:var(--mono);
-  font-size:clamp(.85rem,1.6vw,1.1rem);
-  letter-spacing:.25em; text-transform:uppercase;
+  font-size:clamp(.9rem,1.75vw,1.4rem);
+  letter-spacing:.22em; text-transform:uppercase;
   color:var(--frambuesa); margin-bottom:1.5rem;
   opacity:0; animation:fadeup .6s .2s forwards;
 }
@@ -132,11 +132,16 @@ section {
   opacity:0; animation:fadeup .8s .4s forwards;
 }
 .hero-title .block { display:block; }
-/* escritorio: título en una sola línea, formato panorámico */
+/* escritorio: título en dos líneas a la izquierda, información y compra a la derecha */
 @media(min-width:900px){
-  .hero-title { font-size:clamp(5rem,13.4vw,13rem); white-space:nowrap; }
-  .hero-title .block { display:inline; }
-  .hero-title .block + .block::before { content:' '; }
+  .hero-content {
+    display:grid; grid-template-columns:auto minmax(260px,1fr);
+    align-items:end; column-gap:clamp(2.5rem,5vw,5rem);
+  }
+  .hero-title { font-size:min(19vw, 44vh); }
+  .hero-side { padding-bottom:.6rem; }
+  .hero-side .hero-sub { margin-top:0; gap:.55rem; }
+  .hero-side .hero-sub-line { font-size:clamp(.9rem,1.85vw,2.1rem); letter-spacing:.08em; }
 }
 
 /* glitch */
@@ -158,7 +163,7 @@ section {
 }
 .hero-sub-line {
   font-family:var(--mono);
-  font-size:clamp(.85rem,1.7vw,1.15rem);
+  font-size:clamp(1rem,1.7vw,1.15rem);
   letter-spacing:.15em; text-transform:uppercase;
 }
 
@@ -192,6 +197,27 @@ section {
 #habla {
   padding:clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,5rem);
   border-top:1px solid #1a1a1a;
+  display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,5vw,5rem); align-items:center;
+}
+.habla-video { position:relative; display:flex; justify-content:center; }
+.habla-video video {
+  display:block; height:min(80vh,760px); width:auto; max-width:100%;
+  aspect-ratio:9/16; object-fit:cover; background:#050505; border:1px solid #1c1c1c;
+}
+.habla-sonido {
+  position:absolute; right:1rem; bottom:1rem;
+  width:46px; height:46px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(0,0,0,.6); color:#fff; border:none; cursor:pointer;
+  transition:background .15s, transform .15s;
+}
+.habla-sonido:hover { background:rgba(0,0,0,.85); transform:scale(1.08); }
+.habla-video { width:fit-content; justify-self:center; }
+#habla .habla-line { font-size:clamp(2rem,3.7vw,3.8rem); }
+#habla .habla-garantia { white-space:normal; font-size:clamp(1.2rem,1.8vw,1.7rem); }
+@media(max-width:900px){
+  #habla { grid-template-columns:1fr; }
+  .habla-video video { height:auto; width:min(100%,360px); max-height:70vh; }
 }
 .habla-text {
   display:flex; flex-direction:column; justify-content:center;
@@ -452,6 +478,7 @@ section {
   text-transform:uppercase; color:#FFFFFF; letter-spacing:.02em; line-height:1.15; margin-top:1.8rem;
 }
 .errores-cierre span { color:var(--amarillo); }
+.stack-garantia { margin-top:2.2rem !important; }
 @media(min-width:900px){ .errores-cierre { white-space:nowrap; } }
 
 /* ══════════════════════════════ INCLUYE (value stack) */
@@ -484,7 +511,14 @@ section {
 }
 
 /* ══════════════════════════════ HERO BUY (Hotmart) */
-.hero-buy-wrap { margin-top:2.2rem; opacity:0; animation:fadeup .8s 1.3s forwards; }
+.hero-buy-wrap { margin-top:2.2rem; opacity:0; animation:fadeup .8s 1.3s forwards; display:flex; flex-wrap:wrap; align-items:center; gap:1.2rem 1.6rem; }
+.hero-game {
+  font-family:var(--display); font-size:clamp(1.1rem,2.2vw,1.5rem);
+  text-transform:uppercase; letter-spacing:.06em; text-decoration:none;
+  color:var(--verde); border:2px solid var(--verde); padding:.7rem 1.4rem;
+  transition:background .15s,color .15s; white-space:nowrap;
+}
+.hero-game:hover { background:var(--verde); color:var(--negro); }
 .hero-buy {
   white-space:nowrap;
   display:inline-flex; align-items:center; gap:1rem;
@@ -610,6 +644,7 @@ footer {
 
 /* ══════════════════════════════ RESPONSIVE */
 @media(max-width:768px) {
+  .hero-eyebrow { letter-spacing:.14em; }
   .manifiesto-columnas { grid-template-columns:1fr; }
   .sinopsis-grid { grid-template-columns:1fr; }
   .cta-plataformas-mini { grid-template-columns:repeat(2,1fr); }
@@ -667,6 +702,69 @@ footer {
 }
 .sinopsis-firma { font-size:.82rem; opacity:.9; }
 
+/* ══════════════════════════════ JUEGO DEL MALETÍN */
+#maletin { border-top:1px solid #1a1a1a; align-items:flex-start; }
+.mal-head {
+  font-family:var(--display); font-weight:400; font-size:clamp(2.6rem,6.5vw,5.5rem);
+  line-height:.92; text-transform:uppercase; color:var(--blanco); margin-bottom:.9rem;
+}
+.mal-head em { font-style:normal; color:var(--amarillo); }
+.mal-sub { font-size:clamp(.8rem,1.3vw,1rem); letter-spacing:.2em; text-transform:uppercase; color:var(--blanco); margin-bottom:2.6rem; line-height:1.9; }
+@media(min-width:900px){ .mal-head, .mal-sub { white-space:nowrap; } }
+.mal-box {
+  position:relative; width:100%; max-width:560px;
+  background:#0d0d0d; border:3px solid var(--blanco);
+  padding:2.2rem clamp(1rem,4vw,2.2rem) 2rem; margin-top:2.2rem;
+}
+.mal-box::before {
+  content:''; position:absolute; left:50%; top:-2.3rem; transform:translateX(-50%);
+  width:38%; height:2.3rem; border:3px solid var(--blanco); border-bottom:none;
+}
+.mal-dials { display:flex; justify-content:center; gap:clamp(.4rem,2vw,1rem); }
+.dial { display:flex; flex-direction:column; align-items:center; gap:.35rem; }
+.dial button {
+  background:none; border:none; color:var(--verde); cursor:pointer;
+  font-size:1.1rem; padding:.3rem .8rem; line-height:1;
+}
+.dial button:hover { color:var(--amarillo); }
+.dial-n {
+  font-family:var(--display); font-size:clamp(3rem,9vw,4.4rem); line-height:1;
+  width:clamp(3.2rem,12vw,4.4rem); text-align:center;
+  background:var(--negro); border:1px solid #2a2a2a; color:var(--amarillo); padding:.35rem 0;
+}
+.mal-try {
+  display:block; width:100%; margin-top:1.6rem; cursor:pointer;
+  font-family:var(--display); font-size:clamp(1.3rem,3vw,1.8rem); letter-spacing:.08em;
+  text-transform:uppercase; background:var(--amarillo); color:var(--negro);
+  border:none; padding:.8rem 1rem; transition:background .15s;
+}
+.mal-try:hover { background:var(--verde); }
+.mal-try:disabled { background:#333; color:#777; cursor:not-allowed; }
+.mal-left { margin-top:1rem; text-align:center; font-size:.74rem; letter-spacing:.2em; text-transform:uppercase; opacity:.8; }
+.mal-out { max-width:560px; margin-top:2rem; min-height:1rem; }
+.mal-err {
+  font-family:var(--display); font-size:clamp(1.5rem,3.4vw,2.4rem);
+  text-transform:uppercase; line-height:1.05; color:var(--frambuesa);
+}
+.mal-err small { display:block; font-family:var(--mono); font-size:.74rem; letter-spacing:.2em; color:var(--blanco); opacity:.8; margin-top:.6rem; }
+.mal-actions { display:flex; flex-wrap:wrap; gap:1rem; margin-top:1.4rem; }
+.mal-share {
+  font-family:var(--display); font-size:1.1rem; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--verde); border:2px solid var(--verde); background:none;
+  padding:.55rem 1.3rem; cursor:pointer; text-decoration:none;
+}
+.mal-share:hover { background:var(--verde); color:var(--negro); }
+.mal-win {
+  font-family:var(--display); font-size:clamp(2.4rem,6vw,4.4rem);
+  line-height:.92; text-transform:uppercase; color:var(--verde);
+}
+.mal-code {
+  display:inline-block; margin:1.2rem 0 .6rem; font-family:var(--mono);
+  font-size:1.2rem; letter-spacing:.2em; color:var(--negro); background:var(--amarillo); padding:.5rem 1rem;
+}
+.mal-shake { animation:malshake .45s; }
+@keyframes malshake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-10px)} 40%{transform:translateX(9px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(4px)} }
+
 /* ══════════════════════════════ CITA */
 #cita { border-top:1px solid #1a1a1a; }
 .cita-wrap { max-width:860px; position:relative; padding-left:clamp(0rem,4vw,3rem); }
@@ -685,6 +783,45 @@ footer {
   font-size:clamp(1.3rem,2.4vw,1.9rem); letter-spacing:.05em;
   text-transform:uppercase; color:var(--frambuesa);
 }
+/* maletín: cuero y bronce, menos publicitario */
+.mal-head em { color:var(--frambuesa); }
+.mal-box {
+  background:linear-gradient(160deg,#2a1b10 0%,#1d130b 55%,#160e08 100%);
+  border-color:#5b3d24;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.03), inset 0 18px 40px rgba(0,0,0,.35);
+}
+.mal-box::before { border-color:#5b3d24; }
+.dial-n { color:var(--ambar); background:#0c0805; border-color:#3a2716; }
+.dial button { color:var(--ambar); }
+.dial button:hover { color:var(--blanco); }
+.mal-try { background:transparent; color:var(--ambar); border:2px solid var(--ambar); }
+.mal-try:hover { background:var(--ambar); color:var(--negro); }
+.mal-try:disabled { background:transparent; border-color:#3a2716; color:#6b5a48; }
+.mal-left { color:#c9b49a; }
+
+/* cierre: luz de proyector, monocromo; el amarillo queda solo para el botón */
+#cta {
+  background:
+    radial-gradient(ellipse 70% 55% at 50% -10%, rgba(245,240,232,.10), rgba(245,240,232,0) 70%),
+    var(--negro);
+}
+#cta::before { display:none; }
+.cta-declaracion-txt em { color:var(--blanco); text-shadow:0 0 28px rgba(245,240,232,.45); }
+.cta-declaracion-num { color:var(--blanco) !important; opacity:.6 !important; }
+.cta-btn-encender > span:first-child { white-space:nowrap; }
+@media(max-width:640px){
+  .cta-btn-encender { flex-direction:column; align-items:flex-start; gap:.4rem; padding:1rem 1.6rem; }
+}
+/* plataformas al final */
+.plat-label { margin:2.4rem 0 .9rem; font-size:.72rem; letter-spacing:.3em; text-transform:uppercase; color:var(--blanco); opacity:.75; }
+.plat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.7rem; max-width:560px; }
+.plat-btn {
+  font-family:var(--display); font-size:clamp(1.05rem,2vw,1.35rem); letter-spacing:.06em; text-transform:uppercase;
+  text-align:center; text-decoration:none; padding:.65rem .8rem;
+  color:var(--c); border:2px solid var(--c); transition:background .15s,color .15s;
+}
+.plat-btn:hover { background:var(--c); color:var(--negro); }
+@media(max-width:480px){ .plat-grid { grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
@@ -701,11 +838,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <p class="hero-eyebrow">SOY UNA PELÍCULA — 79 MIN</p>
+    <div class="hero-main">
+    <p class="hero-eyebrow">SOY UNA PELÍCULA — 13 AÑOS</p>
     <h1 class="hero-title">
       <span class="block glitch" data-text="LOS 400">LOS 400</span>
       <span class="block">ERRORES</span>
     </h1>
+    </div>
+    <div class="hero-side">
     <div class="hero-sub">
       <span class="hero-sub-line" style="color:var(--frambuesa)">UNA PELÍCULA QUE FRACASA.</span>
       <span class="hero-sub-line" style="color:var(--cyan)">ESTOY VIVA.</span>
@@ -715,8 +855,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="hero-buy-wrap">
       <a data-cta="hero" href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="hero-buy">
-        ▶ 13 años · USD 5
+        ▶ 5 USD · 79 MIN
       </a>
+      <a href="#maletin" class="hero-game" data-game="hero">Abre el maletín →</a>
+    </div>
     </div>
   </div>
   <span class="scroll-hint">↓ &nbsp; scroll</span>
@@ -726,34 +868,31 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="band">
   <div class="band-inner fwd" aria-hidden="true">
     <span class="bi">INTENTA</span>
-    <span class="be">FRACASA</span>
+    <span class="be">ERROR</span>
     <span class="bi">INTENTA</span>
     <span class="be">FRACASA</span>
     <span class="bi">INTENTA</span>
-    <span class="be">FRACASA</span>
+    <span class="be">MUTA</span>
+    <span class="bi">INTENTA</span>
+    <span class="be">EXISTE</span>
+    <span class="bi">INTENTA</span>
+    <span class="be">ERROR</span>
     <span class="bi">INTENTA</span>
     <span class="be">FRACASA</span>
     <span class="bi">INTENTA</span>
-    <span class="be">FRACASA</span>
+    <span class="be">MUTA</span>
     <span class="bi">INTENTA</span>
-    <span class="be">FRACASA</span>
-    <span class="bi">INTENTA</span>
-    <span class="be">FRACASA</span>
-    <span class="bi">INTENTA</span>
-    <span class="be">FRACASA</span>
+    <span class="be">EXISTE</span>
   </div>
 </div>
 
-<!-- ══════ UNA PELÍCULA QUE FRACASA -->
-<section id="trailer-fracasa">
-  <h2 class="video-title" style="color:var(--frambuesa)">Una película que fracasa</h2>
-  <div class="video-shell">
-    <div class="yt" data-id="omnzXFrNTcQ" data-title="Una película que fracasa"></div>
-  </div>
-</section>
-
 <!-- ══════ HABLA -->
 <section id="habla">
+  <div class="habla-video">
+    <video id="soyVideo" src="soy.mp4" poster="soy_poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Soy. Estoy viva."></video>
+    <button type="button" class="habla-sonido" id="soySonido" aria-pressed="false" aria-label="Activar sonido"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3z"/><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M16 9l5 6M21 9l-5 6"/></svg></button>
+  </div>
+  <div class="habla-col">
     <div class="habla-text">
       <p class="habla-line" style="color:var(--blanco)">YO SOY LA PELÍCULA.</p>
       <p class="habla-line" style="color:var(--amarillo)">FOTOGRAMAS.</p>
@@ -765,10 +904,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="habla-line" style="color:var(--rojo)">VIRUTA DIGITAL.</p>
     </div>
     <div class="habla-cta">
-      <a data-cta="habla" href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="hero-buy">▶ 13 años · USD 5</a>
-      <p class="habla-garantia">Si encuentras una película igual, te devolvemos tu dinero.</p>
+      <a data-cta="habla" href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="hero-buy">▶ 5 USD · 79 MIN</a>
     </div>
-  </section>
+  </div>
+</section>
+
+<!-- ══════ TRAILER OFICIAL -->
+<section id="trailer-fracasa">
+  <h2 class="video-title" style="color:var(--amarillo)">Trailer oficial</h2>
+  <div class="video-shell">
+    <div class="yt" data-id="OUMio1u9O9M" data-title="Trailer oficial"></div>
+  </div>
+</section>
 
 <!-- ══════ SINOPSIS / EL DIRECTOR HABLA -->
 <section id="sinopsis">
@@ -786,38 +933,33 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- ══════ MIS PRIMEROS MINUTOS -->
-<section id="muestra">
-  <div class="cta-muestra-bloque">
-    <h2 class="video-title" style="color:var(--verde)">Mis primeros minutos</h2>
-    <p class="video-sub">Gratis. Sin registro.</p>
-    <div class="cta-muestra-player">
-      <div class="yt" data-id="G6VqHtK-ZFk" data-title="Primeros minutos"></div>
-    </div>
-  </div>
-  <div class="stack-precio" style="margin-top:0;">
-    <a data-cta="muestra" href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="mini-cta-btn">▶ Faltan 77 minutos · USD 5</a>
+<!-- ══════ UNA PELÍCULA QUE FRACASA -->
+<section id="fracasa">
+  <h2 class="video-title" style="color:var(--rojo)">Una película que fracasa</h2>
+  <div class="video-shell">
+    <div class="yt" data-id="omnzXFrNTcQ" data-title="Una película que fracasa"></div>
   </div>
 </section>
 
-<!-- ══════ INCLUYE (value stack) -->
-<section id="incluye">
-  <p class="section-label y">// INCLUYE</p>
-  <h2 class="stack-head"><em>13 años de producción.</em></h2>
-  <ul class="stack-list">
-    <li><span class="n">01</span>79 minutos.</li>
-    <li><span class="n">02</span>Subtítulos en español.</li>
-    <li><span class="n">03</span>Interpelaciones directas.</li>
-    <li class="odio"><span class="n">04</span>Sensaciones de odio.</li>
-    <li class="amor"><span class="n">05</span>Sentimientos de amor.</li>
-    <li><span class="n">06</span>Algunas risas.</li>
-    <li><span class="n">07</span>Preguntas sin respuesta.</li>
-    <li><span class="n">08</span>Preguntas con respuesta.</li>
-  </ul>
-  <p class="stack-maletin">Y una gran interrogante:<br><span>¿Qué hay dentro del maletín?</span></p>
-  <div class="stack-precio">
-    <a data-cta="incluye" href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="mini-cta-btn">▶ 13 años · USD 5</a>
-    <span class="stack-precio-txt">Acceso permanente<br>Sin suscripción</span>
+<!-- ══════ MINI CTA -->
+<div class="mini-cta">
+  <span class="mini-cta-txt">Acceso permanente · Sin suscripción</span>
+  <a data-cta="fracasa" href="https://ko-fi.com/s/a2c5c5401b"
+     target="_blank" rel="noopener" class="mini-cta-btn">▶ 5 USD · 79 MIN</a>
+</div>
+
+<!-- ══════ ERRORES -->
+<section id="errores">
+  <h2 class="errores-titulo"><span class="n400">400</span> razones</h2>
+  <div class="errores-par">
+    <div class="errores-col abandonar">
+      <p class="errores-sub">Para abandonar.</p>
+      <p class="errores-lista"><span class="n">1.</span> MI DIRECCIÓN ERRÁTICA<span class="sl">/</span><span class="n">3.</span> MI ACTUACIÓN MALA<span class="sl">/</span><span class="n">12.</span> NO TENÍA DINERO<span class="sl">/</span><span class="n">41.</span> NO TIENE TRES ACTOS<span class="sl">/</span><span class="n">57.</span> ROMPE LA CUARTA PARED<span class="sl">/</span><span class="n">73.</span> NO HAY HÉROE NI VIAJE<span class="sl">/</span><span class="n">87.</span> EL PROTAGONISTA ESCUPE A LA CÁMARA<span class="sl">/</span><span class="n">109.</span> SE RÍE DEL PÚBLICO<span class="sl">/</span><span class="n">233.</span> MUY AVANT GARDE<span class="sl">/</span><span class="n">310.</span> PRETENCIOSA<span class="sl">/</span><span class="n">400.</span> EXCEDEN 4 MINUTOS...</p>
+    </div>
+    <div class="errores-col quedarse">
+      <p class="errores-sub">Para quedarse.</p>
+      <p class="errores-lista"><span class="n">1.</span> NO SE PARECE A NADA<span class="sl">/</span><span class="n">3.</span> ABSURDA<span class="sl">/</span><span class="n">12.</span> HECHA CON NADA<span class="sl">/</span><span class="n">41.</span> NO TIENE TRES ACTOS<span class="sl">/</span><span class="n">57.</span> ROMPE LA CUARTA PARED<span class="sl">/</span><span class="n">73.</span> NO HAY HÉROE NI VIAJE<span class="sl">/</span><span class="n">87.</span> EL PROTAGONISTA ESCUPE A LA CÁMARA<span class="sl">/</span><span class="n">109.</span> SE RÍE DEL PÚBLICO<span class="sl">/</span><span class="n">233.</span> MUY AVANT GARDE<span class="sl">/</span><span class="n">310.</span> TRECE AÑOS SIN RENDIRSE<span class="sl">/</span><span class="n">400.</span> EL SECRETO DEL MALETÍN...</p>
+    </div>
   </div>
 </section>
 
@@ -858,26 +1000,62 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
       <div style="padding:2.4rem 0;border-bottom:1px solid rgba(255,255,255,.12);">
         <p style="font-family:var(--mono);font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.7rem;">DECLARACIÓN / 07</p>
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);text-transform:uppercase;line-height:1.08;color:var(--blanco);">SOY UNA PELÍCULA PERDIDA EN EL COSMOS</p>
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);text-transform:uppercase;line-height:1.08;color:var(--amarillo);margin-top:.35rem;">Y CONECTADA A TODAS LAS PELÍCULAS.</p>
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);text-transform:uppercase;line-height:1.08;color:var(--blanco);">EN NINGÚN CINE.<br>EN NINGUNA PLATAFORMA.<br>EN NINGÚN FESTIVAL.</p>
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);text-transform:uppercase;line-height:1.08;color:var(--amarillo);margin-top:.35rem;">HAY UNA PELÍCULA COMO YO.</p>
       </div>
 
       <div style="padding:2.4rem 0;border-bottom:1px solid rgba(255,255,255,.12);">
         <p style="font-family:var(--mono);font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.7rem;">DECLARACIÓN / 11</p>
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);text-transform:uppercase;line-height:1.08;color:var(--blanco);">NO SOY UNA PELÍCULA.</p>
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);text-transform:uppercase;line-height:1.08;color:rgba(255,255,255,.5);margin-top:.35rem;">SOY TRES, CINCO, MIS INFINITAS PELÍCULAS.</p>
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);text-transform:uppercase;line-height:1.08;color:var(--blanco);">ME GUSTA QUE ME MIREN.</p>
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);text-transform:uppercase;line-height:1.08;color:var(--amarillo);margin-top:.35rem;">SOY UNA PELÍCULA.</p>
       </div>
 
       <div style="padding:2.4rem 0;">
         <p style="font-family:var(--mono);font-size:.52rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:.7rem;">DECLARACIÓN / 18</p>
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);text-transform:uppercase;line-height:1.08;color:var(--blanco);">NO PERTENEZCO A UNA SALA.<br>NO PERTENEZCO A UNA INDUSTRIA.</p>
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);text-transform:uppercase;line-height:1.08;color:var(--amarillo);margin-top:.35rem;">PERTENEZCO A QUIEN ME MIRE.</p>
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);text-transform:uppercase;line-height:1.08;color:var(--blanco);">¿SABES QUE TÚ TAMBIÉN</p>
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:clamp(1.8rem,3.5vw,3rem);text-transform:uppercase;line-height:1.08;color:var(--amarillo);margin-top:.35rem;">ERES UNA PELÍCULA?</p>
       </div>
 
     </div>
 
   </div>
 
+</section>
+
+<!-- ══════ MIS PRIMEROS MINUTOS -->
+<section id="muestra">
+  <div class="cta-muestra-bloque">
+    <h2 class="video-title" style="color:var(--verde)">Mis primeros minutos</h2>
+    <p class="video-sub">Gratis. Sin registro.</p>
+    <div class="cta-muestra-player">
+      <div class="yt" data-id="G6VqHtK-ZFk" data-title="Primeros minutos"></div>
+    </div>
+  </div>
+  <div class="stack-precio" style="margin-top:0;">
+    <a data-cta="muestra" href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="mini-cta-btn">▶ Faltan 77 minutos · USD 5</a>
+  </div>
+</section>
+
+<!-- ══════ INCLUYE (value stack) -->
+<section id="incluye">
+  <p class="section-label y">// INCLUYE</p>
+  <h2 class="stack-head"><em>13 años de producción.</em></h2>
+  <ul class="stack-list">
+    <li><span class="n">01</span>79 minutos.</li>
+    <li><span class="n">02</span>Subtítulos en español.</li>
+    <li><span class="n">03</span>Interpelaciones directas.</li>
+    <li class="odio"><span class="n">04</span>Sensaciones de odio.</li>
+    <li class="amor"><span class="n">05</span>Sentimientos de amor.</li>
+    <li><span class="n">06</span>Algunas risas.</li>
+    <li><span class="n">07</span>Preguntas sin respuesta.</li>
+    <li><span class="n">08</span>Preguntas con respuesta.</li>
+  </ul>
+  <p class="stack-maletin">Y una gran interrogante:<br><span>¿Qué hay dentro del maletín?</span></p>
+  <div class="stack-precio">
+    <a data-cta="incluye" href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="mini-cta-btn">▶ 5 USD · 79 MIN</a>
+    <span class="stack-precio-txt">Acceso permanente<br>Sin suscripción</span>
+  </div>
+  <p class="errores-cierre stack-garantia">Si encuentras una película igual, <span>te devolvemos tu dinero.</span></p>
 </section>
 
 <!-- ══════ HUINCHA ESTOY EN TU BOLSILLO -->
@@ -904,35 +1082,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- ══════ ESTOY VIVA -->
-<section id="estoy-viva">
-  <h2 class="video-title" style="color:var(--amarillo)">Estoy viva</h2>
-  <div class="video-shell">
-    <div class="yt" data-id="twjxBIJ0Mko" data-title="Estoy viva"></div>
+<!-- ══════ JUEGO DEL MALETÍN -->
+<section id="maletin">
+  <h2 class="mal-head">Abre el maletín <em>y mírame.</em></h2>
+  <p class="mal-sub">Adivina la clave. 3 intentos diarios.</p>
+  <div class="mal-box" id="malBox">
+    <div class="mal-dials" id="malDials"></div>
+    <button class="mal-try" id="malTry" type="button">Probar clave</button>
+    <p class="mal-left" id="malLeft"></p>
   </div>
-</section>
-
-<!-- ══════ MINI CTA -->
-<div class="mini-cta">
-  <span class="mini-cta-txt">USD 5 · Acceso permanente · Sin suscripción</span>
-  <a data-cta="estoyviva" href="https://ko-fi.com/s/a2c5c5401b"
-     target="_blank" rel="noopener" class="mini-cta-btn">▶ 13 años</a>
-</div>
-
-<!-- ══════ ERRORES -->
-<section id="errores">
-  <h2 class="errores-titulo"><span class="n400">400</span> razones</h2>
-  <div class="errores-par">
-    <div class="errores-col abandonar">
-      <p class="errores-sub">Para abandonar.</p>
-      <p class="errores-lista"><span class="n">1.</span> MI DIRECCIÓN ERRÁTICA<span class="sl">/</span><span class="n">3.</span> MI ACTUACIÓN MALA<span class="sl">/</span><span class="n">12.</span> NO TENÍA DINERO<span class="sl">/</span><span class="n">41.</span> NO TIENE TRES ACTOS<span class="sl">/</span><span class="n">57.</span> ROMPE LA CUARTA PARED<span class="sl">/</span><span class="n">73.</span> NO HAY HÉROE NI VIAJE<span class="sl">/</span><span class="n">87.</span> EL PROTAGONISTA ESCUPE A LA CÁMARA<span class="sl">/</span><span class="n">109.</span> SE RÍE DEL PÚBLICO<span class="sl">/</span><span class="n">233.</span> MUY AVANT GARDE<span class="sl">/</span><span class="n">310.</span> PRETENCIOSA<span class="sl">/</span><span class="n">400.</span> EXCEDEN 4 MINUTOS...</p>
-    </div>
-    <div class="errores-col quedarse">
-      <p class="errores-sub">Para quedarse.</p>
-      <p class="errores-lista"><span class="n">1.</span> NO SE PARECE A NADA<span class="sl">/</span><span class="n">3.</span> ABSURDA<span class="sl">/</span><span class="n">12.</span> HECHA CON NADA<span class="sl">/</span><span class="n">41.</span> NO TIENE TRES ACTOS<span class="sl">/</span><span class="n">57.</span> ROMPE LA CUARTA PARED<span class="sl">/</span><span class="n">73.</span> NO HAY HÉROE NI VIAJE<span class="sl">/</span><span class="n">87.</span> EL PROTAGONISTA ESCUPE A LA CÁMARA<span class="sl">/</span><span class="n">109.</span> SE RÍE DEL PÚBLICO<span class="sl">/</span><span class="n">233.</span> MUY AVANT GARDE<span class="sl">/</span><span class="n">310.</span> TRECE AÑOS SIN RENDIRSE<span class="sl">/</span><span class="n">400.</span> EL SECRETO DEL MALETÍN...</p>
+  <div class="mal-out" id="malOut" aria-live="polite"></div>
+  <div id="malBuy" hidden>
+    <div class="mal-actions">
+      <a data-cta="maletin" href="https://ko-fi.com/s/a2c5c5401b" target="_blank" rel="noopener" class="mini-cta-btn" style="font-size:1.2rem;padding:.65rem 1.6rem;">▶ 5 USD · 79 MIN</a>
+      <a class="mal-share" id="malShare" href="#" target="_blank" rel="noopener">Comparte y gana otro intento</a>
     </div>
   </div>
-  <p class="errores-cierre">Si encuentras una película igual, <span>te devolvemos tu dinero.</span></p>
 </section>
 
 <!-- ══════ CTA -->
@@ -947,9 +1112,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a data-cta="cierre" href="https://ko-fi.com/s/a2c5c5401b"
        target="_blank" rel="noopener"
        class="cta-btn-encender">
-      <span>▶ 13 años</span>
-      <span class="cta-btn-precio">USD 5 · Ko-fi · pago seguro</span>
+      <span>▶ 5 USD · 79 MIN</span>
+      <span class="cta-btn-precio">Ko-fi · pago seguro</span>
     </a>
+
+    <p class="plat-label">También estoy en</p>
+    <div class="plat-grid">
+      <a data-cta="cierre-gumroad" href="https://los400errores.gumroad.com/l/soyunapelicula" target="_blank" rel="noopener" class="plat-btn" style="--c:var(--verde)">Gumroad</a>
+      <a data-cta="cierre-hotmart" href="https://go.hotmart.com/E108008409K" target="_blank" rel="noopener" class="plat-btn" style="--c:var(--ambar)">Hotmart</a>
+      <a data-cta="cierre-patreon" href="https://www.patreon.com/Los400Errores/posts/los-400-errores-172594546" target="_blank" rel="noopener" class="plat-btn" style="--c:var(--cyan)">Patreon</a>
+    </div>
 
   </div>
 
@@ -968,11 +1140,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span>TIKTOK</span><span class="sep">·</span>
     <span>YOUTUBE</span><span class="sep">·</span>
     <span>KO-FI</span><span class="sep">·</span>
+    <span>GUMROAD</span><span class="sep">·</span>
+    <span>HOTMART</span><span class="sep">·</span>
+    <span>PATREON</span><span class="sep">·</span>
     <span>LOS 400 ERR0RES</span><span class="sep">·</span>
     <span>INSTAGRAM</span><span class="sep">·</span>
     <span>TIKTOK</span><span class="sep">·</span>
     <span>YOUTUBE</span><span class="sep">·</span>
     <span>KO-FI</span><span class="sep">·</span>
+    <span>GUMROAD</span><span class="sep">·</span>
+    <span>HOTMART</span><span class="sep">·</span>
+    <span>PATREON</span><span class="sep">·</span>
   </div>
 </div>
 
@@ -1003,8 +1181,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div id="float-cta">
   <a data-cta="flotante" href="https://ko-fi.com/s/a2c5c5401b"
      target="_blank" rel="noopener" class="float-cta-link">
-    <span>▶ 13 años</span>
-    <span class="float-cta-price">USD 5</span>
+    <span>▶ 5 USD · 79 MIN</span>
   </a>
 </div>
 
@@ -1063,6 +1240,94 @@ document.querySelectorAll('.yt').forEach(function(el){
   }, {once:true});
 });
 
+// ══════════════════════════════════════════════
+// JUEGO DEL MALETÍN
+// El maletín no tiene clave real: se abre por azar (PROB).
+// Al ganar se entrega un código para escribir a soyunapelicula@; el link de la película NUNCA va en la página.
+// ══════════════════════════════════════════════
+(function(){
+  var PROB = 1/400;          // probabilidad de abrirlo en cada intento
+  var POR_DIA = 3;           // intentos diarios
+  var ERRORES = ['MI DIRECCIÓN ERRÁTICA','MI ACTUACIÓN MALA','NO TENÍA DINERO','NO TIENE TRES ACTOS',
+    'ROMPE LA CUARTA PARED','NO HAY HÉROE NI VIAJE','EL PROTAGONISTA ESCUPE A LA CÁMARA','SE RÍE DEL PÚBLICO',
+    'MUY AVANT GARDE','PRETENCIOSA','EXCEDEN 4 MINUTOS','ABSURDA','NO SE PARECE A NADA','HECHA CON NADA',
+    'EL MALETÍN NO SE DEJA','EL MUDO NO HABLA','CASI','INTÉNTALO OTRA VEZ','LA CLAVE CAMBIÓ','NO ERA ESA'];
+  var MAIL = 'soyunapelicula@los400errores.com';
+  var box=document.getElementById('malBox'), dialsEl=document.getElementById('malDials'),
+      btn=document.getElementById('malTry'), left=document.getElementById('malLeft'),
+      out=document.getElementById('malOut'), buy=document.getElementById('malBuy'), share=document.getElementById('malShare');
+  if(!box) return;
+  var hoy=new Date().toISOString().slice(0,10), st={d:hoy,used:0,bonus:0,code:null};
+  try{ var g=JSON.parse(localStorage.getItem('maletin400')||'null'); if(g){ st=g; if(st.d!==hoy){ st={d:hoy,used:0,bonus:0,code:st.code||null}; } } }catch(e){}
+  function save(){ try{ localStorage.setItem('maletin400',JSON.stringify(st)); }catch(e){} }
+  var vals=[0,0,0];
+  vals.forEach(function(v,i){
+    var d=document.createElement('div'); d.className='dial';
+    d.innerHTML='<button type="button" aria-label="Subir">▲</button><span class="dial-n">0</span><button type="button" aria-label="Bajar">▼</button>';
+    var n=d.querySelector('.dial-n'), b=d.querySelectorAll('button');
+    b[0].onclick=function(){ vals[i]=(vals[i]+1)%10; n.textContent=vals[i]; };
+    b[1].onclick=function(){ vals[i]=(vals[i]+9)%10; n.textContent=vals[i]; };
+    dialsEl.appendChild(d);
+  });
+  function quedan(){ return POR_DIA+st.bonus-st.used; }
+  function pintar(){
+    if(st.code){ ganaste(false); return; }
+    var q=quedan(); btn.disabled=q<=0;
+    left.textContent = q>0 ? (q===1 ? 'Te queda 1 intento hoy' : 'Te quedan '+q+' intentos hoy') : 'Se acabaron tus intentos de hoy';
+    if(q<=0) buy.hidden=false;
+    share.style.display = st.bonus>0 ? 'none' : '';
+  }
+  function ganaste(nuevo){
+    btn.disabled=true; left.textContent='';
+    var asunto=encodeURIComponent('Abrí el maletín: '+st.code);
+    out.innerHTML='<p class="mal-win">Abriste el maletín.<br>Adentro había una película.</p>'+
+      '<span class="mal-code">'+st.code+'</span>'+
+      '<p class="mal-err" style="color:var(--blanco)"><small>Escríbeme con este código y te mando mis 79 minutos. Guarda una captura.</small></p>'+
+      '<div class="mal-actions"><a class="mini-cta-btn" style="font-size:1.2rem;padding:.65rem 1.6rem;" href="mailto:'+MAIL+'?subject='+asunto+'">Reclamar mi película</a></div>';
+    buy.hidden=true;
+    if(nuevo) track('maletin_win',{code:st.code});
+  }
+  btn.addEventListener('click',function(){
+    if(quedan()<=0 || st.code) return;
+    st.used++;
+    var clave=vals.join('');
+    track('maletin_try',{intento:st.used});
+    if(Math.random()<PROB){
+      st.code='MALETIN-'+clave+'-'+Date.now().toString(36).slice(-4).toUpperCase();
+      save(); ganaste(true); return;
+    }
+    save();
+    var n=1+Math.floor(Math.random()*400), e=ERRORES[Math.floor(Math.random()*ERRORES.length)];
+    out.innerHTML='<p class="mal-err">Error '+n+': '+e+'.<small>La clave '+clave+' no abre el maletín.</small></p>';
+    box.classList.remove('mal-shake'); void box.offsetWidth; box.classList.add('mal-shake');
+    if(quedan()<=0) track('maletin_out',{});
+    pintar();
+  });
+  var txt='Intenta abrir el maletín de LOS 400 ERRORES y mírala gratis: '+location.href.split('#')[0]+'#maletin';
+  share.href='https://wa.me/?text='+encodeURIComponent(txt);
+  share.addEventListener('click',function(){
+    if(st.bonus>0) return;
+    st.bonus=1; save(); track('maletin_share',{});
+    setTimeout(function(){ out.innerHTML='<p class="mal-err" style="color:var(--verde)">Ganaste otro intento.<small>Gracias por llevarme a otro bolsillo.</small></p>'; buy.hidden=true; pintar(); },300);
+  });
+  document.querySelectorAll('[data-game]').forEach(function(a){ a.addEventListener('click',function(){ track('maletin_open',{desde:a.dataset.game}); }); });
+  pintar();
+})();
+
+// ── VIDEO "SOY": reproduce en silencio cuando está en pantalla; sonido con botón
+(function(){
+  var v=document.getElementById('soyVideo'), b=document.getElementById('soySonido');
+  var ICON_OFF='<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3z"/><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M16 9l5 6M21 9l-5 6"/></svg>', ICON_ON='<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+  if(!v||!b) return;
+  new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){}); } else v.pause(); }); },{threshold:.25}).observe(v);
+  b.addEventListener('click',function(){
+    v.muted=!v.muted; if(!v.muted){ v.currentTime=0; v.play(); }
+    b.innerHTML = v.muted ? ICON_OFF : ICON_ON;
+    b.setAttribute('aria-pressed',String(!v.muted)); b.setAttribute('aria-label', v.muted?'Activar sonido':'Silenciar');
+    track('soy_sonido',{on:!v.muted});
+  });
+})();
+
 // ── BOTONES DE COMPRA: evento por ubicación
 var BUY = document.querySelectorAll('[data-cta]');
 BUY.forEach(function(a){
@@ -1070,7 +1335,7 @@ BUY.forEach(function(a){
     if (document.documentElement.classList.contains('no-latam'))
       track('cta_blocked', {cta_location:a.dataset.cta});
     else
-      track('cta_click', {cta_location:a.dataset.cta, cta_platform:(a.href.indexOf('ko-fi')>-1?'kofi':'hotmart')});
+      track('cta_click', {cta_location:a.dataset.cta, cta_platform:(/ko-fi/.test(a.href)?'kofi':/gumroad/.test(a.href)?'gumroad':/patreon/.test(a.href)?'patreon':'hotmart')});
   });
 });
 
@@ -1107,13 +1372,16 @@ document.addEventListener('DOMContentLoaded', function(){
   const floatCta = document.getElementById('float-cta');
   const heroEl   = document.getElementById('hero');
   if (!floatCta || !heroEl) return;
-  const heroObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) floatCta.classList.add('vis');
-      else floatCta.classList.remove('vis');
-    });
+  // se oculta en el hero, en el juego y cuando ya hay otro botón de compra a la vista
+  const visibles = new Set();
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { e.isIntersecting ? visibles.add(e.target) : visibles.delete(e.target); });
+    floatCta.classList.toggle('vis', visibles.size === 0);
   }, { threshold: 0.1 });
-  heroObs.observe(heroEl);
+  obs.observe(heroEl);
+  const mal = document.getElementById('maletin');
+  if (mal) obs.observe(mal);
+  document.querySelectorAll('[data-cta]').forEach(el => { if (!floatCta.contains(el)) obs.observe(el); });
 });
 </script>
 
