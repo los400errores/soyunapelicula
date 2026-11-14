@@ -202,7 +202,7 @@ section {
 .habla-video { position:relative; display:flex; justify-content:center; }
 .habla-video video {
   display:block; height:min(72vh,680px); width:auto; max-width:100%;
-  aspect-ratio:4/5; object-fit:cover; object-position:center; background:#050505; border:1px solid #1c1c1c;
+  aspect-ratio:9/16; object-fit:cover; object-position:center; background:#050505; border:1px solid #1c1c1c;
 }
 .habla-sonido {
   position:absolute; right:1rem; bottom:1rem;
@@ -213,7 +213,12 @@ section {
 }
 .habla-sonido:hover { background:rgba(0,0,0,.85); transform:scale(1.08); }
 .habla-video { width:fit-content; justify-self:center; }
-@media(min-width:901px){ .habla-video { order:2; } .habla-col { order:1; } }
+@media(min-width:901px){
+  .habla-video { order:2; } .habla-col { order:1; }
+  #habla { align-items:start; }
+  /* el alto del video = el alto de la lista de texto (lo calcula el script) */
+  .habla-video video { height:var(--soy-h, min(72vh,680px)); }
+}
 #habla .habla-line { font-size:clamp(2rem,3.7vw,3.8rem); }
 #habla .habla-garantia { white-space:normal; font-size:clamp(1.2rem,1.8vw,1.7rem); }
 @media(max-width:900px){
@@ -1318,6 +1323,10 @@ document.querySelectorAll('.yt').forEach(function(el){
 // ── VIDEO "SOY": reproduce en silencio cuando está en pantalla; sonido con botón
 (function(){
   var v=document.getElementById('soyVideo'), b=document.getElementById('soySonido');
+  var lista=document.querySelector('#habla .habla-text');
+  if(v && lista && 'ResizeObserver' in window){
+    new ResizeObserver(function(){ v.style.setProperty('--soy-h', Math.round(lista.getBoundingClientRect().height)+'px'); }).observe(lista);
+  }
   var ICON_OFF='<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3z"/><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M16 9l5 6M21 9l-5 6"/></svg>', ICON_ON='<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
   if(!v||!b) return;
   new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting){ var pr=v.play(); if(pr&&pr.catch) pr.catch(function(){}); } else v.pause(); }); },{threshold:.25}).observe(v);
