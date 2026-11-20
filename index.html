@@ -1078,6 +1078,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ══════ TRAILER OFICIAL -->
 <section id="trailer-fracasa">
   <h2 class="video-title" style="color:var(--amarillo)">Trailer oficial</h2>
+  <p class="video-sub">MÍRAME</p>
   <div class="video-shell">
     <div class="yt" data-id="MhTWtXtWu2k" data-title="Trailer oficial"></div>
   </div>
@@ -1102,6 +1103,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ══════ UNA PELÍCULA QUE FRACASA -->
 <section id="fracasa">
   <h2 class="video-title" style="color:var(--rojo)">Una película que fracasa</h2>
+  <p class="video-sub">ESCÚCHAME</p>
   <div class="video-shell">
     <div class="yt" data-id="omnzXFrNTcQ" data-title="Una película que fracasa"></div>
   </div>
@@ -1218,6 +1220,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ══════ ESTOY VIVA -->
 <section id="estoy-viva">
   <h2 class="video-title" style="color:var(--cyan)">Estoy viva</h2>
+  <p class="video-sub">SIÉNTEME</p>
   <div class="video-shell">
     <div class="yt" data-id="sZELhfEzSQg" data-title="Estoy viva"></div>
   </div>
@@ -1773,22 +1776,24 @@ document.addEventListener('DOMContentLoaded', function(){
   if(sec && lista && !quieto){
     // Crédito final en loop: empieza a correr antes de que el visitante llegue
     // (al entrar ya va por la mitad), sube lento hasta desaparecer y vuelve a entrar por abajo.
-    var VELOCIDAD = 38;            // píxeles por segundo
+    // en celular la lista es más alta (líneas partidas): corre más rápido y entra más arriba
+    function movil(){ return window.innerWidth < 760; }
+    function vel(){ return movil() ? 62 : 38; }   // píxeles por segundo
     sec.classList.add('creditos');
     lista.classList.remove('anim');
     var H=0, lh=0, y=null, corriendo=false, ultimo=0, vueltas=0;
     function medir(){
       H=sec.clientHeight; lh=lista.offsetHeight;
-      if(y===null){ y = .8*H; }       // primera vuelta: entra desde abajo, ya visible
+      if(y===null){ y = (movil() ? .5 : .8)*H; }       // primera vuelta: entra desde abajo, ya visible
       pintar();
     }
     function pintar(){ lista.style.transform='translate(-50%,'+Math.round(y)+'px)'; }
     function cuadro(t){
       if(!corriendo) return;
-      if(ultimo){ y -= VELOCIDAD*(t-ultimo)/1000; }
+      if(ultimo){ y -= vel()*(t-ultimo)/1000; }
       ultimo=t;
       // cuando la última línea se funde arriba, la siguiente vuelta entra por abajo tras una pausa breve
-      if(y < -lh + .2*H){ y = .9*H; vueltas++; if(vueltas===1) track('dedicada_vuelta',{}); }
+      if(y < -lh + .2*H){ y = (movil() ? .7 : .9)*H; vueltas++; if(vueltas===1) track('dedicada_vuelta',{}); }
       pintar(); requestAnimationFrame(cuadro);
     }
     function play(){ if(corriendo) return; corriendo=true; ultimo=0; requestAnimationFrame(cuadro); }
