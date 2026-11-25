@@ -716,7 +716,7 @@ footer {
     var(--negro);
 }
 #cta::before { display:none; }
-.cta-declaracion-txt em { color:var(--blanco); text-shadow:0 0 28px rgba(245,240,232,.45); }
+.cta-declaracion-txt em { color:var(--amarillo); text-shadow:none; }
 .cta-declaracion-num { color:var(--blanco) !important; opacity:.6 !important; }
 .cta-btn-encender > span:first-child { white-space:nowrap; }
 @media(max-width:640px){
@@ -1021,12 +1021,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="hero-main">
-    <p class="hero-eyebrow">SOY UNA PELÍCULA — ESTRENO&nbsp;CHILE</p>
+    <p class="hero-eyebrow">SOY UNA PELÍCULA — ESTRENO&nbsp;CHILE · 79&nbsp;MIN</p>
     <h1 class="hero-title">
       <span class="block glitch" data-text="LOS 400">LOS 400</span>
       <span class="block">ERRORES</span>
     </h1>
-    <p style="font-family:var(--mono);font-size:.72rem;letter-spacing:.18em;opacity:.6;color:var(--blanco);text-transform:uppercase;margin-top:.5rem;max-width:var(--titulo-w,none);">Estreno Chile · 79 Min</p>
     </div>
     <div class="hero-side">
     <div class="hero-sub">
@@ -1038,23 +1037,76 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         ▶ 5 USD · Solo Chile · Hotmart
       </a>
     </div>
+    <p style="margin-top:.9rem;font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;color:var(--amarillo);opacity:0;animation:fadeup .8s 1.6s forwards;">Si encuentras una película igual, te devolvemos tu dinero.</p>
     </div>
   </div>
   <span class="scroll-hint">↓ &nbsp; scroll</span>
 </section>
 
 
-<!-- ══════ HUINCHA DEL MALETÍN (pregunta) -->
-<div class="huincha-maletin">
-  <div class="hero-preg" id="heroPreg">
-      <p class="hero-preg-q">¿Qué hay dentro del maletín?</p>
-    <div class="hero-preg-ops">
-      <button type="button" class="hero-preg-op" data-resp="dinero">Dinero</button>
-      <button type="button" class="hero-preg-op" data-resp="nada">Nada</button>
-      <button type="button" class="hero-preg-op" data-resp="saber">Necesito saberlo</button>
+<!-- ══════ HUINCHA ¿QUÉ ES EL CINE? -->
+<div id="huincha-cine" style="background:#fff; border-top:1px solid rgba(0,0,0,.08); border-bottom:1px solid rgba(0,0,0,.08); padding:clamp(1rem,2.5vw,1.5rem) clamp(1rem,4vw,3rem);">
+  <div style="max-width:900px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:2rem; flex-wrap:wrap;">
+    <p style="font-family:'Bebas Neue',sans-serif; font-size:clamp(1.5rem,4vw,2.4rem); letter-spacing:.04em; color:var(--rojo); line-height:1;">¿Qué es el cine para ti?</p>
+    <div style="display:flex; gap:.8rem; flex-wrap:wrap;">
+      <button type="button" onclick="document.getElementById('overlay-cine').removeAttribute('hidden'); document.body.style.overflow='hidden';"
+        style="font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:.1em; color:#fff; background:#2B2DFF; border:none; padding:.5rem 1.4rem; cursor:pointer;">▶ PARTICIPAR</button>
+      <button type="button" onclick="document.getElementById('overlay-cine-respuestas').removeAttribute('hidden'); document.body.style.overflow='hidden';"
+        style="font-family:'Bebas Neue',sans-serif; font-size:1rem; letter-spacing:.1em; color:#2B2DFF; background:transparent; border:1px solid #2B2DFF; padding:.5rem 1.4rem; cursor:pointer;">VER RESPUESTAS</button>
     </div>
-    <p class="hero-preg-out" id="heroPregOut" aria-live="polite" hidden></p>
-    <a href="#maletin" class="hero-game" id="heroPregGo" data-game="hero" hidden>Probar la clave ↓</a>
+  </div>
+</div>
+
+<!-- Overlay: formulario participar -->
+<div id="overlay-cine" hidden style="position:fixed;inset:0;z-index:8000;background:rgba(255,255,255,.97);display:flex;align-items:center;justify-content:center;padding:2rem;">
+  <div style="max-width:520px;width:100%;position:relative;">
+    <button onclick="document.getElementById('overlay-cine').setAttribute('hidden',''); document.body.style.overflow='';" style="position:fixed;top:1.2rem;right:1.5rem;background:none;border:none;color:rgba(0,0,0,.5);font-family:var(--mono);font-size:.75rem;cursor:pointer;letter-spacing:.1em;z-index:8100;">✕ CERRAR</button>
+    <h3 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,6vw,3rem);color:var(--rojo);line-height:.95;margin-bottom:1.5rem;">¿QUÉ ES EL CINE<br>PARA TI?</h3>
+    <form id="form-cine-overlay" action="https://formspree.io/f/mnpdwgow" method="POST" style="display:flex;flex-direction:column;gap:.9rem;">
+      <input type="hidden" name="_subject" value="Nueva definición de cine · Los 400 Errores">
+      <textarea name="definicion" rows="3" required placeholder="El cine es…"
+        style="font-family:var(--serif,Georgia,serif);font-size:1rem;line-height:1.6;color:#111;background:#f7f7f5;border:1px solid rgba(0,0,0,.12);border-left:2px solid #2B2DFF;padding:.8rem 1rem;resize:vertical;outline:none;"></textarea>
+      <div style="display:flex;gap:.8rem;flex-wrap:wrap;">
+        <input type="text" name="nombre" placeholder="Tu nombre (opcional)"
+          style="flex:1;min-width:140px;font-family:var(--mono);font-size:.8rem;color:#111;background:#f7f7f5;border:1px solid rgba(0,0,0,.12);padding:.6rem .9rem;outline:none;">
+        <input type="text" name="pais" placeholder="País"
+          style="width:110px;font-family:var(--mono);font-size:.8rem;color:#111;background:#f7f7f5;border:1px solid rgba(0,0,0,.12);padding:.6rem .9rem;outline:none;">
+      </div>
+      <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+        <button type="submit" style="font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.1em;color:#fff;background:#FF0033;border:none;padding:.65rem 2rem;cursor:pointer;">▶ ENVIAR</button>
+        <p id="form-cine-overlay-msg" style="font-family:var(--mono);font-size:.72rem;color:#111;opacity:0;transition:opacity .4s;letter-spacing:.1em;"></p>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Overlay: ver respuestas -->
+<div id="overlay-cine-respuestas" hidden style="position:fixed;inset:0;z-index:8000;background:rgba(255,255,255,.97);overflow-y:auto;padding:3rem 1.5rem;">
+  <div style="max-width:860px;margin:0 auto;position:relative;">
+    <button onclick="document.getElementById('overlay-cine-respuestas').setAttribute('hidden',''); document.body.style.overflow='';" style="position:fixed;top:1.2rem;right:1.5rem;background:none;border:none;color:rgba(0,0,0,.5);font-family:var(--mono);font-size:.75rem;cursor:pointer;letter-spacing:.1em;z-index:8100;">✕ CERRAR</button>
+    <p style="font-family:var(--mono);font-size:.65rem;letter-spacing:.2em;opacity:.4;margin-bottom:.8rem;text-transform:uppercase;color:#111;">ARCHIVO · ¿QUÉ ES EL CINE?</p>
+    <h3 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3.2rem);color:#2B2DFF;line-height:.95;margin-bottom:2rem;white-space:nowrap;">¿QUÉ ES EL CINE PARA TI?</h3>
+
+    <!-- Carousel overlay — 8 por slide -->
+    <div id="overlay-resp-carousel" style="overflow:hidden; margin-bottom:1.5rem;">
+
+      <!-- SLIDE 1 — 5 respuestas reales -->
+      <div class="overlay-resp-slide" style="display:grid;grid-template-columns:1fr 1fr;gap:1rem 2rem;">
+        <blockquote style="margin:0;border-left:2px solid #2B2DFF;padding:.4rem 0 .4rem 1rem;"><p style="font-family:var(--serif,Georgia,serif);font-size:.95rem;line-height:1.5;color:#111;margin:0 0 .3rem;">Para mí el cine representa un viaje. Sentir el paso del tiempo.</p><cite style="font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;opacity:.65;font-style:normal;">— Ignacio Vassallo · Chile</cite></blockquote>
+        <blockquote style="margin:0;border-left:2px solid #2B2DFF;padding:.4rem 0 .4rem 1rem;"><p style="font-family:var(--serif,Georgia,serif);font-size:.95rem;line-height:1.5;color:#111;margin:0 0 .3rem;">El cine es un relato cultivado.</p><cite style="font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;opacity:.65;font-style:normal;">— Natalia Neumann · Chile</cite></blockquote>
+        <blockquote style="margin:0;border-left:2px solid #2B2DFF;padding:.4rem 0 .4rem 1rem;"><p style="font-family:var(--serif,Georgia,serif);font-size:.95rem;line-height:1.5;color:#111;margin:0 0 .3rem;">Creo que el cine es un arma de doble filo. Tiene muchas cosas simples y muchas cosas que son complejas. Es mucho más que ir a ver una película. Es una ventana para sorprenderse, siempre.</p><cite style="font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;opacity:.65;font-style:normal;">— Maximiliano Rubio · Chile</cite></blockquote>
+        <blockquote style="margin:0;border-left:2px solid #2B2DFF;padding:.4rem 0 .4rem 1rem;"><p style="font-family:var(--serif,Georgia,serif);font-size:.95rem;line-height:1.5;color:#111;margin:0 0 .3rem;">Es crear movimiento a través de imágenes fijas. Fotogramas. Es la combinación entre una disciplina artística y una científica.</p><cite style="font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;opacity:.65;font-style:normal;">— Sofía Astorga · Chile</cite></blockquote>
+        <blockquote style="margin:0;border-left:2px solid #2B2DFF;padding:.4rem 0 .4rem 1rem;"><p style="font-family:var(--serif,Georgia,serif);font-size:.95rem;line-height:1.5;color:#111;margin:0 0 .3rem;">Es un recurso que llega a un montón de gente. Es una herramienta muy potente para transmitir.</p><cite style="font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;opacity:.65;font-style:normal;">— Florencia Astorga · Chile</cite></blockquote>
+      </div>
+
+    </div>
+
+    <!-- Sin nav, 1 solo slide -->
+    <p style="font-family:var(--mono);font-size:.58rem;letter-spacing:.15em;opacity:.3;margin-bottom:2.5rem;">5 RESPUESTAS</p>
+
+    <div style="text-align:center;">
+      <button onclick="document.getElementById('overlay-cine-respuestas').setAttribute('hidden',''); document.getElementById('overlay-cine').removeAttribute('hidden');" style="font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.1em;color:#fff;background:#2B2DFF;border:none;padding:.6rem 1.8rem;cursor:pointer;">▶ AGREGAR LA MÍA</button>
+    </div>
   </div>
 </div>
 
@@ -1106,6 +1158,144 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- ══════ DATOS DUROS -->
+<section id="datos">
+  <div class="datos-grid">
+    <div class="dato-tile">
+      <span class="dato-num">400</span>
+      <span class="dato-label">ERRORES</span>
+    </div>
+    <div class="dato-tile">
+      <span class="dato-num">13</span>
+      <span class="dato-label">AÑOS</span>
+    </div>
+    <div class="dato-tile">
+      <span class="dato-num">79</span>
+      <span class="dato-label">MINUTOS</span>
+    </div>
+    <div class="dato-tile">
+      <span class="dato-num">∞</span>
+      <span class="dato-label">CORTES</span>
+    </div>
+    <div class="dato-tile">
+      <span class="dato-num">1</span>
+      <span class="dato-label">MALETÍN</span>
+    </div>
+    <div class="dato-tile dato-precio">
+      <span class="dato-num">5</span>
+      <span class="dato-label">USD</span>
+    </div>
+  </div>
+</section>
+
+<section id="cualquier-video-gancho" style="background:#fff; color:#000; text-align:center; padding:clamp(4rem,10vw,7rem) clamp(1.5rem,6vw,5rem); position:relative; overflow:hidden;">
+  <p style="font-family:var(--mono); font-size:.72rem; letter-spacing:.22em; opacity:.45; margin-bottom:1.4rem; text-transform:uppercase;">Una idea fuerza de LOS 400 ERRORES</p>
+  <h2 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(3.5rem,14vw,9rem); line-height:.88; letter-spacing:.01em; margin-bottom:2.4rem;">
+    <span style="color:#2B2DFF;">CUALQUIER VIDEO</span><br>
+    <span style="color:#FF0033;">ES UNA PELÍCULA.</span>
+  </h2>
+  <p style="font-family:var(--mono); font-size:.85rem; opacity:.55; max-width:38ch; margin:0 auto 2.4rem; line-height:1.7;">11 personas grabaron algo. Nosotros lo declaramos cine.</p>
+  <a href="#cualquier-video-galeria" style="font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:.1em; color:#fff; background:#2B2DFF; padding:.7rem 2.2rem; text-decoration:none; display:inline-block;">▶ VER LAS PELÍCULAS</a>
+</section>
+
+<!-- ══════ ¿QUÉ ES EL CINE PARA TI? ══════ -->
+<section id="que-es-el-cine" style="background:#fff; color:#111; padding:clamp(3rem,8vw,5rem) clamp(1rem,4vw,3rem);">
+  <p style="font-family:var(--mono); font-size:.68rem; letter-spacing:.2em; opacity:.4; text-align:center; margin-bottom:1.2rem; text-transform:uppercase;">DECLARACIÓN · ARCHIVO</p>
+  <h2 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(2.5rem,7vw,5rem); line-height:.9; text-align:center; margin-bottom:3rem; color:#2B2DFF; white-space:nowrap;">¿QUÉ ES EL CINE PARA TI?</h2>
+
+  <!-- ══ GRID DESKTOP: formulario izq | carousel der ══ -->
+  <div style="max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:3rem 4rem; align-items:start;">
+
+    <!-- COLUMNA IZQUIERDA: Formulario -->
+    <div>
+      <p style="font-family:var(--mono); font-size:.68rem; letter-spacing:.2em; opacity:.4; margin-bottom:1.4rem; text-transform:uppercase;">TU DEFINICIÓN</p>
+      <p style="font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; opacity:.45; margin-bottom:1.6rem;">Tu definición puede quedar en este archivo.</p>
+
+      <form id="form-cine" action="https://formspree.io/f/mnpdwgow" method="POST"
+            style="display:flex; flex-direction:column; gap:.9rem;">
+        <input type="hidden" name="_subject" value="Nueva definición de cine · Los 400 Errores">
+        <input type="hidden" name="_next" value="">
+
+        <textarea name="definicion" rows="4" required placeholder="El cine es…"
+          style="font-family:var(--serif,Georgia,serif); font-size:1rem; line-height:1.6; color:#111; background:#f7f7f5;
+                 border:1px solid rgba(0,0,0,.15); border-left:2px solid #2B2DFF; padding:.8rem 1rem;
+                 resize:vertical; outline:none;"></textarea>
+
+        <div style="display:flex; gap:.8rem; flex-wrap:wrap;">
+          <input type="text" name="nombre" placeholder="Tu nombre (opcional)"
+            style="flex:1; min-width:140px; font-family:var(--mono); font-size:.8rem; letter-spacing:.06em;
+                   color:#111; background:#f7f7f5; border:1px solid rgba(0,0,0,.15); padding:.6rem .9rem; outline:none;">
+          <input type="text" name="pais" placeholder="País"
+            style="width:110px; font-family:var(--mono); font-size:.8rem; letter-spacing:.06em;
+                   color:#111; background:#f7f7f5; border:1px solid rgba(0,0,0,.15); padding:.6rem .9rem; outline:none;">
+        </div>
+
+        <div style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+          <button type="submit"
+            style="font-family:'Bebas Neue',sans-serif; font-size:1.1rem; letter-spacing:.1em;
+                   color:#fff; background:#FF0033; border:none; padding:.65rem 2rem; cursor:pointer;">
+            ▶ ENVIAR
+          </button>
+          <p id="form-cine-msg" style="font-family:var(--mono); font-size:.72rem; letter-spacing:.1em; opacity:0; transition:opacity .4s; color:#111;"></p>
+        </div>
+      </form>
+    </div>
+
+    <!-- COLUMNA DERECHA: Carousel de respuestas -->
+    <div>
+      <p style="font-family:var(--mono); font-size:.68rem; letter-spacing:.2em; opacity:.4; margin-bottom:1.4rem; text-transform:uppercase;">ARCHIVO · LO QUE DICE LA GENTE</p>
+
+      <!-- ARCHIVO — 5 respuestas reales, 1 slide -->
+      <div id="archivo-carousel" style="position:relative; overflow:hidden; margin-bottom:1.2rem;">
+
+        <!-- SLIDE 1 -->
+        <div class="archivo-slide" style="display:grid; grid-template-columns:1fr 1fr; gap:.8rem 1.5rem;">
+          <blockquote style="margin:0; border-left:2px solid #2B2DFF; padding:.35rem 0 .35rem .8rem;">
+            <p style="font-family:var(--serif,Georgia,serif); font-size:.88rem; line-height:1.45; color:#111; margin:0 0 .25rem;">Para mí el cine representa un viaje. Sentir el paso del tiempo.</p>
+            <cite style="font-family:var(--mono); font-size:.58rem; letter-spacing:.1em; opacity:.4; font-style:normal;">— Ignacio Vassallo · Chile</cite>
+          </blockquote>
+          <blockquote style="margin:0; border-left:2px solid #2B2DFF; padding:.35rem 0 .35rem .8rem;">
+            <p style="font-family:var(--serif,Georgia,serif); font-size:.88rem; line-height:1.45; color:#111; margin:0 0 .25rem;">El cine es un relato cultivado.</p>
+            <cite style="font-family:var(--mono); font-size:.58rem; letter-spacing:.1em; opacity:.4; font-style:normal;">— Natalia Neumann · Chile</cite>
+          </blockquote>
+          <blockquote style="margin:0; border-left:2px solid #2B2DFF; padding:.35rem 0 .35rem .8rem;">
+            <p style="font-family:var(--serif,Georgia,serif); font-size:.88rem; line-height:1.45; color:#111; margin:0 0 .25rem;">Creo que el cine es un arma de doble filo. Tiene muchas cosas simples y muchas cosas que son complejas. Es mucho más que ir a ver una película. Es una ventana para sorprenderse, siempre.</p>
+            <cite style="font-family:var(--mono); font-size:.58rem; letter-spacing:.1em; opacity:.4; font-style:normal;">— Maximiliano Rubio · Chile</cite>
+          </blockquote>
+          <blockquote style="margin:0; border-left:2px solid #2B2DFF; padding:.35rem 0 .35rem .8rem;">
+            <p style="font-family:var(--serif,Georgia,serif); font-size:.88rem; line-height:1.45; color:#111; margin:0 0 .25rem;">Es crear movimiento a través de imágenes fijas. Fotogramas. Es la combinación entre una disciplina artística y una científica.</p>
+            <cite style="font-family:var(--mono); font-size:.58rem; letter-spacing:.1em; opacity:.4; font-style:normal;">— Sofía Astorga · Chile</cite>
+          </blockquote>
+          <blockquote style="margin:0; border-left:2px solid #2B2DFF; padding:.35rem 0 .35rem .8rem;">
+            <p style="font-family:var(--serif,Georgia,serif); font-size:.88rem; line-height:1.45; color:#111; margin:0 0 .25rem;">Es un recurso que llega a un montón de gente. Es una herramienta muy potente para transmitir.</p>
+            <cite style="font-family:var(--mono); font-size:.58rem; letter-spacing:.1em; opacity:.4; font-style:normal;">— Florencia Astorga · Chile</cite>
+          </blockquote>
+        </div>
+
+      </div>
+
+      <!-- Sin nav cuando hay un solo slide -->
+      <p style="font-family:var(--mono); font-size:.58rem; letter-spacing:.15em; opacity:.3;">5 RESPUESTAS</p>
+    </div>
+
+  </div>
+
+  <!-- Mobile: stack vertical (grid colapsa en móvil) -->
+  <style>
+    @media (max-width:700px) {
+      #que-es-el-cine > div[style*="grid-template-columns:1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+      }
+      #que-es-el-cine h2 { white-space:normal !important; font-size:clamp(2rem,8vw,3rem) !important; }
+      #overlay-cine-respuestas h3 { white-space:normal !important; font-size:clamp(1.8rem,7vw,2.5rem) !important; }
+      .overlay-resp-slide { grid-template-columns:1fr !important; }
+    }
+  </style>
+
+</section>
+
+
+
 <!-- ══════ UNA PELÍCULA QUE FRACASA -->
 <section id="fracasa">
   <h2 class="video-title" style="color:var(--rojo)">Una película que fracasa</h2>
@@ -1115,6 +1305,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+<!-- ══════ HUINCHA SER LA PELÍCULA -->
+<div id="huincha-final" aria-hidden="true">
+  <div class="hf-inner">
+    <span class="hf-word hf-azul">¿Ser</span><span class="hf-word hf-blanco">o</span><span class="hf-word hf-rojo">no ser?</span><span class="hf-word hf-sep">·</span>
+    <span class="hf-word hf-verde">Ser la película</span><span class="hf-word hf-sep">·</span>
+    <span class="hf-word hf-azul">¿Ser</span><span class="hf-word hf-blanco">o</span><span class="hf-word hf-rojo">no ser?</span><span class="hf-word hf-sep">·</span>
+    <span class="hf-word hf-verde">Ser la película</span><span class="hf-word hf-sep">·</span>
+    <span class="hf-word hf-azul">¿Ser</span><span class="hf-word hf-blanco">o</span><span class="hf-word hf-rojo">no ser?</span><span class="hf-word hf-sep">·</span>
+    <span class="hf-word hf-verde">Ser la película</span><span class="hf-word hf-sep">·</span>
+    <span class="hf-word hf-azul">¿Ser</span><span class="hf-word hf-blanco">o</span><span class="hf-word hf-rojo">no ser?</span><span class="hf-word hf-sep">·</span>
+    <span class="hf-word hf-verde">Ser la película</span><span class="hf-word hf-sep">·</span>
+  </div>
+</div>
+
 <!-- ══════ MINI CTA -->
 <div class="mini-cta">
   <span class="mini-cta-txt">Estreno digital exclusivo · Chile 2026</span>
@@ -1122,27 +1326,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      target="_blank" rel="noopener" class="mini-cta-btn">▶ Mírame completa · 5 USD</a>
 </div>
 
-<!-- ══════ BAND -->
-<div class="band">
-  <div class="band-inner fwd" aria-hidden="true">
-    <span class="bi">INTENTA</span>
-    <span class="be">ERROR</span>
-    <span class="bi">INTENTA</span>
-    <span class="be">FRACASA</span>
-    <span class="bi">INTENTA</span>
-    <span class="be">MUTA</span>
-    <span class="bi">INTENTA</span>
-    <span class="be">EXISTE</span>
-    <span class="bi">INTENTA</span>
-    <span class="be">ERROR</span>
-    <span class="bi">INTENTA</span>
-    <span class="be">FRACASA</span>
-    <span class="bi">INTENTA</span>
-    <span class="be">MUTA</span>
-    <span class="bi">INTENTA</span>
-    <span class="be">EXISTE</span>
-  </div>
-</div>
 
 <!-- ══════ DEDICADA -->
 <section id="dedicada">
@@ -1232,19 +1415,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- ══════ HUINCHA SER LA PELÍCULA -->
-<div id="huincha-final" aria-hidden="true">
-  <div class="hf-inner">
-    <span class="hf-word hf-azul">¿Ser</span><span class="hf-word hf-blanco">o</span><span class="hf-word hf-rojo">no ser?</span><span class="hf-word hf-sep">·</span>
-    <span class="hf-word hf-verde">Ser la película</span><span class="hf-word hf-sep">·</span>
-    <span class="hf-word hf-azul">¿Ser</span><span class="hf-word hf-blanco">o</span><span class="hf-word hf-rojo">no ser?</span><span class="hf-word hf-sep">·</span>
-    <span class="hf-word hf-verde">Ser la película</span><span class="hf-word hf-sep">·</span>
-    <span class="hf-word hf-azul">¿Ser</span><span class="hf-word hf-blanco">o</span><span class="hf-word hf-rojo">no ser?</span><span class="hf-word hf-sep">·</span>
-    <span class="hf-word hf-verde">Ser la película</span><span class="hf-word hf-sep">·</span>
-    <span class="hf-word hf-azul">¿Ser</span><span class="hf-word hf-blanco">o</span><span class="hf-word hf-rojo">no ser?</span><span class="hf-word hf-sep">·</span>
-    <span class="hf-word hf-verde">Ser la película</span><span class="hf-word hf-sep">·</span>
-  </div>
-</div>
 
 <!-- ══════ INCLUYE (value stack) -->
 <section id="incluye">
@@ -1271,27 +1441,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
   <p class="errores-cierre stack-garantia">Si encuentras una película igual, <span>te devolvemos tu dinero.</span></p>
 </section>
-
-<!-- ══════ JUEGO DEL MALETÍN -->
-<section id="maletin">
-  <div class="mal-contenido" id="malContenido">
-  <h2 class="mal-head">Abre el maletín <em>y mírame completa.</em></h2>
-  <p class="mal-sub">Adivina la clave. Película gratis. 3 intentos diarios.</p>
-  <div class="mal-box" id="malBox">
-    <div class="mal-dials" id="malDials"></div>
-    <button class="mal-try" id="malTry" type="button">Probar clave</button>
-    <p class="mal-left" id="malLeft"></p>
-  </div>
-  <p class="mal-pronostico">Pronóstico: 1 de cada 100 logra abrirlo.</p>
-  <div class="mal-out" id="malOut" aria-live="polite"></div>
-  <div id="malBuy" hidden>
-    <div class="mal-actions">
-      <a data-cta="maletin" href="https://go.hotmart.com/E108008409K" target="_blank" rel="noopener" class="mini-cta-btn" style="font-size:1.2rem;padding:.65rem 1.6rem;">▶ Mírame completa · 5 USD</a>
-      <a class="mal-share" id="malShare" href="#" target="_blank" rel="noopener">Comparte y gana otro intento</a>
+<!-- ══════ HUINCHA MALETÍN (después de FRACASA) -->
+<div class="huincha-maletin">
+  <div class="hero-preg" id="heroPreg">
+    <p class="hero-preg-q">¿Qué hay dentro del maletín?</p>
+    <div class="hero-preg-ops">
+      <button type="button" class="hero-preg-op" data-resp="dinero">Dinero</button>
+      <button type="button" class="hero-preg-op" data-resp="nada">Nada</button>
+      <button type="button" class="hero-preg-op" data-resp="saber">Necesito saberlo</button>
     </div>
+    <p class="hero-preg-out" id="heroPregOut" aria-live="polite" hidden></p>
+    <a href="#maletin" class="hero-game" id="heroPregGo" data-game="hero" hidden>Probar la clave ↓</a>
   </div>
-  </div>
-</section>
+</div>
 
 <!-- ══════ MIS PRIMEROS MINUTOS -->
 <section id="muestra">
@@ -1331,35 +1493,158 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
-<!-- ══════ DATOS DUROS -->
-<section id="datos">
-  <div class="datos-grid">
-    <div class="dato-tile">
-      <span class="dato-num">400</span>
-      <span class="dato-label">ERRORES</span>
+
+<!-- ══ CUALQUIER VIDEO — GALERÍA ══ -->
+<section id="cualquier-video-galeria" style="background:#fff; color:#000; padding:clamp(1.5rem,4vw,3rem) clamp(1rem,4vw,3rem) clamp(4rem,10vw,7rem);">
+  <p style="font-family:var(--mono); font-size:.68rem; letter-spacing:.2em; opacity:.4; text-align:center; margin-bottom:1.5rem; text-transform:uppercase;">COLECCIÓN 2026</p>
+
+  <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1.2rem; max-width:1200px; margin:0 auto;">
+
+    <!-- Nombre como overlay inferior dentro del video -->
+    <!-- CAMILO ALARCÓN -->
+    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
+      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por Camilo Alarcón</p>
+      </div>
+      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_CAMILO_ALARCON?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por Camilo Alarcón" allow="autoplay; encrypted-media" loading="lazy"></iframe>
     </div>
-    <div class="dato-tile">
-      <span class="dato-num">13</span>
-      <span class="dato-label">AÑOS</span>
+
+    <!-- CAMILO ZAVALA -->
+    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
+      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por Camilo Zavala</p>
+      </div>
+      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_CAMILO_ZAVALA?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por Camilo Zavala" allow="autoplay; encrypted-media" loading="lazy"></iframe>
     </div>
-    <div class="dato-tile">
-      <span class="dato-num">79</span>
-      <span class="dato-label">MINUTOS</span>
+
+    <!-- COCONEJO -->
+    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
+      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por Coconejo</p>
+      </div>
+      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_COCONEJO?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por Coconejo" allow="autoplay; encrypted-media" loading="lazy"></iframe>
     </div>
-    <div class="dato-tile">
-      <span class="dato-num">∞</span>
-      <span class="dato-label">CORTES</span>
+
+    <!-- FRANCISCO VALLADARES -->
+    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
+      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por Francisco Valladares</p>
+      </div>
+      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_FRANCISCO_VALLADARES?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por Francisco Valladares" allow="autoplay; encrypted-media" loading="lazy"></iframe>
     </div>
-    <div class="dato-tile">
-      <span class="dato-num">1</span>
-      <span class="dato-label">MALETÍN</span>
+
+    <!-- IGNACIO VASSALLO -->
+    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
+      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por Ignacio Vassallo</p>
+      </div>
+      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_IGNACIO_VASSALLO?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por Ignacio Vassallo" allow="autoplay; encrypted-media" loading="lazy"></iframe>
     </div>
-    <div class="dato-tile dato-precio">
-      <span class="dato-num">5</span>
-      <span class="dato-label">USD</span>
+
+    <!-- LUIS FERNANDO GAITÁN -->
+    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
+      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por Luis Fernando Gaitán</p>
+      </div>
+      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_LUIS_FERNANDO?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por Luis Fernando Gaitán" allow="autoplay; encrypted-media" loading="lazy"></iframe>
     </div>
+
+    <!-- MARÍA IGNACIA PENTZ -->
+    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
+      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por María Ignacia Pentz</p>
+      </div>
+      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_MARIA_IGNACIA?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por María Ignacia Pentz" allow="autoplay; encrypted-media" loading="lazy"></iframe>
+    </div>
+
+    <!-- OLIVER JACK THOMPSON -->
+    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
+      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por Oliver Jack Thompson</p>
+      </div>
+      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_OLIVER?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por Oliver Jack Thompson" allow="autoplay; encrypted-media" loading="lazy"></iframe>
+    </div>
+
+    <!-- PAOLA VALDÉS -->
+    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
+      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por Paola Valdés</p>
+      </div>
+      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_PAOLA?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por Paola Valdés" allow="autoplay; encrypted-media" loading="lazy"></iframe>
+    </div>
+
+    <!-- MARCELO VARGAS -->
+    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
+      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
+      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
+        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por Marcelo Vargas</p>
+      </div>
+      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_MARCELO?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por Marcelo Vargas" allow="autoplay; encrypted-media" loading="lazy"></iframe>
+    </div>
+
   </div>
+
 </section>
+
+<script>
+// Overlay formulario cine
+(function(){
+  var form = document.getElementById('form-cine-overlay');
+  var msg  = document.getElementById('form-cine-overlay-msg');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var data = new FormData(form);
+    fetch(form.action, { method:'POST', body:data, headers:{'Accept':'application/json'} })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if (d.ok) {
+          form.reset();
+          if(msg){ msg.textContent = 'Recibida.'; msg.style.opacity='1'; setTimeout(function(){ msg.style.opacity='0'; }, 4000); }
+        }
+      })
+      .catch(function(){});
+  });
+})();
+
+
+(function(){
+  var form = document.getElementById('form-cine');
+  var msg  = document.getElementById('form-cine-msg');
+  if (!form) return;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var data = new FormData(form);
+    fetch(form.action, { method:'POST', body:data, headers:{'Accept':'application/json'} })
+      .then(function(r){ return r.json(); })
+      .then(function(d){
+        if (d.ok) {
+          form.reset();
+          msg.textContent = 'Recibida.';
+          msg.style.opacity = '1';
+          setTimeout(function(){ msg.style.opacity = '0'; }, 4000);
+        } else {
+          msg.textContent = 'Error al enviar. Intenta de nuevo.';
+          msg.style.opacity = '1';
+        }
+      })
+      .catch(function(){
+        msg.textContent = 'Error de conexión.';
+        msg.style.opacity = '1';
+      });
+  });
+})();
+</script>
+
 
 <!-- ══════ CASTING -->
 <section id="casting">
@@ -1391,12 +1676,38 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </section>
 
+
+
+
+
+<!-- ══════ JUEGO DEL MALETÍN -->
+<section id="maletin">
+  <div class="mal-contenido" id="malContenido">
+  <h2 class="mal-head">Abre el maletín <em>y mírame completa.</em></h2>
+  <p class="mal-sub">Adivina la clave. Película gratis. 3 intentos diarios.</p>
+  <div class="mal-box" id="malBox">
+    <div class="mal-dials" id="malDials"></div>
+    <button class="mal-try" id="malTry" type="button">Probar clave</button>
+    <p class="mal-left" id="malLeft"></p>
+  </div>
+  <p class="mal-pronostico">Pronóstico: 1 de cada 100 logra abrirlo.</p>
+  <div class="mal-out" id="malOut" aria-live="polite"></div>
+  <div id="malBuy" hidden>
+    <div class="mal-actions">
+      <a data-cta="maletin" href="https://go.hotmart.com/E108008409K" target="_blank" rel="noopener" class="mini-cta-btn" style="font-size:1.2rem;padding:.65rem 1.6rem;">▶ Mírame completa · 5 USD</a>
+      <a class="mal-share" id="malShare" href="#" target="_blank" rel="noopener">Comparte y gana otro intento</a>
+    </div>
+  </div>
+  </div>
+</section>
+
 <!-- ══════ CTA -->
+<!-- ══ CUALQUIER VIDEO — GANCHO ══ -->
 <section id="cta">
   <div class="cta-declaracion-num">DECLARACIÓN / 21</div>
 
   <h2 class="cta-declaracion-txt">
-    Yo soy la película.<br>Tú eres el <em>proyector.</em>
+    <span style="color:var(--blanco);">Yo soy la película.</span><br><span style="color:var(--amarillo);">Tú eres el <em>proyector.</em></span>
   </h2>
 
   <div class="cta-acciones">
@@ -1406,6 +1717,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span>▶ Mírame completa</span>
       <span class="cta-btn-precio">5 USD · Hotmart · pago seguro</span>
     </a>
+
+    <p style="margin-top:1.1rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:var(--amarillo);">Si encuentras una película igual, te devolvemos tu dinero.</p>
 
     <p class="plat-label" style="font-size:.72rem;opacity:.6;margin-top:1rem;">Estreno digital exclusivo Chile · 2026</p>
 
@@ -1453,24 +1766,27 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ══════ BLOQUE FUERA DE CHILE (oculto por defecto, JS lo muestra si geo ≠ CL) -->
 <div id="espera-mundo" style="display:none; position:fixed; bottom:0; left:0; right:0; z-index:9000;
   background:rgba(0,0,0,.92); border-top:1px solid rgba(255,236,0,.18);
-  padding:1.2rem clamp(1.5rem,6vw,4rem); display:flex; flex-direction:column; align-items:center;
-  gap:.6rem; text-align:center;">
-  <p style="font-family:var(--display); font-size:clamp(1rem,3vw,1.4rem); color:var(--amarillo); letter-spacing:.08em; line-height:1.2;">
-    TODAVÍA NO LLEGO A TU TERRITORIO.
-  </p>
-  <p style="font-family:var(--mono); font-size:.78rem; opacity:.7; color:var(--blanco); max-width:36ch;">
-    Estreno digital exclusivo Chile 2026.
-  </p>
-  <a href="mailto:soyunapelicula@los400errores.com?subject=Avísame%20cuando%20llegue"
-     style="font-family:var(--display); font-size:1rem; letter-spacing:.1em; color:var(--negro);
-     background:var(--amarillo); padding:.55rem 1.6rem; text-decoration:none; display:inline-block; margin-top:.2rem;">
-    ▶ AVÍSAME CUANDO LLEGUE
-  </a>
-  <button onclick="document.getElementById('espera-mundo').style.display='none'"
-    style="background:none; border:none; color:rgba(245,240,232,.35); font-family:var(--mono);
-    font-size:.7rem; cursor:pointer; margin-top:.2rem; letter-spacing:.1em;">
-    cerrar ✕
-  </button>
+  padding:.7rem clamp(1rem,4vw,3rem);">
+  <div style="display:flex; align-items:center; justify-content:space-between; gap:1.5rem; max-width:900px; margin:0 auto;">
+    <div style="display:flex; align-items:center; gap:1.4rem; flex-wrap:wrap;">
+      <p style="font-family:var(--display); font-size:clamp(.9rem,2.2vw,1.2rem); color:var(--amarillo); letter-spacing:.08em; line-height:1; white-space:nowrap;">
+        TODAVÍA NO LLEGO A TU TERRITORIO.
+      </p>
+      <p style="font-family:var(--mono); font-size:.72rem; opacity:.6; color:var(--blanco); white-space:nowrap;">
+        Estreno exclusivo Chile · 2026
+      </p>
+      <a href="mailto:soyunapelicula@los400errores.com?subject=Avísame%20cuando%20llegue"
+         style="font-family:var(--display); font-size:.9rem; letter-spacing:.1em; color:var(--negro);
+         background:var(--amarillo); padding:.38rem 1.1rem; text-decoration:none; display:inline-block; white-space:nowrap;">
+        ▶ AVÍSAME
+      </a>
+    </div>
+    <button onclick="document.getElementById('espera-mundo').style.display='none'"
+      style="background:none; border:none; color:rgba(245,240,232,.4); font-family:var(--mono);
+      font-size:.75rem; cursor:pointer; letter-spacing:.1em; flex-shrink:0;">
+      ✕
+    </button>
+  </div>
 </div>
 
 <!-- ══════ VENTANA DEL MALETÍN (se abre desde la huincha, sin mover la página) -->
@@ -1671,31 +1987,33 @@ BUY.forEach(function(a){
 // Si no se puede detectar el país, NO se bloquea a nadie.
 var AVISAME = 'mailto:soyunapelicula@los400errores.com?subject=' + encodeURIComponent('Avísame cuando llegues a mi país');
 (function geo(){
-  var ctrl = ('AbortController' in window) ? new AbortController() : null;
-  var t = setTimeout(function(){ if(ctrl) ctrl.abort(); }, 3500);
-  fetch('https://get.geojs.io/v1/ip/country.json', ctrl ? {signal:ctrl.signal} : {})
-    .then(function(r){ return r.json(); })
-    .then(function(d){
-      clearTimeout(t);
-      var c = (d && d.country || '').toUpperCase();
-      if (!c) return;
-      var esCL = (c === 'CL');
-      track('geo_detected', {country:c, es_chile:esCL});
-      if (esCL) return; // Chile: todo normal, nada que hacer
-      // Fuera de Chile: mostrar bloque inferior y ocultar float-cta
-      var bloq = document.getElementById('espera-mundo');
-      if (bloq) { bloq.style.display = 'flex'; }
-      var floatCta = document.getElementById('float-cta');
-      if (floatCta) floatCta.style.display = 'none';
-      // Botones de compra → solo muestra en Chile; fuera, redirigir al correo
-      document.documentElement.classList.add('no-cl');
-      BUY.forEach(function(a){
-        if (a.dataset.cta === 'flotante') return; // ya ocultado arriba
-        a.href = AVISAME; a.removeAttribute('target');
-        a.innerHTML = '<span>Todavía no llego a tu territorio · Avísame</span>';
-      });
-    })
-    .catch(function(){ clearTimeout(t); });
+  function fetchCountry(url, extract) {
+    var ctrl = ('AbortController' in window) ? new AbortController() : null;
+    var t = setTimeout(function(){ if(ctrl) ctrl.abort(); }, 4000);
+    return fetch(url, ctrl ? {signal:ctrl.signal} : {})
+      .then(function(r){ return r.json(); })
+      .then(function(d){ clearTimeout(t); return extract(d); })
+      .catch(function(){ clearTimeout(t); return null; });
+  }
+  Promise.all([
+    fetchCountry('https://get.geojs.io/v1/ip/country.json', function(d){ return (d && d.country || '').toUpperCase() || null; }),
+    fetchCountry('https://ipapi.co/json/', function(d){ return (d && d.country_code || '').toUpperCase() || null; })
+  ]).then(function(results){
+    var a = results[0], b = results[1];
+    if (!a || !b) return;
+    if (a === 'CL' || b === 'CL') { track('geo_detected', {country: a || b, es_chile: true}); return; }
+    track('geo_detected', {country: a, es_chile: false});
+    var bloq = document.getElementById('espera-mundo');
+    if (bloq) { bloq.style.display = 'flex'; }
+    var floatCta = document.getElementById('float-cta');
+    if (floatCta) floatCta.style.display = 'none';
+    document.documentElement.classList.add('no-cl');
+    BUY.forEach(function(el){
+      if (el.dataset.cta === 'flotante') return;
+      el.href = AVISAME; el.removeAttribute('target');
+      el.innerHTML = '<span>Todavía no llego a tu territorio · Avísame</span>';
+    });
+  });
 })();
 
 // FOTO HERO (opcional): en el CSS de .hero-bg descomenta background-image: url('hero_ser.jpg');
