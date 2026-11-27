@@ -46,7 +46,7 @@ a { color:inherit; }
 .presenta:hover { opacity:1; }
 
 /* ── pantalla */
-.pantalla { position:relative; width:100%; background:#000; overflow:hidden; }
+.pantalla { position:relative; width:100%; background:#000; overflow:hidden; container-type:inline-size; }
 .pantalla.h { aspect-ratio:16/9; max-width:min(1100px, calc(78svh * 16 / 9)); }
 .pantalla.v { aspect-ratio:9/16; max-width:min(440px, calc(78svh * 9 / 16)); }
 .pantalla .player, .pantalla iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
@@ -99,26 +99,26 @@ a { color:inherit; }
 .otra-vez:hover { border-color:var(--amarillo); color:var(--amarillo); }
 
 /* ── debajo de la pantalla */
-.ficha { width:100%; max-width:720px; text-align:center; margin-top:clamp(1.6rem,4vw,2.4rem); }
-.ficha h1 { font-family:var(--display); font-weight:400; font-size:clamp(2.2rem,7vw,3.6rem); line-height:.95; letter-spacing:.02em; text-transform:uppercase; }
-.ficha h1 .dir { display:block; color:var(--verde); font-size:.5em; letter-spacing:.12em; margin-top:.5rem; overflow-wrap:anywhere; }
-.declaracion { margin:1.4rem auto 0; font-size:.85rem; line-height:1.8; opacity:.75; max-width:46ch; }
-.acciones { display:flex; gap:.7rem; justify-content:center; flex-wrap:wrap; margin-top:1.8rem; }
+/* ── todo lo que va bajo la pantalla: fondo blanco */
+.puente { width:100%; background:#fff; color:#000; text-align:center; padding:clamp(3rem,7vw,5rem) 16px clamp(3.5rem,8vw,5.5rem); }
+.declaracion { font-size:.9rem; line-height:1.8; max-width:46ch; margin:0 auto; color:#000; }
+.declaracion strong { color:var(--rojo); font-weight:400; white-space:nowrap; }
+.acciones { display:flex; gap:.7rem; justify-content:center; flex-wrap:wrap; margin-top:1.4rem; }
 .acciones button, .acciones a { font-family:var(--mono); font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; text-decoration:none;
-  background:none; color:var(--blanco); border:1px solid rgba(245,240,232,.35); padding:.7rem 1.1rem; cursor:pointer; }
+  background:none; color:#000; border:1px solid rgba(0,0,0,.3); padding:.7rem 1.1rem; cursor:pointer; }
 .acciones .wsp { background:var(--verde); color:#000; border-color:var(--verde); }
-.acciones button:hover, .acciones a:hover { border-color:var(--amarillo); color:var(--amarillo); }
-.acciones .wsp:hover { background:var(--amarillo); color:#000; }
-#copiado { display:block; min-height:1.2em; margin-top:.7rem; font-size:.7rem; letter-spacing:.14em; color:var(--verde); }
-
-.puente { width:100%; background:var(--blanco); color:#000; text-align:center; padding:clamp(3.5rem,9vw,6rem) 16px; }
-.puente .eyebrow { font-size:.7rem; letter-spacing:.26em; text-transform:uppercase; opacity:.5; }
-.puente h2 { font-family:var(--display); font-weight:400; font-size:clamp(2.6rem,8vw,5.5rem); line-height:.9; text-transform:uppercase; margin:1rem auto 2rem; max-width:14ch; }
-.puente h2 em { font-style:normal; color:var(--azul); }
+.acciones button:hover, .acciones a:hover { border-color:var(--azul); color:var(--azul); }
+.acciones .wsp:hover { background:var(--azul); border-color:var(--azul); color:#fff; }
+#copiado { display:block; min-height:1.2em; margin-top:.7rem; font-size:.7rem; letter-spacing:.14em; color:var(--azul); }
+.puente h2 { font-family:var(--display); font-weight:400; font-size:clamp(2.4rem,5.6vw,5rem); line-height:.92; text-transform:uppercase;
+  margin:clamp(2.8rem,7vw,4.5rem) auto clamp(1.8rem,4vw,2.4rem); max-width:1100px; }
+.puente h2 span { display:block; }
+.puente h2 .az { color:var(--azul); } .puente h2 .rj { color:var(--rojo); }
 .btn-compra { display:inline-block; font-family:var(--display); font-size:clamp(1.2rem,2.6vw,1.6rem); letter-spacing:.06em; text-transform:uppercase; text-decoration:none;
   background:var(--amarillo); color:#000; padding:.8rem 1.9rem; box-shadow:6px 6px 0 var(--frambuesa); transition:transform .15s, box-shadow .15s; }
 .btn-compra:hover { transform:translate(-2px,-2px); box-shadow:8px 8px 0 var(--azul); }
-.garantia { margin-top:1.2rem; font-size:.72rem; letter-spacing:.12em; color:var(--frambuesa); }
+.garantia { margin-top:1.3rem; font-size:.78rem; letter-spacing:.1em; color:#000; }
+.garantia strong { color:var(--frambuesa); font-weight:400; }
 .declara { display:inline-block; margin-top:2.4rem; font-family:var(--display); font-size:1.25rem; letter-spacing:.08em; color:#fff; background:var(--azul); padding:.65rem 1.8rem; text-decoration:none; }
 .declara:hover { background:var(--rojo); }
 
@@ -195,16 +195,6 @@ footer { padding:1.8rem clamp(1.5rem,6vw,5rem); border-top:1px solid #151515; di
     <button class="otra-vez" id="otraVez" type="button">↺ Ver de nuevo</button>
   </div>
 
-  <div class="ficha" id="ficha" hidden>
-    <h1>Cualquier video<span class="dir js-nombre"></span></h1>
-    <p class="declaracion">Este video es una película. Lo declaro yo.<br>— LOS 400 ERRORES</p>
-    <div class="acciones">
-      <a class="wsp" id="wsp" href="#" target="_blank" rel="noopener" data-share="whatsapp">Compartir por WhatsApp</a>
-      <button type="button" id="copiar" data-share="copiar">Copiar link</button>
-    </div>
-    <span id="copiado" aria-live="polite"></span>
-  </div>
-
   <div class="aviso" id="aviso" hidden>
     <h1 id="avisoTitulo"></h1>
     <p id="avisoTexto"></p>
@@ -213,10 +203,18 @@ footer { padding:1.8rem clamp(1.5rem,6vw,5rem); border-top:1px solid #151515; di
 </main>
 
 <section class="puente">
-  <p class="eyebrow">Una idea fuerza de LOS 400 ERRORES</p>
-  <h2>Yo también fui <em>un video cualquiera.</em> 13 años después, soy una película.</h2>
+  <div id="ficha" hidden>
+  <p class="declaracion">Este video es una película. <strong>Lo declaro yo.</strong><br>— LOS 400 ERRORES</p>
+  <div class="acciones">
+    <a class="wsp" id="wsp" href="#" target="_blank" rel="noopener" data-share="whatsapp">Compartir por WhatsApp</a>
+    <button type="button" id="copiar" data-share="copiar">Copiar link</button>
+  </div>
+  <span id="copiado" aria-live="polite"></span>
+  </div>
+
+  <h2><span class="az">Yo también fui un video cualquiera.</span><span class="rj">13 años después, soy una película.</span></h2>
   <a class="btn-compra" data-cta="pelicula" href="https://go.hotmart.com/E108008409K" target="_blank" rel="noopener">▶ Mírame completa · 5 USD</a>
-  <p class="garantia">Si encuentras una película igual, te devolvemos tu dinero.</p>
+  <p class="garantia">Si encuentras una película igual, <strong>te devolvemos tu dinero.</strong></p>
   <a class="declara" href="./#declara" data-cta-declara="pelicula">▶ Declara tu película</a>
 </section>
 
@@ -366,7 +364,7 @@ document.addEventListener('click', function(e){
   .then(function(lista){
     if (Array.isArray(lista) && lista.indexOf(id) !== -1){ aviso('Película retirada','Este video ya no se muestra aquí.'); return; }
     pantalla.className = 'pantalla ' + forma; pantalla.hidden = false; $('ficha').hidden = false;
-    document.title = 'Cualquier video · Dirigido por ' + (nombre || 'alguien') + ' — LOS 400 ERRORES';
+    
     pintarNombre(); compartir();
     (document.fonts ? document.fonts.ready : Promise.resolve()).then(pintarNombre);
     window.addEventListener('resize', pintarNombre);
