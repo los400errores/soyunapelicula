@@ -625,6 +625,19 @@ footer {
 .hero-content { padding-top:clamp(2.2rem,6vh,4rem); }
 
 
+
+/* ══════════════════════════════ COLECCIÓN (galería del archivo) */
+.cv-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1.2rem; max-width:1200px; margin:0 auto; }
+.cv-item { position:relative; display:block; aspect-ratio:3/4; background:#111; overflow:hidden; text-decoration:none; }
+.cv-thumb { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .4s; }
+a.cv-item:hover .cv-thumb { transform:scale(1.05); }
+.cv-png { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:2; pointer-events:none; }
+.cv-pie { position:absolute; left:0; right:0; bottom:0; z-index:3; background:linear-gradient(transparent,rgba(0,0,0,.8)); padding:1.4rem .7rem .55rem; pointer-events:none; }
+.cv-num { display:block; font-family:var(--mono); font-size:.58rem; letter-spacing:.18em; text-transform:uppercase; color:var(--amarillo); margin-bottom:.25rem; }
+.cv-pie p { font-family:'Bebas Neue',sans-serif; font-size:.95rem; letter-spacing:.07em; color:#fff; line-height:1; }
+.cv-mas { display:block; margin:2rem auto 0; font-family:var(--mono); font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; background:none; color:#000; border:1px solid rgba(0,0,0,.3); padding:.7rem 1.2rem; cursor:pointer; }
+.cv-mas:hover { border-color:var(--azul); color:var(--azul); }
+
 /* ══════════════════════════════ DECLARA TU PELÍCULA */
 #declara { background:#fff; color:#000; padding:clamp(3.5rem,9vw,6rem) clamp(16px,5vw,3rem); border-top:1px solid rgba(0,0,0,.08); }
 .dc-wrap { max-width:620px; margin:0 auto; }
@@ -1408,7 +1421,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <span style="color:#2B2DFF;">CUALQUIER VIDEO</span><br>
     <span style="color:#FF0033;">ES UNA PELÍCULA.</span>
   </h2>
-  <p style="font-family:var(--mono); font-size:.85rem; opacity:.55; max-width:38ch; margin:0 auto 2.4rem; line-height:1.7;">10 personas grabaron algo. Yo lo declaro cine.</p>
+  <p style="font-family:var(--mono); font-size:.85rem; opacity:.55; max-width:38ch; margin:0 auto 2.4rem; line-height:1.7;"><span id="cvTotal">10</span> personas grabaron algo. Yo lo declaro cine.</p>
   <a href="#cualquier-video-galeria" style="font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:.1em; color:#fff; background:#2B2DFF; padding:.7rem 2.2rem; text-decoration:none; display:inline-block;">▶ VER LAS PELÍCULAS</a>
   <a href="#declara" style="display:inline-block; margin-left:.6rem; font-family:'Bebas Neue',sans-serif; font-size:1.3rem; letter-spacing:.1em; color:#FF0033; border:2px solid #FF0033; padding:calc(.7rem - 2px) 2rem; margin-top:.6rem; text-decoration:none;">DECLARA LA TUYA</a>
 </section>
@@ -1416,102 +1429,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ══ CUALQUIER VIDEO — GALERÍA ══ -->
 <section id="cualquier-video-galeria" style="background:#fff; color:#000; padding:clamp(1.5rem,4vw,3rem) clamp(1rem,4vw,3rem) clamp(4rem,10vw,7rem);">
   <p style="font-family:var(--mono); font-size:.68rem; letter-spacing:.2em; opacity:.4; text-align:center; margin-bottom:1.5rem; text-transform:uppercase;">COLECCIÓN 2026</p>
-
-  <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1.2rem; max-width:1200px; margin:0 auto;">
-
-    <!-- Nombre como overlay inferior dentro del video -->
-    <!-- CAMILO ALARCÓN -->
-    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
-      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
-      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por Camilo Alarcón</p>
-      </div>
-      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_CAMILO_ALARCON?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por Camilo Alarcón" allow="autoplay; encrypted-media" loading="lazy"></iframe>
-    </div>
-
-    <!-- CAMILO ZAVALA -->
-    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
-      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
-      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por Camilo Zavala</p>
-      </div>
-      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_CAMILO_ZAVALA?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por Camilo Zavala" allow="autoplay; encrypted-media" loading="lazy"></iframe>
-    </div>
-
-    <!-- COCONEJO -->
-    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
-      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
-      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por Coconejo</p>
-      </div>
-      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_COCONEJO?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por Coconejo" allow="autoplay; encrypted-media" loading="lazy"></iframe>
-    </div>
-
-    <!-- FRANCISCO VALLADARES -->
-    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
-      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
-      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por Francisco Valladares</p>
-      </div>
-      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_FRANCISCO_VALLADARES?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por Francisco Valladares" allow="autoplay; encrypted-media" loading="lazy"></iframe>
-    </div>
-
-    <!-- IGNACIO VASSALLO -->
-    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
-      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
-      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por Ignacio Vassallo</p>
-      </div>
-      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_IGNACIO_VASSALLO?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por Ignacio Vassallo" allow="autoplay; encrypted-media" loading="lazy"></iframe>
-    </div>
-
-    <!-- LUIS FERNANDO GAITÁN -->
-    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
-      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
-      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por Luis Fernando Gaitán</p>
-      </div>
-      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_LUIS_FERNANDO?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por Luis Fernando Gaitán" allow="autoplay; encrypted-media" loading="lazy"></iframe>
-    </div>
-
-    <!-- MARÍA IGNACIA PENTZ -->
-    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
-      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
-      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por María Ignacia Pentz</p>
-      </div>
-      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_MARIA_IGNACIA?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por María Ignacia Pentz" allow="autoplay; encrypted-media" loading="lazy"></iframe>
-    </div>
-
-    <!-- OLIVER JACK THOMPSON -->
-    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
-      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
-      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por Oliver Jack Thompson</p>
-      </div>
-      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_OLIVER?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por Oliver Jack Thompson" allow="autoplay; encrypted-media" loading="lazy"></iframe>
-    </div>
-
-    <!-- PAOLA VALDÉS -->
-    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
-      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
-      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por Paola Valdés</p>
-      </div>
-      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_PAOLA?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por Paola Valdés" allow="autoplay; encrypted-media" loading="lazy"></iframe>
-    </div>
-
-    <!-- MARCELO VARGAS -->
-    <div class="cv-item" style="position:relative; aspect-ratio:3/4; background:#111; overflow:hidden;">
-      <img src="/cualquier-video-es-una-pelicula.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;pointer-events:none;">
-      <div style="position:absolute;bottom:0;left:0;right:0;z-index:3;background:linear-gradient(transparent,rgba(0,0,0,.75));padding:.6rem .7rem .5rem;pointer-events:none;">
-        <p style="font-family:'Bebas Neue',sans-serif;font-size:.85rem;letter-spacing:.07em;color:#fff;line-height:1;">Dirigido por Marcelo Vargas</p>
-      </div>
-      <iframe style="position:absolute;inset:0;width:100%;height:100%;border:0;" src="https://www.youtube.com/embed/PLACEHOLDER_MARCELO?loop=1&mute=1&playsinline=1&rel=0&modestbranding=1" title="Dirigido por Marcelo Vargas" allow="autoplay; encrypted-media" loading="lazy"></iframe>
-    </div>
-
+  <!-- Las tarjetas se arman solas desde la planilla del archivo; estas 10 son el respaldo si la planilla no responde -->
+  <div class="cv-grid" id="cvGrid">
+    <div class="cv-item"><img class="cv-png" src="/cualquier-video-es-una-pelicula.png" alt=""><div class="cv-pie"><span class="cv-num">Película N° 1</span><p>Dirigido por Camilo Alarcón</p></div></div>
+    <div class="cv-item"><img class="cv-png" src="/cualquier-video-es-una-pelicula.png" alt=""><div class="cv-pie"><span class="cv-num">Película N° 2</span><p>Dirigido por Camilo Zavala</p></div></div>
+    <div class="cv-item"><img class="cv-png" src="/cualquier-video-es-una-pelicula.png" alt=""><div class="cv-pie"><span class="cv-num">Película N° 3</span><p>Dirigido por Coconejo</p></div></div>
+    <div class="cv-item"><img class="cv-png" src="/cualquier-video-es-una-pelicula.png" alt=""><div class="cv-pie"><span class="cv-num">Película N° 4</span><p>Dirigido por Francisco Valladares</p></div></div>
+    <div class="cv-item"><img class="cv-png" src="/cualquier-video-es-una-pelicula.png" alt=""><div class="cv-pie"><span class="cv-num">Película N° 5</span><p>Dirigido por Ignacio Vassallo</p></div></div>
+    <div class="cv-item"><img class="cv-png" src="/cualquier-video-es-una-pelicula.png" alt=""><div class="cv-pie"><span class="cv-num">Película N° 6</span><p>Dirigido por Luis Fernando Gaitán</p></div></div>
+    <div class="cv-item"><img class="cv-png" src="/cualquier-video-es-una-pelicula.png" alt=""><div class="cv-pie"><span class="cv-num">Película N° 7</span><p>Dirigido por María Ignacia Pentz</p></div></div>
+    <div class="cv-item"><img class="cv-png" src="/cualquier-video-es-una-pelicula.png" alt=""><div class="cv-pie"><span class="cv-num">Película N° 8</span><p>Dirigido por Oliver Jack Thompson</p></div></div>
+    <div class="cv-item"><img class="cv-png" src="/cualquier-video-es-una-pelicula.png" alt=""><div class="cv-pie"><span class="cv-num">Película N° 9</span><p>Dirigido por Paola Valdés</p></div></div>
+    <div class="cv-item"><img class="cv-png" src="/cualquier-video-es-una-pelicula.png" alt=""><div class="cv-pie"><span class="cv-num">Película N° 10</span><p>Dirigido por Marcelo Vargas</p></div></div>
   </div>
-
+  <button type="button" class="cv-mas" id="cvMas" hidden>Ver más películas</button>
 </section>
 
 
@@ -1539,7 +1470,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </form>
 
     <div class="dc-lista" id="dcLista" hidden>
-      <p class="dc-label">Tu película está lista</p>
+      <p class="dc-label" id="dcTitulo">Tu película está lista</p>
       <p class="dc-url" id="dcUrl"></p>
       <div class="dc-acciones">
         <a class="dc-btn" id="dcVer" href="#" target="_blank" rel="noopener">▶ Ver mi película</a>
@@ -1548,7 +1479,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <button type="button" class="dc-otra dc-nueva" id="dcNueva">Declarar otra</button>
     </div>
-    <p class="dc-nota">Solo YouTube o Vimeo, porque necesito saber cuándo empieza y cuándo termina tu película. El video sigue siendo tuyo y vive en tu cuenta.</p>
+    <p class="dc-nota">Tu película queda en el archivo público de la Colección, con su número y tu nombre. Solo YouTube o Vimeo, porque necesito saber cuándo empieza y cuándo termina. El video sigue siendo tuyo y vive en tu cuenta.</p>
   </div>
 </section>
 
@@ -1770,6 +1701,68 @@ document.querySelectorAll('.yt').forEach(function(el){
 
 
 // ══════════════════════════════════════════════
+// ARCHIVO DE PELÍCULAS (planilla de Google)
+// Pega aquí la URL del script publicado (termina en /exec):
+var ARCHIVO_URL = 'https://script.google.com/macros/s/AKfycbyYgiub6Q5bv6QoyGjpGOGgGLQTY_MJxzS-4z8_0dZe0aIw94nh6rszFkssqUeecYC5/exec';
+// ══════════════════════════════════════════════
+function archivoActivo(){ return /^https:\/\/script\.google(usercontent)?\.com\//.test(ARCHIVO_URL); }
+function urlPelicula(q){
+  var u=location.origin+location.pathname.replace(/[^\/]*$/,'')+'pelicula?'+q.toString();
+  return location.protocol==='file:' ? u.replace('pelicula?','pelicula.html?') : u;
+}
+function archivoGuardar(datos){
+  if(!archivoActivo()) return Promise.resolve(0);
+  var ctrl = window.AbortController ? new AbortController() : null;
+  var t = setTimeout(function(){ if(ctrl) ctrl.abort(); }, 8000);
+  return fetch(ARCHIVO_URL, { method:'POST', body:new URLSearchParams(datos), signal: ctrl?ctrl.signal:undefined })
+    .then(function(r){ return r.json(); })
+    .then(function(r){ clearTimeout(t); return (r && r.ok && r.n) ? r.n : 0; })
+    .catch(function(){ clearTimeout(t); return 0; });
+}
+function archivoCargar(fresco){
+  if(!archivoActivo()) return;
+  fetch(ARCHIVO_URL + (fresco ? '?t='+Date.now() : ''))
+    .then(function(r){ return r.json(); })
+    .then(function(r){ if(r && r.ok) pintarColeccion(r.peliculas||[]); })
+    .catch(function(){});
+}
+function pintarColeccion(lista){
+  var grid=document.getElementById('cvGrid'), total=document.getElementById('cvTotal'), mas=document.getElementById('cvMas');
+  if(!grid || !lista.length) return;
+  if(total) total.textContent = lista.length;
+  var LIMITE=20, todas=false;
+  function tarjeta(r){
+    var conVideo = !!r.id;
+    var el = document.createElement(conVideo ? 'a' : 'div');
+    el.className='cv-item';
+    if(conVideo){
+      var q=new URLSearchParams();
+      if(r.p==='vm'){ q.set('vm',r.id); if(r.h) q.set('h',r.h); } else { q.set('yt',r.id); q.set('f',r.f); }
+      q.set('d',r.d); q.set('n',r.n); if(r.m) q.set('m','1');
+      el.href=urlPelicula(q);
+      el.addEventListener('click', function(){ track('coleccion_abrir',{numero:r.n}); });
+      var img=document.createElement('img'); img.className='cv-thumb'; img.alt=''; img.loading='lazy';
+      img.src = r.p==='vm' ? 'https://vumbnail.com/'+r.id+'.jpg' : 'https://i.ytimg.com/vi/'+r.id+'/hqdefault.jpg';
+      el.appendChild(img);
+    }
+    var png=document.createElement('img'); png.className='cv-png'; png.src='/cualquier-video-es-una-pelicula.png'; png.alt=''; el.appendChild(png);
+    var pie=document.createElement('div'); pie.className='cv-pie';
+    var num=document.createElement('span'); num.className='cv-num'; num.textContent = conVideo ? 'Película N° '+r.n : 'Próximamente';
+    var dir=document.createElement('p'); dir.textContent='Dirigido por '+r.d;
+    pie.appendChild(num); pie.appendChild(dir); el.appendChild(pie);
+    return el;
+  }
+  function pintar(){
+    grid.innerHTML='';
+    (todas ? lista : lista.slice(0,LIMITE)).forEach(function(r){ grid.appendChild(tarjeta(r)); });
+    if(mas) mas.hidden = todas || lista.length<=LIMITE;
+  }
+  if(mas) mas.onclick=function(){ todas=true; pintar(); track('coleccion_ver_mas',{}); };
+  pintar();
+}
+archivoCargar(false);
+
+// ══════════════════════════════════════════════
 // DECLARA TU PELÍCULA — arma el link /pelicula a partir de un video de YouTube o Vimeo
 // ══════════════════════════════════════════════
 (function(){
@@ -1803,26 +1796,33 @@ document.querySelectorAll('.yt').forEach(function(el){
     formaBox.hidden = !(v && v.yt);
     if(v && v.yt) formaBox.querySelector('input[value="'+(v.vertical?'v':'h')+'"]').checked=true;
   });
+  var btn=form.querySelector('button[type=submit]');
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var v=leer(link.value), n=nom.value.trim().replace(/\s+/g,' ').slice(0,40);
     if(!v){ msg.textContent='Necesito un link de YouTube o Vimeo.'; link.focus(); return; }
     if(!n){ msg.textContent='Toda película tiene director. Escribe tu nombre.'; nom.focus(); return; }
-    var q=new URLSearchParams();
-    if(v.yt){ q.set('yt',v.yt); q.set('f', (formaBox.querySelector('input:checked')||{}).value==='v'?'v':'h'); }
-    else { q.set('vm',v.vm); if(v.h) q.set('h',v.h); }
-    q.set('d',n);
-    var url=location.origin+location.pathname.replace(/[^\/]*$/,'')+'pelicula?'+q.toString();
-    if(location.protocol==='file:') url=url.replace('pelicula?','pelicula.html?');
-    document.getElementById('dcUrl').textContent=url.replace(/^https?:\/\//,'');
-    document.getElementById('dcVer').href=url;
-    document.getElementById('dcWsp').href='https://wa.me/?text='+encodeURIComponent('Mi video es una película. '+url);
-    var copiar=document.getElementById('dcCopiar');
-    copiar.onclick=function(){ if(navigator.clipboard) navigator.clipboard.writeText(url).then(function(){ copiar.textContent='Copiado'; setTimeout(function(){ copiar.textContent='Copiar link'; },2000); }); track('declara_compartir',{via:'copiar'}); };
-    document.getElementById('dcWsp').onclick=function(){ track('declara_compartir',{via:'whatsapp'}); };
-    document.getElementById('dcVer').onclick=function(){ track('declara_ver',{}); };
-    form.hidden=true; lista.hidden=false;
-    track('declara_pelicula',{plataforma: v.yt?'youtube':'vimeo'});
+    var forma = v.yt ? ((formaBox.querySelector('input:checked')||{}).value==='v'?'v':'h') : 'v';
+    btn.disabled=true; msg.style.color='var(--azul)'; msg.textContent='Declarando tu película…';
+    // guarda la película en el archivo (planilla) y recibe su número; si falla, igual entrega el link
+    archivoGuardar({plataforma: v.yt?'yt':'vm', id: v.yt||v.vm, h: v.h||'', f: forma, d: n}).then(function(num){
+      btn.disabled=false; msg.textContent=''; msg.style.color='';
+      var q=new URLSearchParams();
+      if(v.yt){ q.set('yt',v.yt); q.set('f',forma); } else { q.set('vm',v.vm); if(v.h) q.set('h',v.h); }
+      q.set('d',n); if(num) q.set('n',num);
+      var url=urlPelicula(q);
+      document.getElementById('dcTitulo').textContent = num ? 'Tu película N° '+num+' está lista' : 'Tu película está lista';
+      document.getElementById('dcUrl').textContent=url.replace(/^https?:\/\//,'');
+      document.getElementById('dcVer').href=url;
+      document.getElementById('dcWsp').href='https://wa.me/?text='+encodeURIComponent('Mi video es una película. '+url);
+      var copiar=document.getElementById('dcCopiar');
+      copiar.onclick=function(){ if(navigator.clipboard) navigator.clipboard.writeText(url).then(function(){ copiar.textContent='Copiado'; setTimeout(function(){ copiar.textContent='Copiar link'; },2000); }); track('declara_compartir',{via:'copiar'}); };
+      document.getElementById('dcWsp').onclick=function(){ track('declara_compartir',{via:'whatsapp'}); };
+      document.getElementById('dcVer').onclick=function(){ track('declara_ver',{}); };
+      form.hidden=true; lista.hidden=false;
+      track('declara_pelicula',{plataforma: v.yt?'youtube':'vimeo', numero: num||0});
+      if(num) archivoCargar(true);
+    });
   });
   document.getElementById('dcNueva').addEventListener('click', function(){ form.reset(); formaBox.hidden=true; lista.hidden=true; form.hidden=false; link.focus(); });
 })();

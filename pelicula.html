@@ -41,14 +41,26 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 body { background:var(--negro); color:var(--blanco); font-family:var(--mono); overflow-x:hidden; }
 a { color:inherit; }
 
-.sala { min-height:100svh; display:flex; flex-direction:column; align-items:center; padding:clamp(1.2rem,4vw,2.4rem) 16px clamp(2.5rem,6vw,4rem); }
-.presenta { font-size:.66rem; letter-spacing:.3em; text-transform:uppercase; opacity:.5; margin-bottom:1.1rem; text-decoration:none; }
-.presenta:hover { opacity:1; }
+.sala { background:#fff; color:#000; display:flex; flex-direction:column; align-items:center; padding:clamp(1.2rem,3vw,2rem) 16px 0; }
+/* marco: el texto de arriba y la firma de abajo se miden con el ancho del video (vertical u horizontal) */
+.marco { width:100%; container-type:inline-size; text-align:center; }
+.marco.h { max-width:min(1100px, calc(76svh * 16 / 9)); }
+.marco.v { max-width:min(440px, calc(76svh * 9 / 16)); }
+.presenta { display:inline-block; text-decoration:none; color:#000; text-transform:uppercase; letter-spacing:.32em; margin-right:-.32em; }
+.presenta b { font-weight:400; color:var(--azul); }
+.h .presenta { font-size:clamp(.72rem,1.45cqw,1.05rem); margin-bottom:clamp(.6rem,1.4cqw,1rem); }
+.v .presenta { font-size:clamp(.68rem,3.4cqw,.95rem); margin-bottom:.8rem; }
+.presenta:hover b { color:var(--rojo); }
+.firma { margin-top:clamp(.8rem,1.6cqw,1.2rem); line-height:1.6; color:#000; }
+.h .firma { font-size:clamp(.85rem,1.75cqw,1.25rem); }
+.v .firma { font-size:clamp(.8rem,4cqw,1.05rem); }
+.firma strong { font-weight:400; color:var(--rojo); white-space:nowrap; }
+.firma .quien { display:block; letter-spacing:.2em; color:var(--azul); }
 
 /* ── pantalla */
 .pantalla { position:relative; width:100%; background:#000; overflow:hidden; container-type:inline-size; }
-.pantalla.h { aspect-ratio:16/9; max-width:min(1100px, calc(78svh * 16 / 9)); }
-.pantalla.v { aspect-ratio:9/16; max-width:min(440px, calc(78svh * 9 / 16)); }
+.pantalla.h { aspect-ratio:16/9; }
+.pantalla.v { aspect-ratio:9/16; }
 .pantalla .player, .pantalla iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
 
 /* ── capas: las gráficas van encima del video, sin bloquear los clics */
@@ -68,7 +80,7 @@ a { color:inherit; }
 .v .ap span { font-size:27.1cqw; line-height:.863; }
 .h .ap { justify-content:flex-start; padding-top:5.6cqw; }
 .h .ap span { line-height:.8; font-size:17.4cqw; }
-.h .ap .l3 { letter-spacing:.36em; margin-right:-.36em; margin-top:.17em; }
+.h .ap .l3 { letter-spacing:.36em; margin-right:-.36em; margin-top:.1em; }
 .capa i { font-style:normal; }
 /* en horizontal "Cualquier video" va en una línea; en vertical, en dos (como tus PNG) */
 .capa .fila { display:flex; flex-direction:column; align-items:center; }
@@ -100,9 +112,7 @@ a { color:inherit; }
 
 /* ── debajo de la pantalla */
 /* ── todo lo que va bajo la pantalla: fondo blanco */
-.puente { width:100%; background:#fff; color:#000; text-align:center; padding:clamp(3rem,7vw,5rem) 16px clamp(3.5rem,8vw,5.5rem); }
-.declaracion { font-size:.9rem; line-height:1.8; max-width:46ch; margin:0 auto; color:#000; }
-.declaracion strong { color:var(--rojo); font-weight:400; white-space:nowrap; }
+.puente { width:100%; background:#fff; color:#000; text-align:center; padding:clamp(1.4rem,3vw,2rem) 16px clamp(3.5rem,8vw,5.5rem); }
 .acciones { display:flex; gap:.7rem; justify-content:center; flex-wrap:wrap; margin-top:1.4rem; }
 .acciones button, .acciones a { font-family:var(--mono); font-size:.72rem; letter-spacing:.18em; text-transform:uppercase; text-decoration:none;
   background:none; color:#000; border:1px solid rgba(0,0,0,.3); padding:.7rem 1.1rem; cursor:pointer; }
@@ -123,8 +133,8 @@ a { color:inherit; }
 .declara:hover { background:var(--rojo); }
 
 .aviso { max-width:560px; text-align:center; margin:auto; padding:3rem 0; }
-.aviso h1 { font-family:var(--display); font-weight:400; font-size:clamp(2.4rem,8vw,4rem); line-height:.95; text-transform:uppercase; color:var(--amarillo); }
-.aviso p { margin-top:1.2rem; font-size:.85rem; line-height:1.8; opacity:.75; }
+.aviso h1 { font-family:var(--display); font-weight:400; font-size:clamp(2.4rem,8vw,4rem); line-height:.95; text-transform:uppercase; color:var(--azul); }
+.aviso p { margin-top:1.2rem; font-size:.85rem; line-height:1.8; opacity:.75; color:#000; }
 
 .reportar { display:block; text-align:center; font-size:.6rem; letter-spacing:.2em; text-transform:uppercase; opacity:.3; padding:1.2rem 0 .4rem; background:var(--negro); text-decoration:none; }
 .reportar:hover { opacity:.8; }
@@ -181,9 +191,10 @@ footer { padding:1.8rem clamp(1.5rem,6vw,5rem); border-top:1px solid #151515; di
 <noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=642892116116586&ev=PageView&noscript=1"/></noscript>
 
 <main class="sala" id="sala">
-  <a class="presenta" href="./">LOS 400 ERRORES presenta</a>
+  <div class="marco h" id="marco" hidden>
+  <a class="presenta" href="./"><b>LOS 400 ERRORES</b> presenta</a>
 
-  <div class="pantalla h" id="pantalla" hidden>
+  <div class="pantalla h" id="pantalla">
     <div class="player" id="player"></div>
     <div class="fin" id="fin"></div>
     <div class="capa ap on" id="apertura" aria-hidden="true">
@@ -193,6 +204,8 @@ footer { padding:1.8rem clamp(1.5rem,6vw,5rem); border-top:1px solid #151515; di
       <span class="fila am c1"><span>Cualquier</span><span>video</span></span><span class="vd js-nombre"></span>
     </div>
     <button class="otra-vez" id="otraVez" type="button">↺ Ver de nuevo</button>
+  </div>
+  <p class="firma">Este video es <span id="firmaN">una película</span>. <strong>Lo declaro yo.</strong><span class="quien">— LOS 400 ERRORES</span></p>
   </div>
 
   <div class="aviso" id="aviso" hidden>
@@ -204,7 +217,6 @@ footer { padding:1.8rem clamp(1.5rem,6vw,5rem); border-top:1px solid #151515; di
 
 <section class="puente">
   <div id="ficha" hidden>
-  <p class="declaracion">Este video es una película. <strong>Lo declaro yo.</strong><br>— LOS 400 ERRORES</p>
   <div class="acciones">
     <a class="wsp" id="wsp" href="#" target="_blank" rel="noopener" data-share="whatsapp">Compartir por WhatsApp</a>
     <button type="button" id="copiar" data-share="copiar">Copiar link</button>
@@ -218,7 +230,7 @@ footer { padding:1.8rem clamp(1.5rem,6vw,5rem); border-top:1px solid #151515; di
   <a class="declara" href="./#declara" data-cta-declara="pelicula">▶ Declara tu película</a>
 </section>
 
-<a class="reportar" id="reportar" href="mailto:soyunapelicula@los400errores.com?subject=Reportar%20pel%C3%ADcula">Reportar esta película</a>
+<a class="reportar" id="reportar" href="mailto:soyunapelicula@los400errores.com?subject=Reportar%20pel%C3%ADcula">¿Esta película no debería estar aquí? Avísame.</a>
 <footer>
   <span class="foot-logo">LOS 400 ERRORES — NTA FILMS</span>
   <ul class="foot-links">
@@ -250,12 +262,14 @@ var q = new URLSearchParams(location.search);
 var yt = (q.get('yt')||'').trim(), vm = (q.get('vm')||'').trim(), hash = (q.get('h')||'').trim();
 var nombre = (q.get('d')||'').trim().replace(/\s+/g,' ').slice(0,40);
 var forma = q.get('f') === 'v' ? 'v' : 'h';
+var numero = /^\d{1,6}$/.test(q.get('n')||'') ? q.get('n') : '';
+var montada = q.get('m') === '1';   // el video ya trae las gráficas (Colección original): no se superponen
 
 var $ = function(id){ return document.getElementById(id); };
 var pantalla = $('pantalla'), ap = $('apertura'), ci = $('cierre'), fin = $('fin'), otra = $('otraVez');
 
 function aviso(t, txt){
-  pantalla.hidden = true; $('ficha').hidden = true;
+  $('marco').hidden = true; $('ficha').hidden = true;
   $('avisoTitulo').textContent = t; $('avisoTexto').textContent = txt; $('aviso').hidden = false;
 }
 
@@ -276,6 +290,7 @@ function pintarNombre(){
 var terminada = false, vista = {};
 function tiempo(t, d){
   if (terminada) return;
+  if (montada) { ap.classList.remove('on'); ci.classList.remove('on'); return; }
   var ini = t < APERTURA;
   var cie = d > 0 && t >= Math.max(APERTURA, d - CIERRE);
   ap.classList.toggle('on', ini);
@@ -283,12 +298,12 @@ function tiempo(t, d){
   if (d > 0) [25,50,75].forEach(function(p){ if (!vista[p] && t/d*100 >= p){ vista[p]=1; track('pelicula_progreso',{porcentaje:p}); } });
 }
 function terminar(){
-  terminada = true; ap.classList.remove('on'); ci.classList.add('on'); fin.classList.add('on'); otra.classList.add('on');
+  terminada = true; ap.classList.remove('on'); ci.classList.toggle('on', !montada); fin.classList.add('on'); otra.classList.add('on');
   track('pelicula_completa', {plataforma: yt ? 'youtube' : 'vimeo'});
 }
 var reiniciar = function(){};
 otra.addEventListener('click', function(){
-  terminada = false; fin.classList.remove('on'); otra.classList.remove('on'); ci.classList.remove('on'); ap.classList.add('on');
+  terminada = false; fin.classList.remove('on'); otra.classList.remove('on'); ci.classList.remove('on'); ap.classList.toggle('on', !montada);
   reiniciar(); track('pelicula_repetir', {});
 });
 
@@ -325,7 +340,7 @@ function montarVimeo(){
     p.ready().then(function(){
       // orientación real del video
       Promise.all([p.getVideoWidth(), p.getVideoHeight()]).then(function(wh){
-        forma = wh[1] > wh[0] ? 'v' : 'h'; pantalla.className = 'pantalla ' + forma; pintarNombre();
+        forma = wh[1] > wh[0] ? 'v' : 'h'; pantalla.className = 'pantalla ' + forma; $('marco').className = 'marco ' + forma; pintarNombre();
       });
     }).catch(function(){ aviso('Este video no se puede mostrar aquí','Puede que sea privado o que su autor no permita insertarlo en otras páginas.'); });
     p.on('play', function(){ if (!vista.play){ vista.play=1; track('pelicula_play',{plataforma:'vimeo'}); } });
@@ -363,8 +378,10 @@ document.addEventListener('click', function(e){
   fetch('bloqueadas.json', {cache:'no-cache'}).then(function(r){ return r.ok ? r.json() : []; }).catch(function(){ return []; })
   .then(function(lista){
     if (Array.isArray(lista) && lista.indexOf(id) !== -1){ aviso('Película retirada','Este video ya no se muestra aquí.'); return; }
-    pantalla.className = 'pantalla ' + forma; pantalla.hidden = false; $('ficha').hidden = false;
+    pantalla.className = 'pantalla ' + forma; $('marco').className = 'marco ' + forma; $('marco').hidden = false; $('ficha').hidden = false;
     
+    if (numero) $('firmaN').textContent = 'la película N° ' + numero;
+    if (montada) ap.classList.remove('on');
     pintarNombre(); compartir();
     (document.fonts ? document.fonts.ready : Promise.resolve()).then(pintarNombre);
     window.addEventListener('resize', pintarNombre);
